@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-profile',
@@ -14,7 +14,6 @@ export class ProfilePage implements OnInit {
   ngOnInit() {
     this.module = ''
   }
-
   changeModule(mod: any) {
     this.module = mod;
   }

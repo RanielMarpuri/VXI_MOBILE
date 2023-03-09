@@ -1,29 +1,31 @@
-<ion-content>
-  <div class="overflow-hidden">
-    <div class="w-[92%] m-auto flex">
-      <!-- <div class="w-[5rem] h-[5rem]" style="background-image: url('../../../assets/img/Default.png')"></div> -->
-      <div
-        class="m-auto ml-0 h-[5rem] w-[5rem] bg-[#efefef] border-[5px] border-[#ff6d10] bg-cover bg-center imageBG rounded-full mr-3"
-        style="background-image: url('../../../assets/img/Default.png')"></div>
-      <div class="text-left mr-auto w-fit tracking-wide">
-        <p class="text-xl font-semibold">{{user_profile.last_name}},</p>
-        <p class="text-xl">{{user_profile.first_name}}</p>
-        <p color="primary" class="text-[10px]">{{user_profile.position}}</p>
-        <small class="text-[12px] text-zinc-500 font-light">{{user_profile.site}}</small>
-      </div>
-    </div>
+<div class="h-[95%] overflow-x-scroll scrollbar-thin scrollbar-thumb-[#ff6d10] scrollbar-track-[#efefef00]">
 
-    <div class="w-[92%] m-auto rounded-[2rem] " *ngIf="module == ''">
-      <ion-item button (click)="changeModule('emp_info')" detail="true" class="item-background-color rounded-t-[2rem]">Employee
-        Information</ion-item>
-      <ion-item href="#" detail="true" class="item-background-color">Scheduler</ion-item>
-      <ion-item href="#" detail="true" class="item-background-color">Credit Lookup</ion-item>
-      <ion-item href="#" detail="true" class="item-background-color">Policies</ion-item>
-      <ion-item href="#" detail="true" class="item-background-color rounded-b-[2rem]">VXI Academy</ion-item>
+  <div class="w-[92%] m-auto flex sticky top-0 z-50 bg-white">
+    <!-- <div class="w-[5rem] h-[5rem]" style="background-image: url('../../../assets/img/Default.png')"></div> -->
+    <div
+      class="m-auto ml-0 h-[5rem] w-[5rem] bg-[#efefef] border-[5px] border-[#ff6d10] bg-cover bg-center imageBG rounded-full mr-3 cursor-pointer"
+      style="background-image: url('../../../assets/img/Default.png')" (click)="changeModule('')">
     </div>
-
-    <!-- <ion-content> -->
-      <app-employee-info *ngIf="module == 'emp_info'" [user_profile]="user_profile"></app-employee-info>
-    <!-- </ion-content> -->
+    <div class="text-left mr-auto tracking-wide w-40">
+      <p class="text-xl font-semibold">{{user_profile.LastName}},</p>
+      <p class="text-xl">{{user_profile.FirstName}} {{user_profile.MiddleName[0] }}.</p>
+      <p color="primary" class="text-[10px]">{{user_profile.TitleName}}</p>
+      <small class="text-[12px] text-zinc-500 font-light">{{user_profile.LocationDesc}}</small>
+    </div>
   </div>
-</ion-content>
+
+  <div class="w-[92%] m-auto rounded-[2rem] " *ngIf="module == ''">
+    <ion-item button (click)="changeModule('emp_info')" detail="true"
+      class="item-background-color rounded-t-[2rem]">Employee
+      Information</ion-item>
+    <ion-item href="#" detail="true" class="item-background-color">Scheduler</ion-item>
+    <ion-item href="#" detail="true" class="item-background-color">Credit Lookup</ion-item>
+    <ion-item href="#" detail="true" class="item-background-color">Policies</ion-item>
+    <ion-item href="#" detail="true" class="item-background-color rounded-b-[2rem]">VXI Academy</ion-item>
+  </div>
+
+  <!-- <ion-content> -->
+  <app-employee-info *ngIf="module == 'emp_info'" [user_profile]="user_profile"></app-employee-info>
+  <!-- </ion-content> -->
+
+</div>

@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
-// import { HTTP } from '@ionic-native'
+import { Storage } from '@ionic/storage-angular';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -9,12 +10,15 @@ import { AlertController } from '@ionic/angular';
 })
 export class LoginPage implements OnInit {
 
-  constructor(private http: HttpClient, private alertController: AlertController) { }
+  constructor(private http: HttpClient, private alertController: AlertController, private storage: Storage) { }
   hrid: any;
   hire_date: any;
   user: any;
   loading: any;
   ngOnInit() {
+    console.log("initiating app login");
+    
+    this.storage.create();
   }
 
   async alertCreate(h: any, sh: any, m: any, b: any) {
@@ -59,6 +63,8 @@ export class LoginPage implements OnInit {
             text: 'OK',
             role: 'confirm',
             handler: () => {
+              this.storage.set('user_profile', data);
+
               window.location.href = '/home';
             }
           };

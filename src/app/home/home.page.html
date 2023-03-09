@@ -13,7 +13,7 @@
             src="https://vxi.com/wp-content/uploads/2020/01/logo-new-final.png" (click)="changeTheme('')"/> -->
           </div>
           <img
-            class="w-[3rem] h-[3rem] rounded-full border-[3px] border-[#ff6d10] ml-auto {{theme == 'profile'?'opacity-0':''}}"
+            class="w-[3rem] h-[3rem] rounded-full border-[3px] border-[#ff6d10] ml-auto cursor-pointer {{theme == 'profile'?'opacity-0 cursor-default':''}}"
             alt="profile" src="\assets\img\Default.png" (click)="changeTheme('profile')" />
         </div>
         <div class="mx-6 relative" *ngIf="theme != 'profile'">
