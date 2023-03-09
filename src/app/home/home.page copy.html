@@ -1,0 +1,50 @@
+<ion-header class="overflow-hidden ion-no-border h-max">
+  <ion-toolbar color="primary" class="w-[92%] rounded-[2rem] ml-auto mr-auto align-middle">
+    <div class="h-[4rem] relative mx-2 border flex items-end"> 
+      <!-- <div class="w-[2rem] h-[2rem] border">Me</div> -->
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <div class="w-full border">LOGO
+        <!-- Insert img tag here -->
+      </div>
+      <div class="w-[2rem] h-[2rem] ml-auto border">PiC</div>
+    </div>
+    <div class="mx-2 border relative ">
+     <strong class="tracking-[.1rem]">WELCOME</strong>
+     <small class="block mb-4">Passion for People</small>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div id="container">
+    <app-news></app-news>
+  </div>
+</ion-content>
+
+
+<!-- SPLIT HERE -->
+<ion-app>
+  <ion-menu contentId="main-content">
+    <ion-header>
+      <ion-toolbar color="tertiary">
+        <ion-title>Menu Content</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">This is the menu content.</ion-content>
+  </ion-menu>
+  <div class="ion-page" id="main-content">
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Menu</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <app-news></app-news>
+    </ion-content>
+  </div>
+</ion-app>

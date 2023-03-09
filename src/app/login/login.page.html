@@ -1,0 +1,19 @@
+<ion-content>
+  <div color="secondary" class="h-screen w-full bg-[#ff6d10] items-center">
+    <div class="pt-[20rem] w-full h-max bg-cover bg-center imageBG mr-3"
+      style="background-image: url('../../assets/img/Ripped_VXI.png')">
+    </div>
+    <!-- <ion-button  href="/home" class="m-auto">LOGIN</ion-button> -->
+    <div class="mx-5">
+      <input type="text" class="w-full rounded-md font-bold mb-2" placeholder="HRID" [(ngModel)]="hrid" required>
+      <input type="password" class="w-full rounded-md font-bold mb-2" placeholder="Hire Date: mm/dd/yyyy"
+        [(ngModel)]="hire_date" required>
+      <ion-button color="primary" class="w-full" (click)="fetchUser()" [disabled]="(!hrid || !hire_date) || loading">
+        <ion-icon name="sync-outline" class="animate-spin" *ngIf="loading"></ion-icon>
+        <p *ngIf="!loading">Login</p>
+        <p *ngIf="loading">Logging...</p>
+      </ion-button>
+    </div>
+  </div>
+</ion-content>
+<!-- PASS user data into local storage, and fetch data into home page -->

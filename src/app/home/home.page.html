@@ -1,0 +1,61 @@
+<ion-app>
+  <div class="ion-page bg-white" id="main-content">
+    <ion-header class="overflow-hidden ion-no-border h-max -mb-5">
+      <ion-toolbar color="primary" class="-top-[1.5rem] w-[92%] rounded-[2rem] ml-auto mr-auto align-middle">
+        <div class="h-[5rem] relative mx-2 flex items-end mb-4">
+          <ion-buttons slot="start" class="w-[3rem] h-[3rem]">
+            <ion-menu-button></ion-menu-button>
+            <!-- <ion-back-button icon="caret-back" *ngIf="theme == 'profile'"></ion-back-button> -->
+          </ion-buttons>
+          <div class="w-full h-[3rem] bg-contain bg-center bg-no-repeat"
+            style="background-image: url('../../assets/img/VXI_logo_white.png');" (click)="changeTheme('')">
+            <!-- <img class="w-[6rem] ml-auto mr-auto border" alt="VXI"
+            src="https://vxi.com/wp-content/uploads/2020/01/logo-new-final.png" (click)="changeTheme('')"/> -->
+          </div>
+          <img
+            class="w-[3rem] h-[3rem] rounded-full border-[3px] border-[#ff6d10] ml-auto {{theme == 'profile'?'opacity-0':''}}"
+            alt="profile" src="\assets\img\Default.png" (click)="changeTheme('profile')" />
+        </div>
+        <div class="mx-6 relative" *ngIf="theme != 'profile'">
+          <strong class="tracking-[.1rem]">WELCOME</strong>
+          <small class="block mb-4">Passion for People</small>
+        </div>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content [fullscreen]="true">
+      <app-news *ngIf="theme == ''"></app-news>
+      <app-profile *ngIf="theme == 'profile'" [user_profile]="user_profile"></app-profile>
+    </ion-content>
+
+
+  </div>
+
+  <ion-menu contentId="main-content">
+    <ion-header class="ion-no-border">
+      <ion-toolbar color="medium">
+        <div class="h-[4rem] bg-contain bg-no-repeat bg-center"
+          style="background-image: url('../../assets/img/VXI_logo_black_low.png');">
+        </div>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content color="medium" class="ion-padding">
+      <ion-item (click)="changeTheme('')" button *ngIf="theme != ''">
+        <p>Home</p>
+        <ion-icon class="text-[#ff6d10]" name="home" slot='end'></ion-icon>
+      </ion-item>
+      <!-- <ion-item href="/news" button>
+        <p>News</p>
+        <ion-icon class="text-[#ff6d10]" name="newspaper" slot='end'></ion-icon>
+      </ion-item> -->
+      <ion-item (click)="changeTheme('profile')" button *ngIf="theme != 'profile'">
+        <p>Profile</p>
+        <ion-icon class="text-[#ff6d10]" name="person-circle" slot='end'></ion-icon>
+      </ion-item>
+      <ion-item href="/login">
+        <p>Logout</p>
+        <ion-icon class="text-[#ff6d10]" name="log-out" slot='end'></ion-icon>
+      </ion-item>
+    </ion-content>
+  </ion-menu>
+</ion-app>
