@@ -5,10 +5,10 @@
     </div>
     <!-- <ion-button  href="/home" class="m-auto">LOGIN</ion-button> -->
     <div class="mx-5">
-      <input type="text" class="w-full rounded-md font-bold mb-2" placeholder="HRID" [(ngModel)]="hrid" required>
-      <input type="password" class="w-full rounded-md font-bold mb-2" placeholder="Hire Date: mm/dd/yyyy"
+      <input type="text" class="w-full rounded-md font-bold mb-2 text-[#ff6d10]" placeholder="HRID" [(ngModel)]="hrid" required>
+      <input type="password" class="w-full rounded-md font-bold mb-2 text-[#ff6d10]" placeholder="Hire Date: mm/dd/yyyy"
         [(ngModel)]="hire_date" required>
-      <ion-button color="primary" class="w-full" (click)="fetchUser()" [disabled]="(!hrid || !hire_date) || loading">
+      <ion-button color="primary" class="w-full" (click)="fetchUser()" >
         <ion-icon name="sync-outline" class="animate-spin" *ngIf="loading"></ion-icon>
         <p *ngIf="!loading">Login</p>
         <p *ngIf="loading">Logging...</p>

@@ -51,7 +51,6 @@ export class LoginPage implements OnInit {
     //   method: 'GET',
     //   url 
     // ))
-
     this.http.get('https://cors-anywhere.herokuapp.com/' + url, options).subscribe({
       next: (data: any) => {
         this.user = data;
@@ -76,7 +75,7 @@ export class LoginPage implements OnInit {
       },
       error: err => {
         console.log(err);
-        this.alertCreate('ERROR', 'Cant Connect to Server', '500', 'Cancel');
+        this.alertCreate('ERROR', 'Cant Connect to Server', JSON.stringify(err), 'Cancel');
         this.loading = false;
       },
     })

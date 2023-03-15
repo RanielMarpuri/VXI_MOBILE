@@ -8,13 +8,13 @@ import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 export class ProfilePage implements OnInit {
   @Input() user_profile: any;
 
-  module: any
+  profileModule: any
   constructor() { }
 
   ngOnInit() {
-    this.module = ''
+    this.profileModule = ''
   }
   changeModule(mod: any) {
-    this.module = mod;
+    this.profileModule = mod;
   }
 }
