@@ -17,7 +17,7 @@ export class LoginPage implements OnInit {
   loading: any;
   ngOnInit() {
     console.log("initiating app login");
-    
+
     this.storage.create();
   }
 
@@ -31,9 +31,9 @@ export class LoginPage implements OnInit {
     await alert.present();
   }
 
-  fetchUser() {
+  fetchUser(mode: any) {
 
-    
+
     // this.alertCreate('ERROR', 'Cant Connect to Server', '500', 'Cancel');
     this.loading = true;
     const headers = new HttpHeaders({
@@ -45,19 +45,25 @@ export class LoginPage implements OnInit {
     const options: any = {
       headers: headers,
     };
+    let extensionURL = 'https://cors-anywhere.herokuapp.com/';
     let url = 'https://innovation.vxione.com/itech-api/api/v1/employees/GetByWidOrHrid/' + this.hrid + '/VXIPHP';
-    // const { Http } = Plugins;
-    // return from (Http.request(
-    //   method: 'GET',
-    //   url 
-    // ))
-    this.http.get('https://cors-anywhere.herokuapp.com/' + url, options).subscribe({
+    let finalURL = '';
+
+    if (mode == 1) {
+      finalURL = extensionURL + url;
+    } else if (mode == 0) {
+      finalURL = url
+    }
+
+    this.http.get(finalURL, options).subscribe({
       next: (data: any) => {
         this.user = data;
         console.log(this.user);
+        let hireDate = String(data.HireDate).replace('/', '')
+        hireDate = String(hireDate).replace('/', '')
         if (this.user == null) {
-          this.alertCreate('Login Failed!', 'No Match...', 'Try again.', 'OK');
-        } else if (this.hire_date == data.HireDate) {
+          this.alertCreate('Login Failed!!', 'No Match...' + hireDate, 'Try again.', 'OK');
+        } else if (this.hire_date == hireDate) {
           let success: any = {
             text: 'OK',
             role: 'confirm',
@@ -69,7 +75,7 @@ export class LoginPage implements OnInit {
           };
           this.alertCreate('Login Success!', '', 'Welcome.', success);
         } else {
-          this.alertCreate('Login Failed!', 'No Match...', 'Try again.', 'OK');
+          this.alertCreate('Login Failed!!', 'No Match...' + hireDate, 'Try again.', 'OK');
         }
         this.loading = false;
       },
@@ -79,5 +85,10 @@ export class LoginPage implements OnInit {
         this.loading = false;
       },
     })
+  }
+
+  redirect() {
+    window.location.href = "https://cors-anywhere.herokuapp.com/https://innovation.vxione.com/itech-api/api/v1/employees/GetByWidOrHrid/"
+    window.location.href = "/login"
   }
 }

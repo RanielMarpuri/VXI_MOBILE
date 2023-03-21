@@ -1,19 +1,30 @@
 <ion-content>
   <div color="secondary" class="h-screen w-full bg-[#ff6d10] items-center">
-    <div class="pt-[20rem] w-full h-max bg-cover bg-center imageBG mr-3"
-      style="background-image: url('../../assets/img/Ripped_VXI.png')">
+    <div class="pt-[20rem] w-full bg-contain bg-center bg-no-repeat imageBG mr-3"
+      style="background-image: url('../../assets/img/Ripped_VXI.png')" (click)="redirect()"> 
     </div>
     <!-- <ion-button  href="/home" class="m-auto">LOGIN</ion-button> -->
     <div class="mx-5 mt-10">
       <input type="text" class="w-full rounded-md font-bold mb-2 text-[#ff6d10]" placeholder="HRID" [(ngModel)]="hrid" required>
       <input type="password" class="w-full rounded-md font-bold mb-2 text-[#ff6d10]" placeholder="Hire Date: mm/dd/yyyy"
         [(ngModel)]="hire_date" required>
-      <ion-button color="primary" class="w-full" (click)="fetchUser()" >
-        <ion-icon name="sync-outline" class="animate-spin" *ngIf="loading"></ion-icon>
-        <p *ngIf="!loading">Login</p>
-        <p *ngIf="loading">Logging...</p>
-      </ion-button>
-      <!-- <ion-button href="https://cors-anywhere.herokuapp.com/https://innovation.vxione.com/itech-api/api/v1/employees/GetByWidOrHrid/247085/VXIPHP"></ion-button> -->
+        <ion-button color="primary" class="w-full" (click)="fetchUser(1)">
+          <ion-icon name="sync-outline" class="animate-spin" *ngIf="loading"></ion-icon>
+          <p *ngIf="!loading">Login</p>
+          <p *ngIf="loading">Logging...</p>
+        </ion-button>
+        <!-- <ion-button color="light" class="w-full" (click)="fetchUser(0)">
+          <ion-icon name="sync-outline" class="animate-spin" *ngIf="loading"></ion-icon>
+          <p *ngIf="!loading">Login</p>
+          <p *ngIf="loading">Logging...</p>
+        </ion-button>
+        <ion-button color="secondary" class="w-full" href="/home">
+          <ion-icon name="sync-outline" class="animate-spin" *ngIf="loading"></ion-icon>
+          <p *ngIf="!loading">Login</p>
+          <p *ngIf="loading">Logging...</p>
+        </ion-button> -->
+
+      <!-- <ion-button color="secondary" ></ion-button> -->
     </div>
   </div>
 </ion-content>

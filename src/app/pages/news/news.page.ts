@@ -36,6 +36,15 @@ export class NewsPage implements OnInit {
     }
   }
 
+  slideOptsOne = {
+    initialSlide: 0,
+    slidesPerView: 1,
+    loop: true,
+    autoplay:true,
+    autoplayDisableOnInteraction: false
+   };
+
+
   showAll(){
     this.all = !this.all;
     console.log('SHOW ALL');
