@@ -37,7 +37,7 @@ export class LoginPage implements OnInit {
     // this.alertCreate('ERROR', 'Cant Connect to Server', '500', 'Cancel');
     this.loading = true;
     const headers = new HttpHeaders({
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': 'http://localhost:8100, capacitor://localhost, http://localhost',
       'Access-Control-Allow-Methods': 'GET, POST',
       'Access-Control-Allow-Headers': 'X-Requested-With'
     });
@@ -58,24 +58,28 @@ export class LoginPage implements OnInit {
     this.http.get(finalURL, options).subscribe({
       next: (data: any) => {
         this.user = data;
-        console.log(this.user);
-        let hireDate = String(data.HireDate).replace('/', '')
-        hireDate = String(hireDate).replace('/', '')
-        if (this.user == null) {
-          this.alertCreate('Login Failed!!', 'No Match...' + hireDate, 'Try again.', 'OK');
-        } else if (this.hire_date == hireDate) {
-          let success: any = {
-            text: 'OK',
-            role: 'confirm',
-            handler: () => {
-              this.storage.set('user_profile', data);
+        let hireDate: any;
+       
+        if (this.user != null) {
+          hireDate = String(data.HireDate).replace('/', '')
+          hireDate = String(hireDate).replace('/', '')
 
-              window.location.href = '/home';
-            }
-          };
-          this.alertCreate('Login Success!', '', 'Welcome.', success);
+          if (this.hire_date == hireDate) {
+            let success: any = {
+              text: 'OK',
+              role: 'confirm',
+              handler: () => {
+                this.storage.set('user_profile', data);
+
+                window.location.href = '/home';
+              }
+            };
+           this.alertCreate('Login Success!', 'Welcome.', data.LastName, success);
+          } else {
+            this.alertCreate('Login Failed!!', 'No Match...', 'Try again.', 'OK');
+          }
         } else {
-          this.alertCreate('Login Failed!!', 'No Match...' + hireDate, 'Try again.', 'OK');
+          this.alertCreate('Login Failed!!', 'No Match...', 'Try again.', 'OK');
         }
         this.loading = false;
       },
@@ -89,6 +93,6 @@ export class LoginPage implements OnInit {
 
   redirect() {
     window.location.href = "https://cors-anywhere.herokuapp.com/https://innovation.vxione.com/itech-api/api/v1/employees/GetByWidOrHrid/"
-    window.location.href = "/login"
+   // window.location.href = "/login"
   }
 }

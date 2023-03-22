@@ -32,4 +32,8 @@ export class ProfilePage implements OnInit {
   updateProfile(userData: any){
     this.user_profile = userData;
   }
+
+  defaultAlert() {
+    this.alertCreate('Notice', 'Please be advised.', 'This feature is under construction.', 'OK');
+  }
 }

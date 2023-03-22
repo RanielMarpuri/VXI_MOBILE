@@ -17,9 +17,12 @@ export class HomePage {
     this.storage.get('user_profile').then((user) => {
       // console.log(JSON.stringify(user));
       this.user_profile = user;
+      this.alertCreate('Welcome!', '', 'Mr.' + this.user_profile.LastName, 'OK')
     });
    // this.alertCreate('', '', JSON.stringify(this.user_profile), 'OK')
     this.theme = ''
+    console.log(this.user_profile);
+    
   }
   changeTheme(layout: any) {
     this.theme = layout
@@ -37,4 +40,10 @@ export class HomePage {
   menuClose() {
     this.menu.close();
   }
+
+  logOut() {
+    this.storage.remove('user_profile');
+    window.location.href = "/login"
+  }
+
 }

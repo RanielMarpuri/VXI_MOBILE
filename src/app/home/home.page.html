@@ -18,7 +18,7 @@
         </div>
         <div class="mx-6 relative" *ngIf="theme != 'profile'">
           <strong class="tracking-[.1rem]">WELCOME</strong>
-          <small class="block mb-4">Passion for People</small>
+          <small class="block mb-4">{{!user_profile?'Non':user_profile.LastName}}, {{!user_profile?'VXI':user_profile.FirstName}} {{!user_profile?'':user_profile.MiddleName[0]}}</small>
         </div>
       </ion-toolbar>
     </ion-header>
@@ -52,7 +52,7 @@
         <p>Profile</p>
         <ion-icon class="text-[#ff6d10]" name="person-circle" slot='end'></ion-icon>
       </ion-item>
-      <ion-item href="/login">
+      <ion-item (click)="logOut()" button>
         <p>Logout</p>
         <ion-icon class="text-[#ff6d10]" name="log-out" slot='end'></ion-icon>
       </ion-item>

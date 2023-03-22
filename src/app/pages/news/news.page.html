@@ -2,7 +2,7 @@
   <div class="flex w-[92%] m-auto relative items-center">
     <ion-item slot="end" fill="clear" lines="none" class="font-bold" style="--background: none;">NEWS</ion-item>
     <ion-item button class="absolute right-0 font-extralight hover:bg-transparent " style="--background: none;"
-      (click)="showAll()" fill="clear" lines="none" detail="false" *ngIf="!all">View All</ion-item>
+      (click)="showAll()" fill="clear" lines="none" detail="false" *ngIf="!all && slider_data.length > 3">View All</ion-item>
       <ion-item button class="absolute right-0 font-extralight hover:bg-transparent " style="--background: none;"
       href="/home" fill="clear" lines="none" detail="false" *ngIf="all">Back</ion-item>
     <!-- <button type="button" slot="end" class="absolute right-0" (click)="showAll()">View All</button> -->
