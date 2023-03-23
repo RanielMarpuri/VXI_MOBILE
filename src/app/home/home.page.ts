@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, MenuController } from '@ionic/angular';
-import { Storage } from '@ionic/storage-angular';
+import { Preferences } from '@capacitor/preferences';
 
 @Component({
   selector: 'app-home',
@@ -10,19 +10,16 @@ import { Storage } from '@ionic/storage-angular';
 export class HomePage {
   theme: any
   user_profile: any
-  constructor(private menu: MenuController, private storage: Storage,  private alertController: AlertController) { }
+  constructor(private menu: MenuController,  private alertController: AlertController) { }
 
-  ngOnInit() {
-    this.storage.create()
-    this.storage.get('user_profile').then((user) => {
-      // console.log(JSON.stringify(user));
-      this.user_profile = user;
-      this.alertCreate('Welcome!', '', 'Mr.' + this.user_profile.LastName, 'OK')
-    });
+  async ngOnInit() {
+
+    let Init: any = await Preferences.get({key: 'user_profile'})
+    this.user_profile = JSON.parse(Init.value)
    // this.alertCreate('', '', JSON.stringify(this.user_profile), 'OK')
     this.theme = ''
     console.log(this.user_profile);
-    
+
   }
   changeTheme(layout: any) {
     this.theme = layout
@@ -41,8 +38,8 @@ export class HomePage {
     this.menu.close();
   }
 
-  logOut() {
-    this.storage.remove('user_profile');
+  async logOut() {
+    await Preferences.remove({key: 'user_profile'})
     window.location.href = "/login"
   }
 

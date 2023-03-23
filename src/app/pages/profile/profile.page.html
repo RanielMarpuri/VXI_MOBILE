@@ -6,8 +6,8 @@
       class="m-auto ml-0 h-[5rem] w-[5rem] bg-[#efefef] border-[5px] border-[#ff6d10] bg-cover bg-center imageBG rounded-full mr-3 cursor-pointer {{!user_profile?'hidden':''}}"
       style="background-image: url('../../../assets/img/Default.png')" (click)="changeModule('')">
     </div>
-    <div class="m-auto ml-0 h-[5rem] w-[5rem] bg-[#efefef] border-[5px] border-[#ff6d10] bg-cover bg-center imageBG rounded-full mr-3 cursor-pointer" *ngIf="!user_profile"></div>
-    <div class="text-left mr-auto tracking-wide w-40">
+    <div class="m-auto ml-0 h-[5rem] w-[5rem] min-w-[5rem] min-h-[5rem] max-h-[5rem] bg-[#efefef] border-[5px] border-[#ff6d10] bg-cover bg-center imageBG rounded-full mr-3 cursor-pointer" *ngIf="!user_profile"></div>
+    <div class="text-left mr-auto tracking-wide w-[70%]">
       <p class="text-xl font-semibold {{!user_profile?'text-gray-300 bg-gray-300 animate-pulse rounded-md my-1':'text-black'}}">{{!user_profile?'Loading....':user_profile.LastName}},</p>
       <p class="text-xl {{!user_profile?'text-gray-300 bg-gray-300 animate-pulse rounded-md my-1':'text-black'}}">{{!user_profile?'':user_profile.FirstName}} {{!user_profile?'Loading....':user_profile.MiddleName[0] }}.</p>
       <p color="primary" class="text-[10px] {{!user_profile?'text-gray-300 bg-gray-300 animate-pulse rounded-md my-1':'text-black'}}">{{!user_profile?'Loading....':user_profile.TitleName}}</p>

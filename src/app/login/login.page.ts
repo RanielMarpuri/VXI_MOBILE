@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
-import { Storage } from '@ionic/storage-angular';
-
+// import { Storage } from '@ionic/storage-angular';
+import { Preferences } from '@capacitor/preferences';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -10,15 +10,27 @@ import { Storage } from '@ionic/storage-angular';
 })
 export class LoginPage implements OnInit {
 
-  constructor(private http: HttpClient, private alertController: AlertController, private storage: Storage) { }
+  constructor(private http: HttpClient, private alertController: AlertController) { }
   hrid: any;
+  check: any;
+  remember: any;
   hire_date: any;
   user: any;
   loading: any;
-  ngOnInit() {
+  async ngOnInit() {
     console.log("initiating app login");
+    let Init: any = await Preferences.get({ key: 'user_profile' })
+    let hridInit: any = await Preferences.get({ key: 'hrid' })
 
-    this.storage.create();
+    this.hrid = hridInit.value;
+    this.check = hridInit.value;
+    if (Init.value) {
+      // this.user_profile = JSON.parse(Init.value)
+      window.location.href = '/home'
+    }
+
+
+    // this.storage.create();
   }
 
   async alertCreate(h: any, sh: any, m: any, b: any) {
@@ -59,7 +71,7 @@ export class LoginPage implements OnInit {
       next: (data: any) => {
         this.user = data;
         let hireDate: any;
-       
+
         if (this.user != null) {
           hireDate = String(data.HireDate).replace('/', '')
           hireDate = String(hireDate).replace('/', '')
@@ -68,13 +80,25 @@ export class LoginPage implements OnInit {
             let success: any = {
               text: 'OK',
               role: 'confirm',
-              handler: () => {
-                this.storage.set('user_profile', data);
+              handler: async () => {
+                // this.storage.set('user_profile', data);
+                await Preferences.set({
+                  key: 'user_profile',
+                  value: JSON.stringify(data),
+                });
 
+                if (this.remember) {
+                  await Preferences.set({
+                    key: 'hrid',
+                    value: this.hrid,
+                  });
+                }else {
+                  await Preferences.remove({ key: 'hrid' })
+                }
                 window.location.href = '/home';
               }
             };
-           this.alertCreate('Login Success!', 'Welcome.', data.LastName, success);
+            this.alertCreate('Login Success!', '', 'Welcome.', success);
           } else {
             this.alertCreate('Login Failed!!', 'No Match...', 'Try again.', 'OK');
           }
@@ -93,6 +117,6 @@ export class LoginPage implements OnInit {
 
   redirect() {
     window.location.href = "https://cors-anywhere.herokuapp.com/https://innovation.vxione.com/itech-api/api/v1/employees/GetByWidOrHrid/"
-   // window.location.href = "/login"
+    // window.location.href = "/login"
   }
 }
