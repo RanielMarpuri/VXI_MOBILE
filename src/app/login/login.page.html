@@ -7,11 +7,11 @@
     <div class="mx-5 mt-10">
       <input type="text" class="w-full rounded-md font-bold mb-2 text-[#ff6d10]" placeholder="HRID" [(ngModel)]="hrid"
         required>
-      <input type="password" class="w-full rounded-md font-bold mb-2 text-[#ff6d10]" placeholder="Hire Date: mm/dd/yyyy"
+      <input type="password" class="w-full rounded-md font-bold mb-2 text-[#ff6d10]" placeholder="Hire Date: mmddyyyy"
         [(ngModel)]="hire_date">
       <div class="items-start p-auto h-fit mb-4">
         <input type="checkbox" class="rounded-md h-6 w-6" id="remember" [(ngModel)]="remember" [checked]="check">
-        <label for="remember" class="ml-3 text-gray-800 ">Remember HRID.</label>
+        <label for="remember" class="ml-3 text-gray-800 select-none">Remember HRID.</label>
       </div>
 
       <ion-button color="primary" class="w-full" (click)="fetchUser(1)" [disabled]="!hrid || !hire_date">
