@@ -1,13 +1,15 @@
 <ion-content>
-  <div color="secondary" class="h-screen w-full bg-[#ff6d10] items-center">
+  <div color="secondary" class="h-screen w-full bg-gradient-to-t from-[#ff9310] to-[#ff6d10] items-center">
     <div class="pt-[20rem] w-full bg-contain bg-center bg-no-repeat imageBG mr-3"
       style="background-image: url('../../assets/img/Ripped_VXI.png')">
     </div>
     <!-- <ion-button  href="/home" class="m-auto">LOGIN</ion-button> -->
     <div class="mx-5 mt-10">
-      <input type="text" class="w-full rounded-md font-bold mb-2 text-[#ff6d10]" placeholder="HRID" [(ngModel)]="hrid"
+      <input type="number" class="w-full rounded-md font-bold mb-2 text-[#ff6d10]" placeholder="HRID" [(ngModel)]="hrid"
         required>
       <input type="password" class="w-full rounded-md font-bold mb-2 text-[#ff6d10]" placeholder="Hire Date: mmddyyyy"
+        [(ngModel)]="hire_date">
+        <input type="tel" class="w-[93%] rounded-md font-bold mb-2 text-[#ff6c1000] bg-transparent border-0 focus:outline-none focus:ring-0 absolute left-0 z-50 selec-none"
         [(ngModel)]="hire_date">
       <div class="items-start p-auto h-fit mb-4">
         <input type="checkbox" class="rounded-md h-6 w-6" id="remember" [(ngModel)]="remember" [checked]="check">
@@ -32,11 +34,11 @@
 
       <!-- <ion-button color="secondary" ></ion-button> -->
     </div>
-    <div class="bg-[#404e51] w-full h-[2rem] p-1 absolute bottom-0">
+    <!-- <div class="bg-[#404e51] w-full h-[2rem] mb-auto ">
       <div class="w-full h-[1.5rem] bg-contain bg-center bg-no-repeat bg-transparent"
         style="background-image: url('../../assets/img/footer.png');" (click)="redirect()">
       </div>
-    </div>
+    </div> -->
   </div>
 </ion-content>
 <!-- PASS user data into local storage, and fetch data into home page -->

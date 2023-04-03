@@ -14,7 +14,7 @@
       <small class="text-[12px] font-light {{!user_profile?'text-gray-300 bg-gray-300 animate-pulse rounded-md my-1':'text-zinc-500'}}">{{!user_profile?'Loading....':user_profile.LocationDesc}}</small>
     </div>
   </div>
-
+ 
   <div class="w-[92%] m-auto rounded-[2rem] " *ngIf="profileModule == ''">
     <ion-item button (click)="changeModule('emp_info')" detail="true"
       class="item-background-color rounded-t-[2rem]">Employee
@@ -22,9 +22,9 @@
     <ion-item (click)="defaultAlert()" detail="true" class="item-background-color">Scheduler</ion-item>
     <ion-item (click)="defaultAlert()" detail="true" class="item-background-color">Credit Lookup</ion-item>
     <ion-item (click)="defaultAlert()" detail="true" class="item-background-color">Policies</ion-item>
-    <ion-item (click)="defaultAlert()" detail="true" class="item-background-color rounded-b-[2rem]">VXI Academy</ion-item>
+    <ion-item (click)="defaultAlert()" detail="true" class="item-background-color rounded-b-[2rem]" lines="none">Payroll</ion-item>
   </div>
-
+ 
   <!-- <ion-content> -->
     <div class="w-[92%] m-auto">
       <app-employee-info *ngIf="profileModule == 'emp_info'" [user_profile]="user_profile" ></app-employee-info>

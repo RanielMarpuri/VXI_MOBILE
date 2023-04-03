@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 // import { Storage } from '@ionic/storage-angular';
 import { Preferences } from '@capacitor/preferences';
+
+import { lastValueFrom } from 'rxjs';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -43,38 +46,46 @@ export class LoginPage implements OnInit {
     await alert.present();
   }
 
-  fetchUser(mode: any) {
 
+  async fetchUser(mode: any) {
+    const header = new HttpHeaders()
+    // .set('Content-Type', 'application/json')
+    // header.delete('Accept')
+    header.append('Accept', 'application/json');
+    header.append('Access-Control-Allow-Headers', 'content-type');
+    header.append('Access-Control-Allow-Methods', 'OPTIONS, POST, GET');
+    header.append('Access-Control-Allow-Origin', '*');
 
-    // this.alertCreate('ERROR', 'Cant Connect to Server', '500', 'Cancel');
-    this.loading = true;
-    const headers = new HttpHeaders({
-      'Access-Control-Allow-Origin': 'http://localhost:8100, capacitor://localhost, http://localhost',
-      'Access-Control-Allow-Methods': 'GET, POST',
-      'Access-Control-Allow-Headers': 'X-Requested-With'
-    });
 
     const options: any = {
-      headers: headers,
+      headers: header,
     };
-    let extensionURL = 'https://cors-anywhere.herokuapp.com/';
-    let url = 'https://innovation.vxione.com/itech-api/api/v1/employees/GetByWidOrHrid/' + this.hrid + '/VXIPHP';
-    let finalURL = '';
+    // this.alertCreate('ERROR', 'Cant Connect to Server', '500', 'Cancel');
+    this.loading = true;
 
-    if (mode == 1) {
-      finalURL = extensionURL + url;
-    } else if (mode == 0) {
-      finalURL = url
-    }
+    //let extensionURL = 'https://cors-anywhere.herokuapp.com/';
+    let url = 'https://vxione.com/ems_api/API/ManageNews/GetByHrid/' + this.hrid;
+    // let url = 'https://vxivdcintweb01.vxi.com.ph/services/test/pexsvc/Employees/' + this.hrid;
 
-    this.http.get(finalURL, options).subscribe({
+
+    this.http.get(url, options).subscribe({
       next: (data: any) => {
         this.user = data;
+
+        console.log(this.user, "this.user data");
+
         let hireDate: any;
 
         if (this.user != null) {
-          hireDate = String(data.HireDate).replace('/', '')
-          hireDate = String(hireDate).replace('/', '')
+          // let temp = this.user.hireDate.value
+          // let tempSplit = temp.split('-');
+          // hireDate = tempSplit[1] + tempSplit[2] + tempSplit[0];
+
+          let temp = this.user.HireDate
+          hireDate = temp.replace('/', '');
+          hireDate = hireDate.replace('/', '');
+
+          console.log(hireDate, "hireDate attempt");
 
           if (this.hire_date == hireDate) {
             let success: any = {
@@ -84,7 +95,7 @@ export class LoginPage implements OnInit {
                 // this.storage.set('user_profile', data);
                 await Preferences.set({
                   key: 'user_profile',
-                  value: JSON.stringify(data),
+                  value: JSON.stringify(this.user),
                 });
 
                 if (this.remember) {
@@ -92,7 +103,7 @@ export class LoginPage implements OnInit {
                     key: 'hrid',
                     value: this.hrid,
                   });
-                }else {
+                } else {
                   await Preferences.remove({ key: 'hrid' })
                 }
                 window.location.href = '/home';
@@ -103,7 +114,7 @@ export class LoginPage implements OnInit {
             this.alertCreate('Login Failed!!', 'No Match...', 'Try again.', 'OK');
           }
         } else {
-          this.alertCreate('Login Failed!!', 'No Match...', 'Try again.', 'OK');
+          this.alertCreate('Login Failed!!', 'ERROR UNKNOWN', 'Try again.', 'OK');
         }
         this.loading = false;
       },
