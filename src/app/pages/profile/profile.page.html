@@ -1,20 +1,27 @@
 <div class="h-[95%] overflow-x-scroll scrollbar-thin scrollbar-thumb-[#ff6d10] scrollbar-track-[#efefef00]">
 
   <div class="w-[92%] m-auto flex sticky top-0 mb-5 bg-white">
-    <!-- <div class="w-[5rem] h-[5rem]" style="background-image: url('../../../assets/img/Default.png')"></div> -->
     <div
       class="m-auto ml-0 h-[5rem] w-[5rem] bg-[#efefef] border-[5px] border-[#ff6d10] bg-cover bg-center imageBG rounded-full mr-3 cursor-pointer {{!user_profile?'hidden':''}}"
       style="background-image: url('../../../assets/img/Default.png')" (click)="changeModule('')">
     </div>
-    <div class="m-auto ml-0 h-[5rem] w-[5rem] min-w-[5rem] min-h-[5rem] max-h-[5rem] bg-[#efefef] border-[5px] border-[#ff6d10] bg-cover bg-center imageBG rounded-full mr-3 cursor-pointer" *ngIf="!user_profile"></div>
+    <div
+      class="m-auto ml-0 h-[5rem] w-[5rem] min-w-[5rem] min-h-[5rem] max-h-[5rem] bg-[#efefef] border-[5px] border-[#ff6d10] bg-cover bg-center imageBG rounded-full mr-3 cursor-pointer"
+      *ngIf="!user_profile"></div>
     <div class="text-left mr-auto tracking-wide w-[70%]">
-      <p class="text-xl font-semibold {{!user_profile?'text-gray-300 bg-gray-300 animate-pulse rounded-md my-1':'text-black'}}">{{!user_profile?'Loading....':user_profile.LastName}},</p>
-      <p class="text-xl {{!user_profile?'text-gray-300 bg-gray-300 animate-pulse rounded-md my-1':'text-black'}}">{{!user_profile?'':user_profile.FirstName}} {{!user_profile?'Loading....':user_profile.MiddleName[0] }}.</p>
-      <p color="primary" class="text-[10px] {{!user_profile?'text-gray-300 bg-gray-300 animate-pulse rounded-md my-1':'text-black'}}">{{!user_profile?'Loading....':user_profile.TitleName}}</p>
-      <small class="text-[12px] font-light {{!user_profile?'text-gray-300 bg-gray-300 animate-pulse rounded-md my-1':'text-zinc-500'}}">{{!user_profile?'Loading....':user_profile.LocationDesc}}</small>
+      <p
+        class="text-xl font-semibold {{!user_profile?'text-gray-300 bg-gray-300 animate-pulse rounded-md my-1':'text-black'}}">
+        {{!user_profile?'Loading....':user_profile.LastName}},</p>
+      <p class="text-xl {{!user_profile?'text-gray-300 bg-gray-300 animate-pulse rounded-md my-1':'text-black'}}">
+        {{!user_profile?'':user_profile.FirstName}} {{!user_profile?'Loading....':user_profile.MiddleName[0] }}.</p>
+      <p color="primary"
+        class="text-[10px] {{!user_profile?'text-gray-300 bg-gray-300 animate-pulse rounded-md my-1':'text-black'}}">
+        {{!user_profile?'Loading....':user_profile.TitleName}}</p>
+      <small
+        class="text-[12px] font-light {{!user_profile?'text-gray-300 bg-gray-300 animate-pulse rounded-md my-1':'text-zinc-500'}}">{{!user_profile?'Loading....':user_profile.LocationDesc}}</small>
     </div>
   </div>
- 
+
   <div class="w-[92%] m-auto rounded-[2rem] " *ngIf="profileModule == ''">
     <ion-item button (click)="changeModule('emp_info')" detail="true"
       class="item-background-color rounded-t-[2rem]">Employee
@@ -22,13 +29,11 @@
     <ion-item (click)="defaultAlert()" detail="true" class="item-background-color">Scheduler</ion-item>
     <ion-item (click)="defaultAlert()" detail="true" class="item-background-color">Credit Lookup</ion-item>
     <ion-item (click)="defaultAlert()" detail="true" class="item-background-color">Policies</ion-item>
-    <ion-item (click)="defaultAlert()" detail="true" class="item-background-color rounded-b-[2rem]" lines="none">Payroll</ion-item>
+    <ion-item (click)="defaultAlert()" detail="true" class="item-background-color rounded-b-[2rem]"
+      lines="none">Payroll</ion-item>
   </div>
- 
-  <!-- <ion-content> -->
-    <div class="w-[92%] m-auto">
-      <app-employee-info *ngIf="profileModule == 'emp_info'" [user_profile]="user_profile" ></app-employee-info>
-    </div>
-  <!-- </ion-content> -->
 
+  <div class="w-[92%] m-auto">
+    <app-employee-info *ngIf="profileModule == 'emp_info'" [user_profile]="user_profile"></app-employee-info>
+  </div>
 </div>
