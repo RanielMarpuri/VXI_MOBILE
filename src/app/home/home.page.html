@@ -12,9 +12,10 @@
             <!-- <img class="w-[6rem] ml-auto mr-auto border" alt="VXI"
             src="https://vxi.com/wp-content/uploads/2020/01/logo-new-final.png" (click)="changeTheme('')"/> -->
           </div>
-          <img
-            class="w-[3rem] h-[3rem] rounded-full border-[3px] border-[#ff6d10] ml-auto cursor-pointer {{theme == 'profile'?'opacity-0 cursor-default':''}}"
-            alt="profile" src="\assets\img\Default.png" (click)="changeTheme('profile')" />
+          <div
+            class="m-auto ml-0 h-[3rem] w-[3rem] bg-[#efefef] border-[5px] border-[#ff6d10] bg-cover bg-center imageBG rounded-full mr-3 cursor-pointer {{!user_profile?'hidden':''}}"
+            style="background-image: url('../../../assets/img/Default.png')" (click)="changeTheme('profile')">
+          </div>
         </div>
         <div class="mx-6 relative mb-2" *ngIf="theme != 'profile'">
           <p class="font-extralight text-[.7rem] tracking-[.2rem]">WELCOME</p>
@@ -51,7 +52,7 @@
         <p>News</p>
         <ion-icon class="text-[#ff6d10]" name="newspaper" slot='end'></ion-icon>
       </ion-item> -->
-      <ion-item (click)="changeTheme('profile')"  button>
+      <ion-item (click)="changeTheme('profile')" button>
         <p>Profile</p>
         <ion-icon class="text-[#ff6d10]" name="person-circle" slot='end'></ion-icon>
       </ion-item>
@@ -60,15 +61,17 @@
         <ion-icon class="text-[#ff6d10]" name="log-out" slot='end'></ion-icon>
       </ion-item>
 
-      <ion-item (click)="changeTheme('profile')" button class="absolute bottom-4 w-full item-background-color" lines="none">
-        <img
-          class="w-[3rem] h-[3rem] rounded-full border-[3px] border-[#ff6d10] mr-auto cursor-pointer"
-          alt="profile" src="\assets\img\Default.png" (click)="changeTheme('profile')" />
-          <div class="text-left w-full ml-2">
-            <strong class="w-full">{{!user_profile?'Non':user_profile.LastName}}, </strong>
-            <p class="font-light">{{!user_profile?'VXI':user_profile.FirstName}}
-              {{!user_profile?'':user_profile.MiddleName[0]}}</p>
-          </div>
+      <ion-item (click)="changeTheme('profile')" button class="absolute bottom-4 w-full item-background-color"
+        lines="none">
+        <div
+          class="m-auto ml-0 h-[3rem] w-[3rem] bg-[#efefef] border-[5px] border-[#ff6d10] bg-cover bg-center rounded-full mr-3 cursor-pointer {{!user_profile?'hidden':''}}"
+          style="background-image: url('../../../assets/img/Default.png')" (click)="changeTheme('profile')">
+        </div>
+        <div class="text-left w-full ml-2">
+          <strong class="w-full">{{!user_profile?'Non':user_profile.LastName}}, </strong>
+          <p class="font-light">{{!user_profile?'VXI':user_profile.FirstName}}
+            {{!user_profile?'':user_profile.MiddleName[0]}}</p>
+        </div>
       </ion-item>
     </ion-content>
   </ion-menu>

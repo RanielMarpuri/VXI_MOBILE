@@ -10,7 +10,7 @@ export class OtpPage implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    //window.location.href = '/home';
+    window.location.href = '/home';
   }
 
 }
