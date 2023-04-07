@@ -5,16 +5,15 @@
         <div class="h-[5rem] relative mx-2 flex items-end mb-4">
           <ion-buttons slot="start" class="w-[3rem] h-[3rem]">
             <ion-menu-button></ion-menu-button>
-            <!-- <ion-back-button icon="caret-back" *ngIf="theme == 'profile'"></ion-back-button> -->
           </ion-buttons>
           <div class="w-full h-[3rem] bg-contain bg-center bg-no-repeat mx-4"
             style="background-image: url('../../assets/img/VXIONE_logo_white.png');" (click)="changeTheme('')">
-            <!-- <img class="w-[6rem] ml-auto mr-auto border" alt="VXI"
-            src="https://vxi.com/wp-content/uploads/2020/01/logo-new-final.png" (click)="changeTheme('')"/> -->
           </div>
-          <div
-            class="m-auto ml-0 h-[3rem] w-[3rem] bg-[#efefef] border-[5px] border-[#ff6d10] bg-cover bg-center imageBG rounded-full mr-3 cursor-pointer {{!user_profile?'hidden':''}}"
-            style="background-image: url('../../../assets/img/Default.png')" (click)="changeTheme('profile')">
+          <div>
+            <div
+              class="w-[3rem] h-[3rem] rounded-full bg-contain bg-no-repeat border-[3px] border-[#FF6D10] {{theme == 'profile'?'opacity-0 cursor-default':''}}"
+              style="background-image: url('../../../assets/img/Default.png')" (click)="changeTheme('profile')">
+            </div>
           </div>
         </div>
         <div class="mx-6 relative mb-2" *ngIf="theme != 'profile'">
@@ -63,9 +62,11 @@
 
       <ion-item (click)="changeTheme('profile')" button class="absolute bottom-4 w-full item-background-color"
         lines="none">
-        <div
-          class="m-auto ml-0 h-[3rem] w-[5rem] bg-[#efefef] border-[5px] border-[#ff6d10] bg-cover bg-center rounded-full mr-3 cursor-pointer {{!user_profile?'hidden':''}}"
-          style="background-image: url('../../../assets/img/Default.png')" (click)="changeTheme('profile')">
+        <div>
+          <div
+            class="w-[3rem] h-[3rem] rounded-full bg-contain bg-no-repeat border-[3px] border-[#FF6D10] {{theme == 'profile'?'opacity-0 cursor-default':''}}"
+            style="background-image: url('../../../assets/img/Default.png')" (click)="changeTheme('profile')">
+          </div>
         </div>
         <div class="text-left w-full ml-2">
           <strong class="w-full">{{!user_profile?'Non':user_profile.LastName}}, </strong>

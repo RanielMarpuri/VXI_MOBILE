@@ -10,13 +10,17 @@ import { Preferences } from '@capacitor/preferences';
 export class HomePage {
   theme: any
   user_profile: any
-  constructor(private menu: MenuController,  private alertController: AlertController) { }
+  constructor(private menu: MenuController, private alertController: AlertController) { }
 
   async ngOnInit() {
 
-    let Init: any = await Preferences.get({key: 'user_profile'})
+    let Init: any = await Preferences.get({ key: 'user_profile' })
     this.user_profile = JSON.parse(Init.value)
-   // this.alertCreate('', '', JSON.stringify(this.user_profile), 'OK')
+
+    if (!this.user_profile) {
+      window.location.href = "/login";
+    }
+    // this.alertCreate('', '', JSON.stringify(this.user_profile), 'OK')
     this.theme = ''
     console.log(this.user_profile);
 
@@ -39,7 +43,7 @@ export class HomePage {
   }
 
   async logOut() {
-    await Preferences.remove({key: 'user_profile'})
+    await Preferences.remove({ key: 'user_profile' })
     window.location.href = "/login"
   }
 

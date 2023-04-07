@@ -45,5 +45,18 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+	<string>mailto</string>
+	</array>
+
+	<key>NSCameraUsageDescription</key>
+	<string>To capture images</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>To store images</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>To get all your images</string>
+	
 </dict>
 </plist>

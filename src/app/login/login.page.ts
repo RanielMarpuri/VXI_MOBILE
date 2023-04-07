@@ -3,8 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 // import { Storage } from '@ionic/storage-angular';
 import { Preferences } from '@capacitor/preferences';
-
-import { lastValueFrom } from 'rxjs';
+import { EmailComposer } from '@awesome-cordova-plugins/email-composer/ngx';
+import { EmailComposerOptions } from '@awesome-cordova-plugins/email-composer';
+// import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ import { lastValueFrom } from 'rxjs';
 })
 export class LoginPage implements OnInit {
 
-  constructor(private http: HttpClient, private alertController: AlertController) { }
+  constructor(private http: HttpClient, private alertController: AlertController, private emailComposer: EmailComposer) { }
 
   hrid: any;
   check: any;
@@ -83,9 +84,20 @@ export class LoginPage implements OnInit {
               handler: async () => {
 
                 await Preferences.set({
-                  key: 'user_profile',
+                  key: 'temp_profile',
                   value: JSON.stringify(this.user),
                 });
+                let otp_credentials: any = {
+                  'hrid': this.user.ID,
+                  'otp': this.genOTP(),
+                  'date': Date()
+                }
+                await Preferences.set({
+                  key: 'otp_credentials',
+                  value: JSON.stringify(otp_credentials),
+                });
+
+
 
                 if (this.remember) {
                   await Preferences.set({
@@ -95,7 +107,11 @@ export class LoginPage implements OnInit {
                 } else {
                   await Preferences.remove({ key: 'hrid' })
                 }
-                window.location.href = 'login/otp';
+
+                setTimeout(async () => {
+                 await this.sendEmail(otp_credentials.otp)
+                  // window.location.href = 'login/otp';
+                }, 100);
               }
             };
             this.alertCreate('Login Success!', '', 'Welcome.', success);
@@ -113,6 +129,31 @@ export class LoginPage implements OnInit {
         this.loading = false;
       },
     })
+  }
+
+  genOTP() {
+    var minm = 100000;
+    var maxm = 999999;
+    return Math.floor(Math
+      .random() * (maxm - minm + 1)) + minm;
+  }
+
+  async sendEmail(otp: any) {
+    let msg = "Hey never share your OTP to anyone. Buguk! " + otp
+    const email: EmailComposerOptions = {
+      to: 'rdnmarps03@gmail.com',
+      subject: 'VXI One MOBILE - OTP Authentication',
+      body: msg, 
+      isHtml: true
+    }
+    // let x = await this.emailComposer.hasAccount()
+    // console.log(x)
+    // if (x) {
+      await this.emailComposer.open(email);
+      console.log('sending email')
+      // Now we know we have a valid email account configured
+    // }
+
   }
 
 }
