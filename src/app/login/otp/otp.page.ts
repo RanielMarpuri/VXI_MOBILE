@@ -14,6 +14,21 @@ export class OtpPage implements OnInit {
   otp_credentials: any
   otp: any
   user_profile: any
+  available_time: any
+  available_time_mins: any
+  available_time_secs: any
+
+  public digits = [
+    { name: 'digi0', value: '' },
+    { name: 'digi1', value: '' },
+    { name: 'digi2', value: '' },
+    { name: 'digi3', value: '' },
+    { name: 'digi4', value: '' },
+    { name: 'digi5', value: '' },
+  ]
+  red: any;
+  input_otp: any;
+
   constructor(private navctrl: NavController) { }
 
   async ngOnInit() {
@@ -22,32 +37,40 @@ export class OtpPage implements OnInit {
     this.otp_credentials = JSON.parse(Init.value)
     this.user_profile = Inits.value
     this.otp = JSON.stringify(this.otp_credentials.otp)
-    //widow.location.href = '/home';
+    this.available_time = 120
+    // do{
+    setInterval(() => {
+      if (this.available_time != 0) {
+        this.available_time = this.available_time - 1
+
+        if (this.available_time >= 60) {
+          this.available_time_mins = 1;
+          this.available_time_secs = (this.available_time - 59) - 1
+        } else {
+          this.available_time_mins = 0;
+          this.available_time_secs = this.available_time
+        }
+      }
+    }, 1000)
+
   }
 
-  digits = [
-    { name: 'digi0', value: '' },
-    { name: 'digi1', value: '' },
-    { name: 'digi2', value: '' },
-    { name: 'digi3', value: '' },
-    { name: 'digi4', value: '' },
-    { name: 'digi5', value: '' },
-  ]
-
-  input_otp: any;
-  
   enterDigit(i: any, e: any) {
     let y: any
     if (i == 5) { y = 0 }
     else { y = i + 1 }
 
     let x = document.getElementById(this.digits[y].name)
-    // console.log(e.target.value)
+    // setTimeout(() => {
+      this.digits[i].value = ''
+    // }, 10)
+
+    this.digits[i].value = e.data
+
     setTimeout(() => {
       x.focus();
-    }, 100)
-    //  this.overRideDigit(i, e.data)
-    this.digits[i].value = e.data
+    }, 10)
+
     let val: any
     this.digits.forEach(digi => {
       if (val == null) {
@@ -65,17 +88,18 @@ export class OtpPage implements OnInit {
       if (pos == 5) {
         setTimeout(() => {
           if (otp == this.otp) {
-            alert('GOOD TO GO');
             this.submitOTP(otp)
           } else {
-            alert('WRONG OTP');
+            this.red = true
+            setTimeout(() => {
+              this.red = false
+            }, 500)
           }
         }, 250);
       } else {
         setTimeout(() => {
           if (otp == this.otp) {
-            alert('GOOD TO GO');
-            window.location.href = '/home'
+            this.submitOTP(otp)
           }
         }, 250);
       }
@@ -84,11 +108,50 @@ export class OtpPage implements OnInit {
 
   async submitOTP(otp: any) {
     await Preferences.remove({ key: 'temp_profile' })
+    if (this.available_time != 0) {
+      await Preferences.set({
+        key: 'user_profile',
+        value: this.user_profile,
+      });
+      window.location.href = '/home'
+    }
+  }
+
+  getMinSec(at) {
+    this.available_time_mins = Math.trunc(at / 60);
+    this.available_time_secs = Math.floor(((at / 60) - this.available_time_mins) * 60)
+  }
+
+  async resendOTP() {
+    let x = JSON.parse(this.user_profile);
+    let otp_credentials: any = {
+      'hrid': x.ID,
+      'otp': this.genOTP(),
+      'date': Date()
+    }
+
     await Preferences.set({
-      key: 'user_profile',
-      value: this.user_profile,
+      key: 'otp_credentials',
+      value: JSON.stringify(otp_credentials),
     });
 
-    window.location.href = '/home'
+    let Init: any = await Preferences.get({ key: 'otp_credentials' })
+    this.otp_credentials = JSON.parse(Init.value)
+    this.otp = JSON.stringify(this.otp_credentials.otp)
+
   }
+
+  genOTP() {
+    var minm = 100000;
+    var maxm = 999999;
+    return Math.floor(Math
+      .random() * (maxm - minm + 1)) + minm;
+  }
+
+  async setStorage() {
+
+  }
+
+
+
 }

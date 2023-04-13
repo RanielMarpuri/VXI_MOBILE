@@ -11,34 +11,20 @@
         [(ngModel)]="hire_date">
         <input type="tel" class="w-[93%] rounded-md font-bold mb-2 text-[#ff6c1000] bg-transparent border-0 focus:outline-none focus:ring-0 absolute left-0 z-50 selec-none"
         [(ngModel)]="hire_date">
-      <div class="items-start p-auto h-fit mb-4">
+      <!-- <div class="items-start p-auto h-fit mb-4">
         <input type="checkbox" class="rounded-md h-6 w-6" id="remember" [(ngModel)]="remember" [checked]="check">
-        <label for="remember" class="ml-3 text-gray-800 select-none">Remember HRID.</label>
+        <label for="remember" class="ml-3 text-gray-800 select-none">Remember me</label>
       </div>
+      <div class="items-start p-auto h-fit mb-4">
+        <input type="checkbox" class="rounded-md h-6 w-6" id="keep" [(ngModel)]="keep" [checked]="check">
+        <label for="keep" class="ml-3 text-gray-800 select-none">Keep me logged in</label>
+      </div> -->
 
-      <ion-button color="primary" class="w-full" (click)="fetchUser(1)" [disabled]="!hrid || !hire_date">
+      <ion-button color="primary" class="w-full mr-1" (click)="fetchUser(1)" [disabled]="!hrid || !hire_date">
         <ion-icon name="sync-outline" class="animate-spin" *ngIf="loading"></ion-icon>
         <p *ngIf="!loading">Login</p>
         <p *ngIf="loading">Logging...</p>
       </ion-button>
-      <!-- <ion-button color="light" class="w-full" (click)="fetchUser(0)">
-          <ion-icon name="sync-outline" class="animate-spin" *ngIf="loading"></ion-icon>
-          <p *ngIf="!loading">Login</p>
-          <p *ngIf="loading">Logging...</p>
-        </ion-button> -->
-      <!-- <ion-button color="secondary" class="w-full" href="/home">
-          <ion-icon name="sync-outline" class="animate-spin" *ngIf="loading"></ion-icon>
-          <p *ngIf="!loading">Login</p>
-          <p *ngIf="loading">Logging...</p>
-        </ion-button> -->
-
-      <!-- <ion-button color="secondary" ></ion-button> -->
     </div>
-    <!-- <div class="bg-[#404e51] w-full h-[2rem] mb-auto ">
-      <div class="w-full h-[1.5rem] bg-contain bg-center bg-no-repeat bg-transparent"
-        style="background-image: url('../../assets/img/footer.png');" (click)="redirect()">
-      </div>
-    </div> -->
   </div>
 </ion-content>
-<!-- PASS user data into local storage, and fetch data into home page -->

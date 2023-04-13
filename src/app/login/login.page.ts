@@ -19,6 +19,7 @@ export class LoginPage implements OnInit {
   hrid: any;
   check: any;
   remember: any;
+  keep: any;
   hire_date: any;
   user: any;
   loading: any;
@@ -64,54 +65,22 @@ export class LoginPage implements OnInit {
     this.http.get(url, options).subscribe({
       next: (data: any) => {
         this.user = data;
-
-        console.log(this.user, "this.user data");
+        // console.log(this.user, "this.user data");
 
         let hireDate: any;
 
         if (this.user != null) {
-
           let temp = this.user.HireDate
           hireDate = temp.replace('/', '');
           hireDate = hireDate.replace('/', '');
-
-          console.log(hireDate, "hireDate attempt");
-
+          // console.log(hireDate, "hireDate attempt");
           if (this.hire_date == hireDate) {
             let success: any = {
               text: 'OK',
               role: 'confirm',
               handler: async () => {
-
-                await Preferences.set({
-                  key: 'temp_profile',
-                  value: JSON.stringify(this.user),
-                });
-                let otp_credentials: any = {
-                  'hrid': this.user.ID,
-                  'otp': this.genOTP(),
-                  'date': Date()
-                }
-                await Preferences.set({
-                  key: 'otp_credentials',
-                  value: JSON.stringify(otp_credentials),
-                });
-
-
-
-                if (this.remember) {
-                  await Preferences.set({
-                    key: 'hrid',
-                    value: this.hrid,
-                  });
-                } else {
-                  await Preferences.remove({ key: 'hrid' })
-                }
-
-                setTimeout(async () => {
-                 await this.sendEmail(otp_credentials.otp)
-                  // window.location.href = 'login/otp';
-                }, 100);
+                this.setStorage()
+                window.location.href = 'login/otp';
               }
             };
             this.alertCreate('Login Success!', '', 'Welcome.', success);
@@ -138,22 +107,29 @@ export class LoginPage implements OnInit {
       .random() * (maxm - minm + 1)) + minm;
   }
 
-  async sendEmail(otp: any) {
-    let msg = "Hey never share your OTP to anyone. Buguk! " + otp
-    const email: EmailComposerOptions = {
-      to: 'rdnmarps03@gmail.com',
-      subject: 'VXI One MOBILE - OTP Authentication',
-      body: msg, 
-      isHtml: true
+  async setStorage() {
+    await Preferences.set({
+      key: 'temp_profile',
+      value: JSON.stringify(this.user),
+    });
+    let otp_credentials: any = {
+      'hrid': this.user.ID,
+      'otp': this.genOTP(),
+      'date': Date()
     }
-    // let x = await this.emailComposer.hasAccount()
-    // console.log(x)
-    // if (x) {
-      await this.emailComposer.open(email);
-      console.log('sending email')
-      // Now we know we have a valid email account configured
-    // }
+    await Preferences.set({
+      key: 'otp_credentials',
+      value: JSON.stringify(otp_credentials),
+    });
 
+    if (this.remember) {
+      await Preferences.set({
+        key: 'hrid',
+        value: this.hrid,
+      });
+    } else {
+      await Preferences.remove({ key: 'hrid' })
+    }
   }
 
 }
