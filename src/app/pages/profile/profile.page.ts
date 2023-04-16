@@ -13,7 +13,7 @@ export class ProfilePage implements OnInit {
   constructor( private alertController: AlertController) { }
 
   ngOnInit() {
-    this.profileModule = ''
+    this.profileModule = 'payroll'
     //this.alertCreate('','',JSON.stringify(this.user_profile),'OK')
   }
   async alertCreate(h: any, sh: any, m: any, b: any) {

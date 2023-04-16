@@ -3,8 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 // import { Storage } from '@ionic/storage-angular';
 import { Preferences } from '@capacitor/preferences';
-import { EmailComposer } from '@awesome-cordova-plugins/email-composer/ngx';
-import { EmailComposerOptions } from '@awesome-cordova-plugins/email-composer';
 // import { lastValueFrom } from 'rxjs';
 
 @Component({
@@ -14,7 +12,7 @@ import { EmailComposerOptions } from '@awesome-cordova-plugins/email-composer';
 })
 export class LoginPage implements OnInit {
 
-  constructor(private http: HttpClient, private alertController: AlertController, private emailComposer: EmailComposer) { }
+  constructor(private http: HttpClient, private alertController: AlertController) { }
 
   hrid: any;
   check: any;
@@ -32,6 +30,7 @@ export class LoginPage implements OnInit {
     this.hrid = hridInit.value;
     this.check = hridInit.value;
     if (Init.value) {
+
       window.location.href = '/home'
     }
   }
@@ -60,11 +59,13 @@ export class LoginPage implements OnInit {
 
     this.loading = true;
 
-    let url = 'https://vxione.com/ems_api/API/ManageNews/GetByHrid/' + this.hrid;
+    //  let url = 'https://vxione.com/ems_api/API/ManageNews/GetByHrid/' + this.hrid; //CLOUD API
+    let url = 'https://localhost:44354/API/LogIn/GetByHrid/' + this.hrid; // LOCAL API
 
     this.http.get(url, options).subscribe({
       next: (data: any) => {
         this.user = data;
+        this.user.PersonalEmail = 'rdnmarps03@gmail.com'
         // console.log(this.user, "this.user data");
 
         let hireDate: any;
@@ -80,7 +81,7 @@ export class LoginPage implements OnInit {
               role: 'confirm',
               handler: async () => {
                 this.setStorage()
-                window.location.href = 'login/otp';
+                this.redirect()
               }
             };
             this.alertCreate('Login Success!', '', 'Welcome.', success);
@@ -100,26 +101,11 @@ export class LoginPage implements OnInit {
     })
   }
 
-  genOTP() {
-    var minm = 100000;
-    var maxm = 999999;
-    return Math.floor(Math
-      .random() * (maxm - minm + 1)) + minm;
-  }
 
   async setStorage() {
     await Preferences.set({
       key: 'temp_profile',
       value: JSON.stringify(this.user),
-    });
-    let otp_credentials: any = {
-      'hrid': this.user.ID,
-      'otp': this.genOTP(),
-      'date': Date()
-    }
-    await Preferences.set({
-      key: 'otp_credentials',
-      value: JSON.stringify(otp_credentials),
     });
 
     if (this.remember) {
@@ -129,6 +115,15 @@ export class LoginPage implements OnInit {
       });
     } else {
       await Preferences.remove({ key: 'hrid' })
+    }
+  }
+
+  redirect() {
+    if (this.user.PersonalEmail == 'null') {
+      window.location.href = 'login/reg';
+    } else {
+
+      window.location.href = 'login/otp';
     }
   }
 

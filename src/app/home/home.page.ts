@@ -21,7 +21,7 @@ export class HomePage {
       window.location.href = "/login";
     }
     // this.alertCreate('', '', JSON.stringify(this.user_profile), 'OK')
-    this.theme = ''
+    this.theme = 'profile'
     console.log(this.user_profile);
 
   }

@@ -1,4 +1,4 @@
-<div class="h-[95%] overflow-x-scroll scrollbar-thin scrollbar-thumb-[#ff6d10] scrollbar-track-[#efefef00]">
+<div class="h-[95%] overflow-hidden">
 
   <div class="w-[92%] m-auto flex sticky top-0 mb-5 bg-white">
     <div
@@ -26,14 +26,18 @@
     <ion-item button (click)="changeModule('emp_info')" detail="true"
       class="item-background-color rounded-t-[2rem]">Employee
       Information</ion-item>
-    <ion-item (click)="defaultAlert()" detail="true" class="item-background-color">Scheduler</ion-item>
+    <ion-item button (click)="changeModule('scheduler')" detail="true" class="item-background-color">Scheduler</ion-item>
     <ion-item (click)="defaultAlert()" detail="true" class="item-background-color">Credit Lookup</ion-item>
     <ion-item (click)="defaultAlert()" detail="true" class="item-background-color">Policies</ion-item>
-    <ion-item (click)="defaultAlert()" detail="true" class="item-background-color rounded-b-[2rem]"
-      lines="none">Payroll</ion-item>
+    <ion-item button (click)="changeModule('payroll')" detail="true" class="item-background-color rounded-b-[2rem]">Payroll</ion-item>
   </div>
 
-  <div class="w-[92%] m-auto">
-    <app-employee-info *ngIf="profileModule == 'emp_info'" [user_profile]="user_profile"></app-employee-info>
-  </div>
+  <ion-content>
+    <div class="w-[92%] m-auto">
+      <app-employee-info *ngIf="profileModule == 'emp_info'" [user_profile]="user_profile"></app-employee-info>
+      <app-scheduler *ngIf="profileModule == 'scheduler'"></app-scheduler>
+      <app-payroll *ngIf="profileModule == 'payroll'"></app-payroll>
+    </div>
+  </ion-content>
+
 </div>

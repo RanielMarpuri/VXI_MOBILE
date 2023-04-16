@@ -8,15 +8,15 @@
     <!-- <button type="button" slot="end" class="absolute right-0" (click)="showAll()">View All</button> -->
   </div>
 
-  <ion-slides class="mb-2 " *ngIf="!all" [options]="slideOptsOne" #slider>
+  <ion-slides class="mb-2 h-96" *ngIf="!all" [options]="slideOptsOne" #slider>
     <ion-slide *ngFor="let slide of slider_data" (click)="setOpen(true, slide)">
       <ion-card class="rounded-[2rem] text-left w-[92%] border">
         <div class="h-[15rem] w-full bg-[#efefef] bg-cover bg-center imageBG"
           style="background-image: url({{slide.ImagePath}})">
         </div>
         <ion-card-header class="bg-[#efefef]">
-          <ion-card-title color="secondary" class="size text-[2rem] font-bold">{{slide.Title}}</ion-card-title>
-          <ion-card-subtitle class="font-extralight">{{slide.SubTitle}}</ion-card-subtitle>
+          <ion-card-title color="secondary" class="size text-[1.5rem] font-bold truncate">{{slide.Title}}</ion-card-title>
+          <ion-card-subtitle class="font-extralight truncate">{{slide.SubTitle}}</ion-card-subtitle>
         </ion-card-header>
       </ion-card>
     </ion-slide>

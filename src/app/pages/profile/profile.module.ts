@@ -7,8 +7,9 @@ import { IonicModule } from '@ionic/angular';
 import { ProfilePageRoutingModule } from './profile-routing.module';
 
 import { ProfilePage } from './profile.page';
-import { EmployeeInfoPage } from './modules/employee-info/employee-info.page';
 import { EmployeeInfoPageModule } from './modules/employee-info/employee-info.module';
+import { SchedulerPageModule } from './modules/scheduler/scheduler.module';
+import { PayrollPageModule } from './modules/payroll/payroll.module';
 
 @NgModule({
   imports: [
@@ -16,7 +17,9 @@ import { EmployeeInfoPageModule } from './modules/employee-info/employee-info.mo
     FormsModule,
     IonicModule,
     ProfilePageRoutingModule,
-    EmployeeInfoPageModule
+    EmployeeInfoPageModule,
+    SchedulerPageModule,
+    PayrollPageModule
   ],
   exports: [ProfilePage],
   declarations: [ProfilePage]

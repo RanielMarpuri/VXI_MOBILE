@@ -10,6 +10,10 @@ const routes: Routes = [
   },  {
     path: 'otp',
     loadChildren: () => import('./otp/otp.module').then( m => m.OtpPageModule)
+  },
+  {
+    path: 'reg',
+    loadChildren: () => import('./reg/reg.module').then( m => m.RegPageModule)
   }
 
 ];

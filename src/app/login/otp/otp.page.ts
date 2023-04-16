@@ -1,3 +1,4 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ElementRef } from '@angular/core';
 import { Component, OnInit, ViewChild } from '@angular/core';
 
@@ -28,15 +29,25 @@ export class OtpPage implements OnInit {
   ]
   red: any;
   input_otp: any;
-
-  constructor(private navctrl: NavController) { }
+  asterisk_email: string;
+  email_sent: any
+  constructor(private navctrl: NavController, private http: HttpClient) { }
 
   async ngOnInit() {
-    let Init: any = await Preferences.get({ key: 'otp_credentials' })
+    this.email_sent = false
     let Inits: any = await Preferences.get({ key: 'temp_profile' })
-    this.otp_credentials = JSON.parse(Init.value)
     this.user_profile = Inits.value
-    this.otp = JSON.stringify(this.otp_credentials.otp)
+
+    let Init: any = await Preferences.get({ key: 'otp_credentials' })
+    this.otp_credentials = JSON.parse(Init.value)
+
+    this.asterisk_email = this.distortEmail()
+
+    this.emailer(false)
+  }
+
+
+  initiateTimer() {
     this.available_time = 120
     // do{
     setInterval(() => {
@@ -52,35 +63,29 @@ export class OtpPage implements OnInit {
         }
       }
     }, 1000)
-
   }
-
   enterDigit(i: any, e: any) {
-    let y: any
-    if (i == 5) { y = 0 }
-    else { y = i + 1 }
-
-    let x = document.getElementById(this.digits[y].name)
-    // setTimeout(() => {
-      this.digits[i].value = ''
-    // }, 10)
-
-    this.digits[i].value = e.data
-
     setTimeout(() => {
-      x.focus();
-    }, 10)
+      let y: any
+      if (i == 5) { y = 0 }
+      else { y = i + 1 }
+      console.log(this.digits)
+      let x = document.getElementById(this.digits[y].name)
+      let a = (<HTMLInputElement>document.getElementById(this.digits[i].name))
 
-    let val: any
-    this.digits.forEach(digi => {
-      if (val == null) {
-        val = ''
-      }
-      val = val + digi.value
-    })
-    console.log(val)
-    this.input_otp = val
-    this.validateOTP(val, i)
+      this.digits[i].value = e.data
+      x.focus();
+
+      let val: any = ''
+      this.digits.forEach(digi => {
+        val = val + digi.value
+        a.value = digi.value
+      })
+
+      console.log(val)
+      this.input_otp = val
+      this.validateOTP(val, i)
+    }, 10)
   }
 
   validateOTP(otp: any, pos) {
@@ -117,41 +122,52 @@ export class OtpPage implements OnInit {
     }
   }
 
-  getMinSec(at) {
-    this.available_time_mins = Math.trunc(at / 60);
-    this.available_time_secs = Math.floor(((at / 60) - this.available_time_mins) * 60)
+  emailer(reset: boolean) {
+    const header = new HttpHeaders()
+    this.otp_credentials.OTP = this.genOTP();
+
+    this.otp = JSON.stringify(this.otp_credentials.OTP)
+
+    let url = "https://localhost:44354/API/LogIn/OtpEmailer"
+
+    header.append('Accept', 'application/json');
+
+    const options: any = {
+      headers: header,
+    };
+
+    this.http.post(url, this.otp_credentials, options).subscribe(data => {
+      this.email_sent = true;
+      console.log(data, "after emailer", this.otp_credentials)
+      if (reset) {
+        this.available_time = 120;
+      } else {
+        this.initiateTimer()
+      }
+    })
   }
 
-  async resendOTP() {
-    let x = JSON.parse(this.user_profile);
-    let otp_credentials: any = {
-      'hrid': x.ID,
-      'otp': this.genOTP(),
-      'date': Date()
-    }
-
-    await Preferences.set({
-      key: 'otp_credentials',
-      value: JSON.stringify(otp_credentials),
-    });
-
-    let Init: any = await Preferences.get({ key: 'otp_credentials' })
-    this.otp_credentials = JSON.parse(Init.value)
-    this.otp = JSON.stringify(this.otp_credentials.otp)
-
+  resendOTP() {
+    this.email_sent = false;
+    this.emailer(true)
   }
 
   genOTP() {
     var minm = 100000;
     var maxm = 999999;
-    return Math.floor(Math
-      .random() * (maxm - minm + 1)) + minm;
+    return Math.floor(Math.random() * (maxm - minm + 1)) + minm;
   }
 
   async setStorage() {
 
   }
 
+  distortEmail() {
+    let catch_email = this.otp_credentials.PersonalEmail.split('@')
+    var asterisk = "*".repeat(catch_email[0].length - 4);
+    var newStr = catch_email[0].replace(/(.{2}).*(.{2})/, '$1' + asterisk + '$2');
 
+    return newStr + '@' + catch_email[1];
+  }
 
 }
