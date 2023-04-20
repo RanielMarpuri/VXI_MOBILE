@@ -59,13 +59,13 @@ export class LoginPage implements OnInit {
 
     this.loading = true;
 
-    //  let url = 'https://vxione.com/ems_api/API/ManageNews/GetByHrid/' + this.hrid; //CLOUD API
-    let url = 'https://localhost:44354/API/LogIn/GetByHrid/' + this.hrid; // LOCAL API
+     let url = 'https://vxione.com/ems_api/API/ManageNews/GetByHrid/' + this.hrid; //CLOUD API
+    // let url = 'https://localhost:44354/API/LogIn/GetByHrid/' + this.hrid; // LOCAL API
 
     this.http.get(url, options).subscribe({
       next: (data: any) => {
         this.user = data;
-        this.user.PersonalEmail = 'rdnmarps03@gmail.com'
+        // this.user.PersonalEmail = 'rdnmarps03@gmail.com'
         // console.log(this.user, "this.user data");
 
         let hireDate: any;
@@ -119,7 +119,7 @@ export class LoginPage implements OnInit {
   }
 
   redirect() {
-    if (this.user.PersonalEmail == 'null') {
+    if (this.user.PersonalEmail == null) {
       window.location.href = 'login/reg';
     } else {
 

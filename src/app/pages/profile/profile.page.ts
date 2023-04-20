@@ -12,9 +12,18 @@ export class ProfilePage implements OnInit {
   profileModule: any
   constructor( private alertController: AlertController) { }
 
+  modules_list = [
+    {name: 'Employee Information', module: 'emp_info'},
+    {name: 'Attendance', module: 'scheduler'},
+    {name: 'Credit Look Up', module: 'credit_look_up'},
+    {name: 'Policies', module: 'policies'},
+    {name: 'Payroll', module: 'payroll'},
+  ]
+  list: any
   ngOnInit() {
-    this.profileModule = 'payroll'
+    this.profileModule = ''
     //this.alertCreate('','',JSON.stringify(this.user_profile),'OK')
+    this.list = true
   }
   async alertCreate(h: any, sh: any, m: any, b: any) {
     let alert = await this.alertController.create({
@@ -35,5 +44,9 @@ export class ProfilePage implements OnInit {
 
   defaultAlert() {
     this.alertCreate('Notice', 'Please be advised.', 'This feature is under construction.', 'OK');
+  }
+
+  toggleList(){
+    this.list = !this.list
   }
 }

@@ -11,14 +11,11 @@ import { AlertController, Platform } from '@ionic/angular';
 export class NewsPage implements OnInit {
 
   constructor(private http: HttpClient, private platform: Platform, private alertController: AlertController) {
-    // this.platform.backButton.subscribeWithPriority(1, () => {
-
-    //   this.setOpen(false, [])
-    // });
   }
   public slider_data: any
   modal_data: any
   all: any;
+  loader: any = false;
   today = new Date().toLocaleDateString('en-GB');;
   async alertCreate(h: any, sh: any, m: any, b: any) {
     let alert = await this.alertController.create({
@@ -36,21 +33,21 @@ export class NewsPage implements OnInit {
   }
 
   isModalOpen = false;
-  changeback(isOpen: boolean){
+  changeback(isOpen: boolean) {
     this.isModalOpen = isOpen;
   }
+
   setOpen(isOpen: boolean, data: any) {
     let cat = isOpen;
     isOpen = !isOpen;
     this.modal_data = []
     // this.isModalOpen = true;
     this.changeback(false);
- //   this.alertCreate(this.isModalOpen,  '', '', 'OK');
+    //   this.alertCreate(this.isModalOpen,  '', '', 'OK');
     this.isModalOpen = cat;
     this.modal_data = data;
-    
-    this.initSlideLNS();
 
+    this.initSlideLNS();
   }
 
   addMinus(x: any, y: any) {
@@ -87,10 +84,11 @@ export class NewsPage implements OnInit {
     this.http.get(url).subscribe({
       next: (data: any) => {
         this.slider_data = data;
-
+        this.loader = true
         console.log(data, "slider data");
       },
       error: err => {
+        this.loader = false
         console.log(err);
         //  this.alertCreate('ERROR', 'Cant Connect to Server', JSON.stringify(err), 'Cancel');
         // this.loading = false;

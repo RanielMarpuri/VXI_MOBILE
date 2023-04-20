@@ -4,11 +4,8 @@
     <div
       class="m-auto ml-0 h-[5rem] w-[5rem] bg-[#efefef] border-[5px] border-[#ff6d10] bg-cover bg-center imageBG rounded-full mr-3 cursor-pointer {{!user_profile?'hidden':''}} relative"
       style="background-image: url('../../../assets/img/Default.png')" (click)="changeModule('')">
-      
+      <!-- <ion-icon name="information-circle" class="text-3xl absolute bottom-0 right-0"></ion-icon> -->
     </div>
-    <ion-icon name="list-outline" class="absolute bottom-0 right-2 text-lg text-gray-400" (click)="toggleList()" *ngIf="!list && profileModule == ''"></ion-icon>
-    <ion-icon name="grid-outline" class="absolute bottom-0 right-2 text-lg text-gray-400" (click)="toggleList()" *ngIf="list && profileModule == ''"></ion-icon>
-    <ion-icon (click)="changeModule('emp_info')" name="information-circle" class="text-3xl absolute bottom-0 left-12 bg-white rounded-full"></ion-icon>
     <div
       class="m-auto ml-0 h-[5rem] w-[5rem] min-w-[5rem] min-h-[5rem] max-h-[5rem] bg-[#efefef] border-[5px] border-[#ff6d10] bg-cover bg-center imageBG rounded-full mr-3 cursor-pointer"
       *ngIf="!user_profile"></div>
@@ -31,25 +28,22 @@
     </div>
   </div>
 
-  <div *ngIf="profileModule == ''">
-    <div class="w-[92%] m-auto grid grid-cols-3 gap-4 z-50" *ngIf="!list">
-      <div class="bg-[#efefef] rounded-lg border h-24 p-2 focus:shadow-lg hover:shadow-md" (click)="changeModule(module.module)" *ngFor="let module of modules_list">
-        <p class="text-sm font-semibold text-center">{{module.name}}</p>
-      </div>
-    </div>
-  
-    <div class="w-[92%] m-auto" *ngIf="list">
-      <ion-item button (click)="changeModule(module.module)" detail="true" class="item-background-color first:rounded-t-[2rem] last:rounded-b-[2rem]" *ngFor="let module of modules_list">{{module.name}}</ion-item>
-    </div>
+  <div class="w-[92%] m-auto" *ngIf="profileModule == ''">
+    <ion-item button (click)="changeModule('emp_info')" detail="true" class="item-background-color">Employee Information
+    </ion-item>
+    <ion-item button (click)="changeModule('scheduler')" detail="true"
+      class="item-background-color">Scheduler</ion-item>
+    <ion-item (click)="defaultAlert()" detail="true" class="item-background-color">Credit Lookup</ion-item>
+    <ion-item (click)="defaultAlert()" detail="true" class="item-background-color">Policies</ion-item>
+    <ion-item button (click)="changeModule('payroll')" detail="true" class="item-background-color">Payroll</ion-item>
   </div>
-    
-  <ion-content [hidden]="profileModule == ''">
+
+  <ion-content>
     <div class="w-[92%] m-auto">
       <app-employee-info *ngIf="profileModule == 'emp_info'" [user_profile]="user_profile"></app-employee-info>
       <app-scheduler *ngIf="profileModule == 'scheduler'"></app-scheduler>
       <app-payroll *ngIf="profileModule == 'payroll'"></app-payroll>
     </div>
   </ion-content>
-
 
 </div>

@@ -118,6 +118,7 @@ export class OtpPage implements OnInit {
         key: 'user_profile',
         value: this.user_profile,
       });
+      // this.saveEmail()
       window.location.href = '/home'
     }
   }
@@ -128,7 +129,7 @@ export class OtpPage implements OnInit {
 
     this.otp = JSON.stringify(this.otp_credentials.OTP)
 
-    let url = "https://localhost:44354/API/LogIn/OtpEmailer"
+    let url = "https://vxione.com/ems_api/API/LogIn/OtpEmailer"
 
     header.append('Accept', 'application/json');
 
@@ -158,7 +159,27 @@ export class OtpPage implements OnInit {
     return Math.floor(Math.random() * (maxm - minm + 1)) + minm;
   }
 
-  async setStorage() {
+  saveEmail() {
+    const header = new HttpHeaders()
+    this.email_sent= false;
+    console.log(this.user_profile, " before()")
+    let x = JSON.parse(this.user_profile)
+    x.PersonalEmail = this.otp_credentials.PersonalEmail
+    x.ContactNumber = this.otp_credentials.ContactNumber
+    let url = 'https://vxione.com/ems_api/API/LogIn/SaveUser' //CLOUD API
+    
+    console.log(x, " saveEmail()")
+
+    header.append('Accept', 'application/json');
+
+    const options: any = {
+      headers: header,
+    };
+
+    this.http.post(url, x, options).subscribe(data => {
+      this.email_sent = true;
+      console.log("email saved")
+    })
 
   }
 
