@@ -1,1 +1,24 @@
- 
+// $value: calc(0 + var(--progress));
+// $percentage: calc(410 - (3.1 * $value));
+
+circle {
+    fill: none;
+    stroke: #5d5a58;
+    stroke-width: .5rem;
+    stroke-dasharray: 410;
+    stroke-dashoffset: 410;
+    // animation: spin 2s linear forwards;
+}
+
+svg {
+    position: absolute;
+    top: 10;
+    left: 10;
+    // padding: .5rem;
+}
+
+// @keyframes spin {
+//     100% {
+//         stroke-dashoffset: 350 //410 - (3.1 * percent)
+//     }
+// }

@@ -1,4 +1,26 @@
-<div color="medium" class="h-96 w-full rounded-[2rem] ml-auto mr-auto align-middle border ">
-    <ion-datetime size="cover" presentation="date" class="rounded-[2rem]"></ion-datetime>
+<div color="medium" class="h-max w-full rounded-[2rem] ml-auto mr-auto align-middle border ">
+
+    <div class="h-[8rem] w-[8rem] flex justify-center items-center ml-auto">
+        <div class="relative h-[7rem] w-[7rem]">
+            <div class="h-[7rem] w-[7rem] bg-gray-100 rounded-full flex justify-center items-center">
+                <div class="h-[6rem] w-[6rem] bg-white rounded-full flex justify-center items-center">
+                    <div class="font-bold text-gray-500 text-sm">
+                        {{progress}}%
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
+            <defs>
+                <linearGradient id="GradientColor">
+                    <stop offset="0%" stop-color="#e91e63" />
+                    <stop offset="100%" stop-color="#673ab7" />
+                </linearGradient>
+            </defs>
+            <circle cx="80" cy="80" r="50" stroke-linecap="round" />
+        </svg>
+    </div>
+    <ion-datetime size="cover" presentation="date" class="rounded-[2rem]" value="" ></ion-datetime>
 
 </div>
