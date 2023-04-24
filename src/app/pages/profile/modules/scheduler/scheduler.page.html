@@ -1,9 +1,10 @@
-<div color="medium" class="h-max w-full rounded-[2rem] ml-auto mr-auto align-middle border ">
-
-    <div class="h-[8rem] w-[8rem] flex justify-center items-center ml-auto">
+<!-- <div color="medium" class="h-max w-full rounded-[2rem] ml-auto mr-auto align-middle border flex">
+    
+   
+    <div class="h-[8rem] w-[8rem] flex justify-center items-center mx-2">
         <div class="relative h-[7rem] w-[7rem]">
             <div class="h-[7rem] w-[7rem] bg-gray-100 rounded-full flex justify-center items-center">
-                <div class="h-[6rem] w-[6rem] bg-white rounded-full flex justify-center items-center">
+                <div class="h-[5.5rem] w-[5.5rem] bg-white rounded-full flex justify-center items-center">
                     <div class="font-bold text-gray-500 text-sm">
                         {{progress}}%
                     </div>
@@ -18,9 +19,16 @@
                     <stop offset="100%" stop-color="#673ab7" />
                 </linearGradient>
             </defs>
-            <circle cx="80" cy="80" r="50" stroke-linecap="round" />
+            <circle cx="80" cy="80" r="50" stroke-linecap="round" [style]="progress <= 25?'stroke: #eb445a':progress <= 50?'stroke: #ffc409':progress <= 75?'stroke: #598280':progress <= 100?'stroke: #2dd36f':'stroke: rgb(243, 244, 246)'"/>
         </svg>
     </div>
-    <ion-datetime size="cover" presentation="date" class="rounded-[2rem]" value="" ></ion-datetime>
-
+    
+</div> -->
+<button (click)="toggleShow(2)">toggle</button>
+<div class="w-full">
+    <ion-select name="" id="" color="light" class="border rounded-lg" placeholder="Select payout date" [multiple]="false" interface="action-sheet" (ionChange)="catchDates($event)"> 
+        <ion-select-option value="{{payout.payout}}" *ngFor="let payout of sample_dates">{{payout.payout}}</ion-select-option>
+     </ion-select>
 </div>
+
+<ion-datetime size="cover" presentation="date" class="rounded-[2rem] mt-5" [multiple]="true" [value]="caught_dates" style="--background: #efefef" [highlightedDates]="highlighted_dates" readonly *ngIf="show_calendar"></ion-datetime>

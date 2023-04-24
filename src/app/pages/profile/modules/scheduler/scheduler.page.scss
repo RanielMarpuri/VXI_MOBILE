@@ -3,10 +3,11 @@
 
 circle {
     fill: none;
-    stroke: #5d5a58;
+
     stroke-width: .5rem;
     stroke-dasharray: 410;
     stroke-dashoffset: 410;
+    stroke: red
     // animation: spin 2s linear forwards;
 }
 

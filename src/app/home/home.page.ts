@@ -13,7 +13,7 @@ export class HomePage {
   constructor(private menu: MenuController, private alertController: AlertController) { }
 
   async ngOnInit() {
-
+    await Preferences.remove({ key: 'clean_style' })
     let Init: any = await Preferences.get({ key: 'user_profile' })
     this.user_profile = JSON.parse(Init.value)
 

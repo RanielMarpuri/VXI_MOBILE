@@ -15,12 +15,11 @@ export class PayrollPage implements OnInit {
   slider: any
   go: any = true
   going_right: any = false
-  default_pos: any
+  
   ngOnInit() {
     this.fetchPayroll()
-    this.default_pos = '22rem';
     // this.going_right = true
-    this.slideInit('unli', 1, 3000)
+    // this.slideInit('unli', 1, 3000)
   }
 
   fetchPayroll() {
