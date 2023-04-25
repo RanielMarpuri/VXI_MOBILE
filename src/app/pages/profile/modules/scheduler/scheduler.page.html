@@ -24,11 +24,9 @@
     </div>
     
 </div> -->
-<button (click)="toggleShow(2)">toggle</button>
 <div class="w-full">
     <ion-select name="" id="" color="light" class="border rounded-lg" placeholder="Select payout date" [multiple]="false" interface="action-sheet" (ionChange)="catchDates($event)"> 
         <ion-select-option value="{{payout.payout}}" *ngFor="let payout of sample_dates">{{payout.payout}}</ion-select-option>
      </ion-select>
 </div>
-
-<ion-datetime size="cover" presentation="date" class="rounded-[2rem] mt-5" [multiple]="true" [value]="caught_dates" style="--background: #efefef" [highlightedDates]="highlighted_dates" readonly *ngIf="show_calendar"></ion-datetime>
+<ion-datetime size="cover" presentation="date" class="rounded-[2rem] mt-5" git  style="--background: #efefef" [multiple]="true" [value]="caught_dates" [highlightedDates]="highlighted_dates" *ngIf="show_calendar" (ionChange)="tryCock($event)"></ion-datetime>

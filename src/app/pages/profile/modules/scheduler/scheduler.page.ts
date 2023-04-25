@@ -12,7 +12,7 @@ export class SchedulerPage implements OnInit {
   clean: any;
   style: any
   reset: any = false
-  show_calendar: boolean;
+  show_calendar: boolean = false;
   toggle: number
   constructor() { }
   public sample_dates = [
@@ -496,6 +496,7 @@ export class SchedulerPage implements OnInit {
 
   myDate: any
   async ngOnInit() {
+    this.myDate = '2022-04-21T00:00:00'
     this.show_calendar = true
     // this.style.getElementsByTagName('head')[0].getElementsByTagName('style')[10].remove()
     // this.setClean()
@@ -508,6 +509,10 @@ export class SchedulerPage implements OnInit {
     //     clearInterval(y);
     //   }
     // }, 2000)
+  }
+
+  tryCock(e: any){
+    console.log(e)
   }
 
   higlightDates(date: any) {
@@ -529,21 +534,20 @@ export class SchedulerPage implements OnInit {
     this.sample_dates.forEach((sample) => {
       if (sample.payout === e.target.value) {
         sample.dates.forEach((date) => {
-          let date_format = new Date(date.date).toISOString()
-          date_format
-          // let y = date.date.split(" ");
-          // y[0] = y[0].replace('/', '-')
-          // let day = y[0].replace('/', '-')
-          // let x = day.split("-")
-          // let z = x[2] + '-' + x[0] + '-' + x[1]
-          this.myDate = date_format
-          this.caught_dates.push(date_format)
+          if (date.status != 'P') {
+            let date_format = new Date(date.date).toISOString()
+            date_format
+            this.caught_dates.push(date_format)
+          }
           this.higlightDates(date)
         })
       }
     })
     this.toggleShow(2);
-    console.log(this.caught_dates, this.highlighted_dates)
+    this.myDate = new Date(this.caught_dates[0]).toISOString()
+    let day = this.myDate.split(".")
+    this.myDate = day[0]
+    console.log(this.caught_dates, this.highlighted_dates, day[0])
   }
 
   toggleShow(toggle: any) {
