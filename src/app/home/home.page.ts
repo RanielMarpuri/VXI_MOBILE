@@ -11,7 +11,7 @@ export class HomePage {
   theme: any
   user_profile: any
   constructor(private menu: MenuController, private alertController: AlertController) { }
-
+  
   async ngOnInit() {
     await Preferences.remove({ key: 'clean_style' })
     let Init: any = await Preferences.get({ key: 'user_profile' })

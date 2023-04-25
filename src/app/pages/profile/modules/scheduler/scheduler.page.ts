@@ -511,7 +511,7 @@ export class SchedulerPage implements OnInit {
     // }, 2000)
   }
 
-  tryCock(e: any){
+  tryCatch(e: any){
     console.log(e)
   }
 

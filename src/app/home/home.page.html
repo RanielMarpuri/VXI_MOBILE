@@ -1,5 +1,5 @@
-<ion-app>
-  <div class="ion-page bg-white" id="main-content">
+<ion-app class="z-50">
+  <div class="" id="main-content">
     <ion-header class="overflow-hidden ion-no-border h-max -mb-5 ">
       <ion-toolbar color="primary" class="-top-[1.5rem] w-[92%] rounded-[2rem] ml-auto mr-auto align-middle border border-white ">
         <div class="h-[5rem] relative mx-2 flex items-end mb-4">
@@ -11,9 +11,11 @@
           </div>
           <div>
             <div
-              class="w-[3rem] h-[3rem] rounded-full bg-contain bg-no-repeat border-[3px] border-[#FF6D10] {{theme == 'profile'?'opacity-0 cursor-default':''}}"
+              class="w-[3rem] h-[3rem] rounded-full bg-contain bg-no-repeat border-[3px] border-[#FF6D10] {{theme == 'profile'?'opacity-0 cursor-default':''}} relative"
               style="background-image: url('../../../assets/img/Default.png')" (click)="changeTheme('profile')">
+              <ion-icon name="alert-circle" class="text-[#ff0000] bg-white rounded-full absolute -bottom-1 -right-1 text-lg notif"></ion-icon>
             </div>
+            
           </div>
         </div>
         <div class="mx-6 relative mb-2" *ngIf="theme != 'profile'">
@@ -77,3 +79,7 @@
     </ion-content>
   </ion-menu>
 </ion-app>
+
+<div class="w-full h-screen bg-gradient-to-t from-[#ff0000] to-pink-500/25 absolute top-0 -z-0">
+  s
+</div>

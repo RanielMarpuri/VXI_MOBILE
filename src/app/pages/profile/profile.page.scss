@@ -6,3 +6,17 @@ ion-card{
 .item-background-color{
     --ion-item-background:#efefef;
 }
+
+.notif {
+    animation: spin 1s backwards infinite;
+  }
+  
+  @keyframes spin {
+    50% {
+      transform: rotate(15deg);
+    }
+  
+    100% {
+      transform: rotate(-15deg);
+    }
+  }

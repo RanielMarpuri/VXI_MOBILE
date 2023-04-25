@@ -19,7 +19,7 @@ export class PayrollPage implements OnInit {
   ngOnInit() {
     this.fetchPayroll()
     // this.going_right = true
-    // this.slideInit('unli', 1, 3000)
+    this.slideInit('unli', 1, 3000)
   }
 
   fetchPayroll() {

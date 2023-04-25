@@ -13,11 +13,11 @@ export class ProfilePage implements OnInit {
   constructor( private alertController: AlertController) { }
 
   modules_list = [
-    {name: 'Employee Information', module: 'emp_info'},
-    {name: 'Attendance', module: 'scheduler'},
-    {name: 'Credit Look Up', module: 'credit_look_up'},
-    {name: 'Policies', module: 'policies'},
-    {name: 'Payroll', module: 'payroll'},
+    {name: 'Employee Information', module: 'emp_info', notif_count: 0},
+    {name: 'Attendance', module: 'scheduler', notif_count: 0},
+    {name: 'Credit Look Up', module: 'credit_look_up', notif_count: 0},
+    {name: 'Policies', module: 'policies', notif_count: 3},
+    {name: 'Payroll', module: 'payroll', notif_count: 0},
   ]
   list: any
   ngOnInit() {
