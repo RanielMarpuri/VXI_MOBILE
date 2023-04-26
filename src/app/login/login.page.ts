@@ -95,7 +95,7 @@ export class LoginPage implements OnInit {
       },
       error: err => {
         console.log(err);
-        this.alertCreate('ERROR', 'Cant Connect to Server', JSON.stringify(err), 'Cancel');
+        this.alertCreate('Login Failed!!', 'No Match...', 'Try again.', 'OK');
         this.loading = false;
       },
     })

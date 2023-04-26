@@ -79,7 +79,7 @@ export class SchedulerPage implements OnInit {
           "lastName": "MARPURI",
           "date": "3/24/2023 12:00:00 AM",
           "day": "Friday",
-          "status": "P",
+          "status": "L",
           "login": "3/24/2023 12:37:10 AM",
           "logout": "3/24/2023 10:03:32 AM",
           "shiftLength": "10"
@@ -123,7 +123,7 @@ export class SchedulerPage implements OnInit {
           "lastName": "MARPURI",
           "date": "3/28/2023 12:00:00 AM",
           "day": "Tuesday",
-          "status": "P",
+          "status": "A",
           "login": "3/28/2023 12:25:51 AM",
           "logout": "3/28/2023 10:06:23 AM",
           "shiftLength": "10"
@@ -492,6 +492,7 @@ export class SchedulerPage implements OnInit {
     }
   ]
   caught_dates: any
+  highlighted_dates_details: any
   highlighted_dates: any
 
   myDate: any
@@ -511,43 +512,77 @@ export class SchedulerPage implements OnInit {
     // }, 2000)
   }
 
-  tryCatch(e: any){
+  tryCatch(e: any) {
     console.log(e)
   }
 
   higlightDates(date: any) {
+    this.highlighted_dates_details.push(date)
+    let date_format = new Date(date.date)
+    date_format.setHours(8)
+    let final_date = date_format.toISOString()
+
+    let y = final_date.split('T')
+    
     if (date.status === 'P') {
-      let x = new Date(date.date).toISOString()
-      let y = x.split('T')
       this.highlighted_dates.push({
         date: y[0],
         textColor: '#09721b',
         backgroundColor: '#c8e5d0',
       })
+    } else if (date.status === 'L') {
+      this.highlighted_dates.push({
+        date: y[0],
+        textColor: '#94782f',
+        backgroundColor: '#f5d176',
+      })
+    } else if (date.status === 'A') {
+      this.highlighted_dates.push({
+        date: y[0],
+        textColor: '#5f0d0d',
+        backgroundColor: '#ff5252',
+      })
+    } else if (date.status === 'REG HOL') {
+      this.highlighted_dates.push({
+        date: y[0],
+        textColor: '#fff',
+        backgroundColor: '#6f6afc',
+      })
     }
   }
+
+
 
   catchDates(e: any) {
     console.log(e.target.value)
     this.caught_dates = []
     this.highlighted_dates = []
+    this.highlighted_dates_details = []
     this.sample_dates.forEach((sample) => {
       if (sample.payout === e.target.value) {
+
+
         sample.dates.forEach((date) => {
-          if (date.status != 'P') {
-            let date_format = new Date(date.date).toISOString()
-            date_format
-            this.caught_dates.push(date_format)
+          
+          if (date.status == 'OFF') {
+            let date_format = new Date(date.date)
+            date_format.setHours(8)
+            let final_date = date_format.toISOString()
+
+            this.caught_dates.push(final_date)
+          } else {
+            this.higlightDates(date)
           }
-          this.higlightDates(date)
         })
+        console.log("caught dates", this.caught_dates)
+        console.log(this.highlighted_dates_details)
+
       }
     })
     this.toggleShow(2);
     this.myDate = new Date(this.caught_dates[0]).toISOString()
     let day = this.myDate.split(".")
     this.myDate = day[0]
-    console.log(this.caught_dates, this.highlighted_dates, day[0])
   }
 
   toggleShow(toggle: any) {

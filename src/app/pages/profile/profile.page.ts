@@ -18,6 +18,7 @@ export class ProfilePage implements OnInit {
     {name: 'Credit Look Up', module: 'credit_look_up', notif_count: 0},
     {name: 'Policies', module: 'policies', notif_count: 3},
     {name: 'Payroll', module: 'payroll', notif_count: 0},
+    {name: 'Messages', module: 'messages', notif_count: 10},
   ]
   list: any
   ngOnInit() {
