@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.marps.mobile',
-  appName: 'VXI MOBILE APP',
+  appId: 'com.vxiglobal.vxione',
+  appName: 'VXI One',
   webDir: 'www',
   bundledWebRuntime: false
 };

@@ -28,7 +28,7 @@ export class NewsPage implements OnInit {
   }
 
   ngOnInit() {
-    this.all = false
+    this.all = true
     this.fetchNews()
   }
 

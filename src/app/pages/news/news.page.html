@@ -1,96 +1,97 @@
-<ion-content>
-  <div class="flex w-[92%] m-auto relative items-center">
+<!-- 
+  <div class="flex w-[92%] m-auto items-center sticky top-0">
     <ion-item slot="end" fill="clear" lines="none" class="font-bold" style="--background: none;">NEWS</ion-item>
     <ion-item button class="absolute right-0 font-extralight hover:bg-transparent " style="--background: none;"
-      (click)="showAll()" fill="clear" lines="none" detail="false" *ngIf="!all && slider_data?.length >= 3">View All</ion-item>
-      <ion-item button class="absolute right-0 font-extralight hover:bg-transparent " style="--background: none;"
-      href="/home" fill="clear" lines="none" detail="false" *ngIf="all">Back</ion-item>
-    <!-- <button type="button" slot="end" class="absolute right-0" (click)="showAll()">View All</button> -->
-  </div>
+      (click)="showAll()" fill="clear" lines="none" detail="false" *ngIf="!all && slider_data?.length >= 3">View All</ion-item> -->
+<!-- <ion-item button class="absolute right-0 font-extralight hover:bg-transparent " style="--background: none;"
+      href="/home" fill="clear" lines="none" detail="false" *ngIf="all">Back</ion-item> -->
+<!-- <button type="button" slot="end" class="absolute right-0" (click)="showAll()">View All</button> -->
+<!-- </div> -->
 
-  <ion-slides class="mb-2 h-96 -mt-5" *ngIf="!all" [options]="slideOptsOne" #slider>
-    <ion-slide *ngFor="let slide of slider_data" (click)="setOpen(true, slide)">
-      <ion-card class="rounded-[2rem] text-left w-[92%] border">
-        <div class="h-[15rem] w-full bg-[#efefef] bg-cover bg-center imageBG"
-          style="background-image: url({{slide.ImagePath}})">
+<ion-slides class="mb-2 h-96 -mt-5" *ngIf="!all" [options]="slideOptsOne" #slider>
+  <ion-slide *ngFor="let slide of slider_data" (click)="setOpen(true, slide)">
+    <ion-card class="rounded-[2rem] text-left w-[92%] border">
+      <div class="h-[15rem] w-full bg-[#efefef] bg-cover bg-center imageBG"
+        style="background-image: url({{slide.ImagePath}})">
+      </div>
+      <ion-card-header class="bg-[#efefef]">
+        <ion-card-title color="secondary" class="size text-[1.5rem] font-bold truncate">{{slide.Title}}</ion-card-title>
+        <ion-card-subtitle class="font-extralight truncate">{{slide.SubTitle}}</ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+  </ion-slide>
+</ion-slides>
+
+<div class="h-max" *ngIf="all">
+  <div *ngFor="let slide of slider_data" class="pb-10">
+    <img alt="Silhouette of mountains" class="m-auto border-4 border-[#efefef]" src="{{slide.ImagePath}}"
+      (click)="setOpen(true, slide)" />
+    <ion-card-header class="h-max bg-[#efefef]">
+      <div class="grid grid-cols-5 bg-[#efefef] mb-2 w-full">
+        <ion-card-title color="secondary" class="h-max text-[1.3rem] col-span-3 font-bold my-auto">
+          {{slide.Title}}
+        </ion-card-title>
+        <div class="items-center">
+          <p class="text-center -mb-1 select-none {{slide.liked?'text-[#ff6d10]':'text-black'}}">{{slide.likes}}</p>
+          <ion-icon name="heart-outline" class="text-center w-full" size="large" *ngIf="!slide.liked"
+            (click)="addMinus('likes', 'liked')"></ion-icon>
+          <ion-icon name="heart" class="text-center w-full text-[#ff6d10]" size="large" *ngIf="slide.liked"
+            (click)="addMinus('likes', 'liked')"></ion-icon>
         </div>
-        <ion-card-header class="bg-[#efefef]">
-          <ion-card-title color="secondary" class="size text-[1.5rem] font-bold truncate">{{slide.Title}}</ion-card-title>
-          <ion-card-subtitle class="font-extralight truncate">{{slide.SubTitle}}</ion-card-subtitle>
-        </ion-card-header>
-      </ion-card>
-    </ion-slide>
-  </ion-slides>
- 
-  <div
-    class="h-screen overflow-x-scroll pt-2 scrollbar-thin scrollbar-thumb-[#ff6d10] scrollbar-track-[#efefef00]"
-    *ngIf="all">
-    <div *ngFor="let slide of slider_data" class="pb-10">
-      <img alt="Silhouette of mountains" class="m-auto border-4 border-[#efefef]" src="{{slide.ImagePath}}" (click)="setOpen(true, slide)"/>
-      <ion-card-header class="h-max bg-[#efefef]">
-        <div class="grid grid-cols-5 bg-[#efefef] mb-2 w-full">
-          <ion-card-title color="secondary" class="h-max text-[1.3rem] col-span-3 font-bold my-auto">
-            {{slide.Title}}
-          </ion-card-title>
-          <div class="items-center">
-            <p class="text-center -mb-1 select-none {{slide.liked?'text-[#ff6d10]':'text-black'}}">{{slide.likes}}</p>
-            <ion-icon name="heart-outline" class="text-center w-full" size="large" *ngIf="!slide.liked"
-              (click)="addMinus('likes', 'liked')"></ion-icon>
-            <ion-icon name="heart" class="text-center w-full text-[#ff6d10]" size="large" *ngIf="slide.liked"
-              (click)="addMinus('likes', 'liked')"></ion-icon>
-          </div>
-          <div class="items-center">
+        <!-- <div class="items-center">
             <p class="text-center -mb-1 select-none {{slide.shared?'text-[#ff6d10]':'text-black'}}">{{slide.shares}}</p>
             <ion-icon name="share-social-outline" class="text-center w-full" size="large" *ngIf="!slide.shared"
               (click)="addMinus('shares', 'shared')"></ion-icon>
             <ion-icon name="share-social" class="text-center w-full text-[#ff6d10]" size="large" *ngIf="slide.shared"
               (click)="addMinus('shares', 'shared')"></ion-icon>
-          </div>
-          <ion-card-subtitle class="col-span-5">{{slide.SubTitle}}</ion-card-subtitle>
-        </div>
-        <p class="text-justify select-none truncate text-ellipsis text-black">{{slide.Body}}</p>
-      </ion-card-header>
-    </div>
+          </div> -->
+        <ion-card-subtitle class="col-span-5">{{slide.SubTitle}}</ion-card-subtitle>
+      </div>
+      <p class="text-justify select-none truncate text-ellipsis text-black">{{slide.Body}}</p>
+    </ion-card-header>
   </div>
+</div>
 
-  <ion-modal [isOpen]="isModalOpen">
-    <ng-template>
-      <ion-header class="relative">
-        <ion-toolbar>
-          <ion-title>News</ion-title>
-          <ion-buttons slot="end">
-            <ion-button (click)="setOpen(false, [])">Close</ion-button>
-          </ion-buttons>
-        </ion-toolbar>
-      </ion-header>
-      <div class="ion-padding h-screen scrollbar-thin scrollbar-thumb-[#ff6d10] scrollbar-track-[#efefef] overflow-y-scroll">
-        <img alt="Silhouette of mountains" class="m-auto" src="{{modal_data.ImagePath}}" />
-        <ion-card-header class="h-max bg-[#efefef]">
-          <div class="sticky top-0 grid grid-cols-5 bg-[#efefef] mb-2 w-full">
-            <ion-card-title color="secondary" class="h-max text-[1.3rem] col-span-3 font-bold my-auto">
-              {{modal_data.Title}}
-            </ion-card-title>
-            <div class="items-center">
-              <p class="text-center -mb-1 select-none {{modal_data.liked?'text-[#ff6d10]':'text-black'}}">{{modal_data.likes}}</p>
-              <ion-icon name="heart-outline" class="text-center w-full text-black" size="large" *ngIf="!modal_data.liked"
-                (click)="addMinus('likes', 'liked')"></ion-icon>
-              <ion-icon name="heart" class="text-center w-full text-[#ff6d10]" size="large" *ngIf="modal_data.liked"
-                (click)="addMinus('likes', 'liked')"></ion-icon>
-            </div>
-            <div class="items-center">
+<ion-modal [isOpen]="isModalOpen">
+  <ng-template>
+    <ion-header class="relative">
+      <ion-toolbar>
+        <ion-title>News</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="setOpen(false, [])">Close</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <div
+      class="ion-padding h-screen scrollbar-thin scrollbar-thumb-[#ff6d10] scrollbar-track-[#efefef] overflow-y-scroll">
+      <img alt="Silhouette of mountains" class="m-auto" src="{{modal_data.ImagePath}}" />
+      <ion-card-header class="h-max bg-[#efefef]">
+        <div class="sticky top-0 grid grid-cols-5 bg-[#efefef] mb-2 w-full">
+          <ion-card-title color="secondary" class="h-max text-[1.3rem] col-span-3 font-bold my-auto">
+            {{modal_data.Title}}
+          </ion-card-title>
+          <div class="items-center">
+            <p class="text-center -mb-1 select-none {{modal_data.liked?'text-[#ff6d10]':'text-black'}}">
+              {{modal_data.likes}}</p>
+            <ion-icon name="heart-outline" class="text-center w-full text-black" size="large" *ngIf="!modal_data.liked"
+              (click)="addMinus('likes', 'liked')"></ion-icon>
+            <ion-icon name="heart" class="text-center w-full text-[#ff6d10]" size="large" *ngIf="modal_data.liked"
+              (click)="addMinus('likes', 'liked')"></ion-icon>
+          </div>
+          <!-- <div class="items-center">
               <p class="text-center -mb-1 select-none {{modal_data.shared?'text-[#ff6d10]':'text-black'}}">{{modal_data.shares}}
               </p>
               <ion-icon name="share-social-outline" class="text-center w-full text-black" size="large" *ngIf="!modal_data.shared"
                 (click)="addMinus('shares', 'shared')"></ion-icon>
               <ion-icon name="share-social" class="text-center w-full text-[#ff6d10]" size="large"
                 *ngIf="modal_data.shared" (click)="addMinus('shares', 'shared')"></ion-icon>
-            </div>
-            <ion-card-subtitle class="col-span-5">{{modal_data.SubTitle}}</ion-card-subtitle>
-          </div>
-          <p class="text-justify select-none text-black h-auto">{{modal_data.Body}}</p>
-        </ion-card-header>
-      </div>
-      <ion-footer class="text-center text-zinc-400 font-bold"><small>Posted @{{modal_data.DatePosted | date: 'MM/dd/yyyy'}}</small></ion-footer>
-    </ng-template>
-  </ion-modal>
-</ion-content>
+            </div> -->
+          <ion-card-subtitle class="col-span-5">{{modal_data.SubTitle}}</ion-card-subtitle>
+        </div>
+        <p class="text-justify select-none text-black h-auto">{{modal_data.Body}}</p>
+      </ion-card-header>
+    </div>
+    <ion-footer class="text-center text-zinc-400 font-bold"><small>Posted @{{modal_data.DatePosted | date:
+        'MM/dd/yyyy'}}</small></ion-footer>
+  </ng-template>
+</ion-modal>

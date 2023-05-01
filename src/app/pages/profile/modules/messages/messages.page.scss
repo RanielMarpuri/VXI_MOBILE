@@ -1,0 +1,14 @@
+.movingUp {
+    // --tw-translate-y: 100%;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    animation: movingup 1s ease forwards;
+}
+
+@keyframes movingup {
+    0% {
+        --tw-translate-y: 100%;
+    }
+    100% {
+        --tw-translate-y: 0%;
+    }
+}

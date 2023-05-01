@@ -21,7 +21,10 @@
 
   margin: 0;
 }
-
+.scrollbar-thin::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
 #container a {
   text-decoration: none;
 }

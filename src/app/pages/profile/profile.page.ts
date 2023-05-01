@@ -8,24 +8,28 @@ import { AlertController } from '@ionic/angular';
 })
 export class ProfilePage implements OnInit {
   @Input() user_profile: any;
-
+  @Input() sub_profile: any;
+  @Output() sub_theme = new EventEmitter<string>();
   profileModule: any
-  constructor( private alertController: AlertController) { }
+  constructor( private alertController: AlertController) {}
 
   modules_list = [
     {name: 'Employee Information', module: 'emp_info', notif_count: 0},
     {name: 'Attendance', module: 'scheduler', notif_count: 0},
     {name: 'Credit Look Up', module: 'credit_look_up', notif_count: 0},
-    {name: 'Policies', module: 'policies', notif_count: 3},
+    {name: 'Policies', module: 'policies', notif_count: 0},
     {name: 'Payroll', module: 'payroll', notif_count: 0},
-    {name: 'Messages', module: 'messages', notif_count: 10},
+    {name: 'TikTalk', module: 'messages', notif_count: 1},
   ]
+
   list: any
+
   ngOnInit() {
     this.profileModule = ''
     //this.alertCreate('','',JSON.stringify(this.user_profile),'OK')
     this.list = true
   }
+
   async alertCreate(h: any, sh: any, m: any, b: any) {
     let alert = await this.alertController.create({
       header: h,
@@ -37,6 +41,7 @@ export class ProfilePage implements OnInit {
   }
   changeModule(mod: any) {
     this.profileModule = mod;
+    this.sub_theme.emit(mod)
   }
 
   updateProfile(userData: any){
@@ -49,5 +54,9 @@ export class ProfilePage implements OnInit {
 
   toggleList(){
     this.list = !this.list
+  }
+
+  addSubProfile(profile: any){
+    this.sub_profile = profile;
   }
 }

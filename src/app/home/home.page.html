@@ -1,7 +1,7 @@
 <ion-app>
   <div class="ion-page bg-white" id="main-content">
-    <ion-header class="overflow-hidden ion-no-border h-max -mb-5">
-      <ion-toolbar color="primary" class="-top-[1.5rem] w-[92%] rounded-[2rem] ml-auto mr-auto align-middle border border-white ">
+    <ion-header class="overflow-hidden ion-no-border z-40 {{sub_theme == 'messages'?'bg-[#404e51]':''}}">
+      <ion-toolbar color="primary" class=" w-[92%] rounded-b-[2rem] ml-auto mr-auto align-middle">
         <div class="h-[5rem] relative mx-2 flex items-end mb-4">
           <ion-buttons slot="start" class="w-[3rem] h-[3rem]">
             <ion-menu-button></ion-menu-button>
@@ -21,16 +21,18 @@
         <div class="mx-6 relative mb-2" *ngIf="theme != 'profile'">
           <p class="font-extralight text-[.7rem] tracking-[.2rem]">WELCOME</p>
           <!-- <small class="block mb-4">{{!user_profile?'Non':user_profile.LastName}}, {{!user_profile?'VXI':user_profile.FirstName}} {{!user_profile?'':user_profile.MiddleName[0]}}</small> -->
-          <strong class=" mb-5 -mt-2">{{!user_profile?'Non':user_profile.LastName}}, </strong>
-          <p class="inline-flex font-light -mt-2">{{!user_profile?'VXI':user_profile.FirstName}}
-            {{!user_profile?'':user_profile.MiddleName[0]}}</p>
+          <strong >{{!user_profile?'Non':user_profile.LastName}}, </strong>
+          <p class="inline-flex font-light">{{!user_profile?'VXI':user_profile.FirstName}} {{!user_profile?'':user_profile.MiddleName[0]}}</p>
         </div>
       </ion-toolbar>
+      <!-- <div class="w-[92%] m-auto mt-2 text-2xl font-bold">FEED</div> -->
     </ion-header>
 
     <ion-content [fullscreen]="true">
-      <app-news *ngIf="theme == ''"></app-news>
-      <app-profile *ngIf="theme == 'profile'" [user_profile]="user_profile"></app-profile>
+      <div class="h-full {{sub_theme == 'messages'?'':'overflow-x-scroll m-auto scrollbar-thin scrollbar-thumb-[#ff6c104b] scrollbar-track-[#efefef00] scrollbar-thumb-rounded-full'}}">
+        <app-news *ngIf="theme == ''"></app-news>
+        <app-profile *ngIf="theme == 'profile'" [user_profile]="user_profile" (sub_theme)="addSubTheme($event)"></app-profile>
+      </div>
     </ion-content>
 
 
@@ -53,7 +55,7 @@
         <p>News</p>
         <ion-icon class="text-[#ff6d10]" name="newspaper" slot='end'></ion-icon>
       </ion-item> -->
-      <ion-item (click)="changeTheme('profile')" button>
+      <ion-item (click)="changeTheme('profile')" button [hidden]="sub_theme == 'messages'">
         <p>Profile</p>
         <ion-icon class="text-[#ff6d10]" name="person-circle" slot='end'></ion-icon>
       </ion-item>

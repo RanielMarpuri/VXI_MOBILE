@@ -13,6 +13,7 @@ export class SchedulerPage implements OnInit {
   style: any
   reset: any = false
   show_calendar: boolean = false;
+  multiple: boolean = true;
   toggle: number
   constructor() { }
   public sample_dates = [
@@ -514,6 +515,25 @@ export class SchedulerPage implements OnInit {
 
   tryCatch(e: any) {
     console.log(e)
+    // this.multiple = true
+    // this.caught_dates = []
+    let x = e.target.value.length
+    let y
+    if(!this.multiple){
+      y = e.target.value
+    }else{
+     y = e.target.value[x - 1]
+    }
+    this.caught_dates = y
+    this.highlighted_dates = []
+    this.highlighted_dates_details = []
+    this.toggleShow(2)
+
+    setTimeout(() => {
+      this.multiple = false
+    }, 10)
+
+    console.log(x , y)
   }
 
   higlightDates(date: any) {
@@ -554,6 +574,7 @@ export class SchedulerPage implements OnInit {
 
 
   catchDates(e: any) {
+    this.multiple = true
     console.log(e.target.value)
     this.caught_dates = []
     this.highlighted_dates = []

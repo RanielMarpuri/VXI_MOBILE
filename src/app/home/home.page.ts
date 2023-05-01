@@ -10,9 +10,11 @@ import { Preferences } from '@capacitor/preferences';
 export class HomePage {
   theme: any
   user_profile: any
+  sub_theme: any;
   constructor(private menu: MenuController, private alertController: AlertController) { }
   
   async ngOnInit() {
+ 
     await Preferences.remove({ key: 'clean_style' })
     let Init: any = await Preferences.get({ key: 'user_profile' })
     this.user_profile = JSON.parse(Init.value)
@@ -28,6 +30,7 @@ export class HomePage {
   changeTheme(layout: any) {
     this.theme = layout
     this.menuClose()
+    this.addSubTheme('')
   }
   async alertCreate(h: any, sh: any, m: any, b: any) {
     let alert = await this.alertController.create({
@@ -45,6 +48,10 @@ export class HomePage {
   async logOut() {
     await Preferences.remove({ key: 'user_profile' })
     window.location.href = "/login"
+  }
+
+  addSubTheme(sub_theme: any){
+    this.sub_theme = sub_theme
   }
 
 }

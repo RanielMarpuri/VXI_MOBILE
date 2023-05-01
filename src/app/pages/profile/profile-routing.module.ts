@@ -18,6 +18,10 @@ const routes: Routes = [
   {
     path: 'payroll',
     loadChildren: () => import('./modules/payroll/payroll.module').then( m => m.PayrollPageModule)
+  },
+  {
+    path: 'messages',
+    loadChildren: () => import('./modules/messages/messages.module').then( m => m.MessagesPageModule)
   }
 
 ];

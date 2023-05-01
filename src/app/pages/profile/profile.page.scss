@@ -20,3 +20,8 @@ ion-card{
       transform: rotate(-15deg);
     }
   }
+
+  .tiktalk {
+    text-shadow: -2px -2px 0 #2943d1, 2px 2px 0 #f00;
+    text-shadow: 2px 2px 0 #2943d1, -2px -2px 0 #f00;
+  }

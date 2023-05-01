@@ -66,6 +66,7 @@ export class OtpPage implements OnInit {
   }
   enterDigit(i: any, e: any) {
     setTimeout(() => {
+      // this.deleteDigit(i)
       let y: any
       if (i == 5) { y = 0 }
       else { y = i + 1 }
@@ -85,6 +86,16 @@ export class OtpPage implements OnInit {
       console.log(val)
       this.input_otp = val
       this.validateOTP(val, i)
+
+    }, 10)
+  }
+
+  deleteDigit(curr: any){
+    setTimeout(() => {
+      let x =  curr - 1
+      let y = document.getElementById(this.digits[x].name) 
+      
+      y.focus();
     }, 10)
   }
 
