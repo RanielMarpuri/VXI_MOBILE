@@ -1,11 +1,11 @@
-<div class="w-[92%] m-auto sticky top-0  z-50 bg-[#404e51] pb-5 rounded-b-[2rem]" *ngIf="profileModule == 'messages' && sub_profile != 'reading'">
+<div class="w-[92%] m-auto sticky top-0 z-50 bg-[#404e51] pb-5 rounded-b-[2rem]" *ngIf="profileModule == 'messages' && sub_profile != 'reading'">
   <p
     class="bg-clip-text text-transparent text-4xl font-extrabold bg-gradient-to-r from-pink-400 to-violet-600 antialiased -tracking-wider">
     Tik-Talk
   </p>
   <div class="font-extralight text-white text-sm">Chat with us, we would love to hear from you.</div>
 </div>
-<div class="h-max {{profileModule == 'messages'?'bg-[#404e51]':''}}">
+<div class="h-full {{profileModule == 'messages'?'bg-[#404e51]':''}} mt-2">
 
   <div class="w-[92%] m-auto flex sticky top-0  z-50 bg-white pb-5 rounded-b-[2rem]"
     [hidden]="profileModule == 'messages'">
@@ -41,14 +41,8 @@
     </div>
   </div>
 
-  <div class="{{profileModule == 'messages'?'w-full -mt-44':'w-[92%]'}} m-auto overflow-auto h-fit">
-    <app-employee-info *ngIf="profileModule == 'emp_info'" [user_profile]="user_profile"></app-employee-info>
-    <app-scheduler *ngIf="profileModule == 'scheduler'"></app-scheduler>
-    <app-payroll *ngIf="profileModule == 'payroll'"></app-payroll>
-    <app-messages *ngIf="profileModule == 'messages'" (sub_profile)="addSubProfile($event)"></app-messages>
-  </div>
-
-  <div *ngIf="profileModule == ''">
+  
+  <div [hidden]="profileModule != ''">
     <div class="w-[92%] m-auto" *ngIf="list">
       <ion-item button (click)="changeModule(module.module)" detail="true"
         class="item-background-color first:rounded-t-[2rem] last:rounded-b-[2rem]"
@@ -69,7 +63,12 @@
       </div>
     </div>
   </div>
-
+  <div class="{{profileModule == 'messages'?'w-full -mt-44':'w-[92%]'}} m-auto overflow-hidden h-max">
+    <app-employee-info *ngIf="profileModule == 'emp_info'" [user_profile]="user_profile"></app-employee-info>
+    <app-scheduler *ngIf="profileModule == 'scheduler'"></app-scheduler>
+    <app-payroll *ngIf="profileModule == 'payroll'"></app-payroll>
+    <app-messages *ngIf="profileModule == 'messages'" (sub_profile)="addSubProfile($event)"></app-messages>
+  </div>
   <!-- <ion-content *ngIf="profileModule != ''"> -->
 
   <!-- </ion-content> -->

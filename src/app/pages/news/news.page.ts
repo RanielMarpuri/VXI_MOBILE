@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Preferences } from '@capacitor/preferences';
 import { AlertController, Platform } from '@ionic/angular';
 
 @Component({
@@ -27,9 +28,17 @@ export class NewsPage implements OnInit {
     await alert.present();
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.all = true
-    this.fetchNews()
+    let data = await Preferences.get({ key: 'slider_data' })
+    console.log(data.value)
+    if (data.value) {
+      this.slider_data = JSON.parse(data.value)
+    }
+    else {
+      this.fetchNews()
+    }
+    // this.fetchNews()
   }
 
   isModalOpen = false;
@@ -82,9 +91,13 @@ export class NewsPage implements OnInit {
   fetchNews() {
     let url = 'https://vxione.com/ems_api/API/ManageNews/Index'
     this.http.get(url).subscribe({
-      next: (data: any) => {
+      next: async (data: any) => {
         this.slider_data = data;
         this.loader = true
+        await Preferences.set({
+          key: 'slider_data',
+          value: JSON.stringify(data),
+        });
         console.log(data, "slider data");
       },
       error: err => {

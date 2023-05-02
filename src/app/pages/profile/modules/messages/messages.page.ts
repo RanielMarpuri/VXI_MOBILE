@@ -59,15 +59,6 @@ export class MessagesPage implements OnInit {
           MessageID: '3',
           CreatedAt: '04/17/2023',
         },
-        {
-          ID: '5',
-          isRead: 0,
-          from: '4225726',
-          to: 'HR',
-          Body: 'Thank you.',
-          MessageID: '3',
-          CreatedAt: '04/17/2023',
-        },
       ]
     },
     {
