@@ -51,7 +51,7 @@
 
     <div *ngIf="reading">
       <p *ngFor="let msg of open_message.messages"
-        class="text-base whitespace-pre-line w-[70%] {{user_profile.ID == msg.from?'ml-auto bg-[#cae5ff]':'mr-auto bg-[#ffe8d9]'}} p-4 my-4 rounded-lg">
+        class="text-base whitespace-pre-line w-[70%] {{msg.from == ''?'ml-auto bg-[#cae5ff]':'mr-auto bg-[#ffe8d9]'}} p-4 my-4 rounded-lg">
         {{msg.Body}}</p>
     </div>
     
