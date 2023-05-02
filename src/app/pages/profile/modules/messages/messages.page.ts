@@ -10,7 +10,10 @@ export class MessagesPage implements OnInit {
   @Output() sub_profile = new EventEmitter<string>();
   filter: any;
   reading: any
-  open_message: any
+  creating: any
+  subject_line: any
+  body_line: any
+  open_message: any = []
   user_profile: any
   sample_msg: any = [
     {
@@ -104,10 +107,12 @@ export class MessagesPage implements OnInit {
       ]
     }
   ]
+  reply_msg: any
   constructor() { }
 
   async ngOnInit() {
-    this.filter = 'all'
+    this.creating = false
+    this.filter = 'open'
     this.reading = false
     let Init: any = await Preferences.get({ key: 'user_profile' })
     this.user_profile = JSON.parse(Init.value)
@@ -126,8 +131,53 @@ export class MessagesPage implements OnInit {
     });
   }
 
-  back(){
+  reply() {
+    let msg =
+    {
+      ID: '1',
+      isRead: 1,
+      from: '4225726',
+      to: 'HR',
+      Body: this.reply_msg,
+      MessageID: '2',
+      CreatedAt: '04/14/2023'
+    }
+    console.log( this.open_message)
+    this.open_message.messages.push(msg)
+    this.reply_msg = ''
+  }
+
+  create(){
+    this.creating = true
+  }
+
+  submit(){
+    let msg = {
+      ID: '10',
+      Subject: this.subject_line,
+      CreatedBy: '4225726',
+      CreatedAt: '04/15/2023',
+      Status: 'open',
+      messages: []
+    }
+
+    msg.messages.push({
+      ID: '15',
+      isRead: 1,
+      from: '4225726',
+      to: 'HR',
+      Body: this.body_line,
+      MessageID: '10',
+      CreatedAt: '05/02/2023'
+    });
+    this.sample_msg.unshift(msg)
+    this.creating = false
+  }
+
+  back() {
     this.reading = false
+    this.creating = false
     this.sub_profile.emit('');
   }
+
 }
