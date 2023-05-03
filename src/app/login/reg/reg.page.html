@@ -10,7 +10,7 @@
       <!-- <input type="number" id="email" name="email" class="col-span-6 focus:outline-none focus:ring-0 focus:border-b-[3px] focus:border-blue-400 border-0 border-b-[2px] border-blue-400 font-extrabold text-3xl p-2"> -->
       <!-- <span class="col-span-6 text-sm font-extralight mb-2">Didn't get code? <button
           class="p-1 rounded-md hover:bg-gray-200 text-blue-500" (click)="resendOTP()">Click here to resend.</button></span> -->
-      <ion-button class="col-span-6" color="primary" (click)="sendOTP()">Submit</ion-button>
+      <ion-button class="col-span-6" color="primary" (click)="sendOTP()" [disabled]="email == null || contact == null">Submit</ion-button>
         <ion-button class="col-span-6" color="light" href="/login">Go back to login.</ion-button>
     </div>
   </div>

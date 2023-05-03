@@ -10,13 +10,13 @@
               <p class="text-sm font-semibold h-max text-right col-span-2 -mt-1">{{slider_data[indexer].day}}</p>
             </div>
             <ion-card-title class="ml-5 h-max text-end text-[.8rem] font-extralight text-gray-500 col-start-6 row-start-1  truncate col-span-7">Your income</ion-card-title>
-            <ion-card-title class="ml-5 text-end text-[1.5rem] text-gray-500 font-light truncate col-start-6 col-span-7 h-max -mt-3">{{slider_data[indexer].pay}}</ion-card-title>
+            <ion-card-title class="ml-5 text-end text-[1.5rem] text-gray-500 font-light truncate col-start-6 col-span-7 h-max ">{{slider_data[indexer].pay}}</ion-card-title>
           </ion-card-header>
           <button class="absolute top-0 bottom-0 h-full text-black/0  hover:text-black/100 hover:bg-gray-300/25 w-8" (click)="goLeft()"><ion-icon class="text-2xl" name="chevron-back"></ion-icon></button>
           <button class="absolute top-0 bottom-0 right-0 h-full text-black/0  hover:text-black/100 hover:bg-gray-300/25 w-8" (click)="goRight()"><ion-icon class="text-2xl rotate-180" name="chevron-back"></ion-icon></button>
         </ion-card>
 
-        <div color="medium" class="h-96 w-full ml-auto mr-auto rounded-[2rem] align-middle border mt-5 pt-5 px-2">
+        <div color="medium" class="h-max w-full ml-auto mr-auto rounded-[2rem] align-middle border mt-5 pt-5 px-2">
           <div class="grid grid-cols-2">
             <p>Total:</p>
             <p class="text-right">{{slider_data[indexer].pay}}</p>

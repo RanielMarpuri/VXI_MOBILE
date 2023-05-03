@@ -39,7 +39,7 @@
           <p class="text-xl col-span-3 text-ellipsis truncate">{{msg.Subject}}</p>
           <p
             class="text-xs col-span-3 col-start-2 text-ellipsis truncate {{!msg.messages[msg.messages.length - 1].isRead?'font-extrabold':''}}">
-            {{msg.messages[msg.messages.length - 1].from == user_profile.ID?'You':msg.messages[msg.messages.length -
+            {{msg.messages[msg.messages.length - 1].from == ''?'You':msg.messages[msg.messages.length -
             1].from}}: {{msg.messages[msg.messages.length - 1].Body}}</p>
           <small *ngIf="!msg.messages[msg.messages.length - 1].isRead" class="absolute right-2 bottom-0">
             <ion-icon color="danger" name="alert"></ion-icon>
@@ -51,7 +51,7 @@
 
     <div *ngIf="reading">
       <p *ngFor="let msg of open_message.messages"
-        class="text-base whitespace-pre-line w-[70%] {{msg.from == ''?'ml-auto bg-[#cae5ff]':'mr-auto bg-[#ffe8d9]'}} p-4 my-4 rounded-lg">
+        class="text-base whitespace-pre-line w-[70%] max-w-[90%] {{msg.from == ''?'ml-auto bg-[#cae5ff]':'mr-auto bg-[#ffe8d9]'}} p-4 my-4 rounded-lg">
         {{msg.Body}}</p>
     </div>
     
