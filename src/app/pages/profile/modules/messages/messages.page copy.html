@@ -1,0 +1,74 @@
+<div class="grid grid-cols-3 mt-44 mb-2 w-[92%] m-auto {{reading || creating?'hidden':'visible'}}">
+
+  <p class="text-center {{filter == 'open'?'text-white':'text-gray-400'}}" (click)="changeFilter('open')">
+    <ion-icon *ngIf="filter == 'open'" name="ellipse" class="mb-[.15rem] text-[.5rem] mr-1"></ion-icon>
+    Open
+  </p>
+  <p class="text-center {{filter == 'resolved'?'text-white':'text-gray-400'}}" (click)="changeFilter('resolved')">
+    <ion-icon *ngIf="filter == 'resolved'" name="ellipse" class="mb-[.15rem] text-[.5rem] mr-1"></ion-icon>
+    Resolved
+  </p>
+  <p class="text-center {{filter == 'all'?'text-white':'text-gray-400'}}" (click)="changeFilter('all')">
+    <ion-icon *ngIf="filter == 'all'" name="ellipse" class="mb-[.15rem] text-[.5rem] mr-1"></ion-icon>
+    All
+  </p>
+  <!-- <p class="text-center text-gray-600 bg-gray-300 rounded-full w-max px-2 ml-2 font-bold">Create</p> -->
+</div>
+
+<div class="w-screen h-full  bg-transparent -mb-1 relative" *ngIf="user_profile">
+
+  <div class="w-auto px-4 py-[.8rem] rounded-full bg-gradient-to-r from-pink-400 to-violet-600 antialiased absolute right-10 bottom-10" [hidden]="reading || creating" (click)="create()">
+    <ion-icon name="create-outline" class="text-2xl font-bold text-white" style="font-size: 34px;"></ion-icon>
+  </div>
+
+  <div class=" text-2xl bg-white px-5 {{reading || creating?'h-[42.3rem] mt-44':'h-[40rem]'}} scrollbar-thin scrollbar-thumb-[#ff6c104b] scrollbar-track-[#efefef00] scrollbar-thumb-rounded-full rounded-t-[2rem]">
+
+    <p class="sticky top-0 bg-white z-50 font-bold pt-3">
+      <ion-icon name="arrow-back-outline" *ngIf="reading || creating" class="mr-3 font-extralight" (click)="back()"></ion-icon>
+      {{reading?open_message.Subject:(creating?'New Message':'Inbox')}}
+    </p>
+
+    <div class="h-screen" [hidden]="reading || creating">
+      <div (click)="read(msg, i)" *ngFor="let msg of sample_msg; let i = index">
+        <div  class="m-auto rounded-lg h-[5rem] mt-2 p-2 px-3 mb-2 grid grid-cols-5 hover:bg-gray-200 {{msg.Status == 'resolved'?'text-gray-400':''}} {{!msg.messages[msg.messages.length - 1].isRead?'font-bold bg-[#efefef50]':'font-light'}} relative" *ngIf="msg.Status === filter || filter == 'all'">
+          <p class="row-span-2 w-max my-auto">
+            <ion-icon
+              name="{{msg.Status == 'open'?(msg.messages[msg.messages.length - 1].isRead?'lock-open-outline':'lock-open'):'lock-closed-outline'}}"
+              class="text-3xl"></ion-icon>
+          </p>
+          <p class="text-xl col-span-3 text-ellipsis truncate">{{msg.Subject}}</p>
+          <p
+            class="text-xs col-span-3 col-start-2 text-ellipsis truncate {{!msg.messages[msg.messages.length - 1].isRead?'font-extrabold':''}}">
+            {{msg.messages[msg.messages.length - 1].from == ''?'You':msg.messages[msg.messages.length -
+            1].from}}: {{msg.messages[msg.messages.length - 1].Body}}</p>
+          <small *ngIf="!msg.messages[msg.messages.length - 1].isRead" class="absolute right-2 bottom-0">
+            <ion-icon color="danger" name="alert"></ion-icon>
+          </small>
+          <p class="text-xs text-right col-start-5 row-start-1">{{msg.messages[msg.messages.length - 1].CreatedAt | date: 'MMM dd'}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="reading">
+      <p *ngFor="let msg of open_message.messages"
+        class="text-base whitespace-pre-line w-[70%] max-w-[90%] {{msg.from == ''?'ml-auto bg-[#cae5ff]':'mr-auto bg-[#ffe8d9]'}} p-4 my-4 rounded-lg">
+        {{msg.Body}}</p>
+    </div>
+    
+    <div *ngIf="creating" class="grid grid-cols-1 gap-4 mt-5">
+      <input type="text" placeholder="Subject" class="w-full rounded-full" [(ngModel)]="subject_line">  
+      <textarea name="" id="" rows="10" class="rounded-[1rem]" placeholder="Body" [(ngModel)]="body_line"></textarea>
+      <button class="w-[50%] h-12 ml-auto rounded-lg bg-[#FF6d10] hover:bg-[#be5413] text-white text-lg" (click)="submit()">Submit Message</button>
+    </div>
+  </div>
+
+  <div class="w-full bg-[#efefef] mt-auto h-max grid grid-cols-12 p-1 sticky bottom-0" *ngIf="reading">
+    <textarea name="" id="" rows="1" class="rounded-full bg-[#efefef] col-span-10 w-full m-2"
+      [(ngModel)]="reply_msg" [disabled]="open_message.Status == 'resolved' "></textarea>
+    <div class="m-auto w-auto leading-5 px-2 py-[.3rem] rounded-full bg-[#FF6D10] col-span-2 ml-5" (click)="reply()">
+      <ion-icon name="paper-plane-outline" class="text-2xl font-bold text-white mt-1"
+        style="font-size: 28px;"></ion-icon>
+    </div>
+  </div>
+
+</div>

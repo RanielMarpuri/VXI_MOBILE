@@ -29,7 +29,7 @@
     </ion-header>
 
     <ion-content [fullscreen]="true">
-      <div class="h-full {{sub_theme == 'messages'?'':'overflow-x-scroll m-auto scrollbar-thin scrollbar-thumb-[#ff6c104b] scrollbar-track-[#efefef00] scrollbar-thumb-rounded-full'}}">
+      <div class="h-full {{sub_theme == 'messages'?'overflow-hidden':'overflow-x-scroll m-auto scrollbar-thin scrollbar-thumb-[#ff6c104b] scrollbar-track-[#efefef00] scrollbar-thumb-rounded-full'}}">
         <app-news *ngIf="theme == ''"></app-news>
         <app-profile *ngIf="theme == 'profile'" [user_profile]="user_profile" (sub_theme)="addSubTheme($event)"></app-profile>
       </div>

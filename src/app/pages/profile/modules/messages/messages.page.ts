@@ -96,7 +96,182 @@ export class MessagesPage implements OnInit {
           CreatedAt: '02/10/2023'
         }
       ]
+    },
+    {
+      ID: '1',
+      Subject: 'Interview - Feb 18, 2023',
+      CreatedBy: '',
+      CreatedAt: '02/10/2023',
+      Status: 'resolved',
+      messages: [
+        {
+          ID: '1',
+          isRead: 1,
+          from: 'HR',
+          to: '',
+          Body: 'Welcome to VXI ma\'am/sir,\nWe would like to invite to a scheduled face-to-face interview this February 18, 2023.\nThank you,',
+          MessageID: '1',
+          CreatedAt: '02/10/2023'
+        }
+      ]
+    },
+    {
+      ID: '1',
+      Subject: 'Interview - Feb 18, 2023',
+      CreatedBy: '',
+      CreatedAt: '02/10/2023',
+      Status: 'resolved',
+      messages: [
+        {
+          ID: '1',
+          isRead: 1,
+          from: 'HR',
+          to: '',
+          Body: 'Welcome to VXI ma\'am/sir,\nWe would like to invite to a scheduled face-to-face interview this February 18, 2023.\nThank you,',
+          MessageID: '1',
+          CreatedAt: '02/10/2023'
+        }
+      ]
+    },
+    {
+      ID: '1',
+      Subject: 'Interview - Feb 18, 2023',
+      CreatedBy: '',
+      CreatedAt: '02/10/2023',
+      Status: 'resolved',
+      messages: [
+        {
+          ID: '1',
+          isRead: 1,
+          from: 'HR',
+          to: '',
+          Body: 'Welcome to VXI ma\'am/sir,\nWe would like to invite to a scheduled face-to-face interview this February 18, 2023.\nThank you,',
+          MessageID: '1',
+          CreatedAt: '02/10/2023'
+        }
+      ]
+    },
+    {
+      ID: '1',
+      Subject: 'Interview - Feb 18, 2023',
+      CreatedBy: '',
+      CreatedAt: '02/10/2023',
+      Status: 'resolved',
+      messages: [
+        {
+          ID: '1',
+          isRead: 1,
+          from: 'HR',
+          to: '',
+          Body: 'Welcome to VXI ma\'am/sir,\nWe would like to invite to a scheduled face-to-face interview this February 18, 2023.\nThank you,',
+          MessageID: '1',
+          CreatedAt: '02/10/2023'
+        }
+      ]
+    },
+    {
+      ID: '1',
+      Subject: 'Interview - Feb 18, 2023',
+      CreatedBy: '',
+      CreatedAt: '02/10/2023',
+      Status: 'resolved',
+      messages: [
+        {
+          ID: '1',
+          isRead: 1,
+          from: 'HR',
+          to: '',
+          Body: 'Welcome to VXI ma\'am/sir,\nWe would like to invite to a scheduled face-to-face interview this February 18, 2023.\nThank you,',
+          MessageID: '1',
+          CreatedAt: '02/10/2023'
+        }
+      ]
+    },
+    {
+      ID: '1',
+      Subject: 'Interview - Feb 18, 2023',
+      CreatedBy: '',
+      CreatedAt: '02/10/2023',
+      Status: 'resolved',
+      messages: [
+        {
+          ID: '1',
+          isRead: 1,
+          from: 'HR',
+          to: '',
+          Body: 'Welcome to VXI ma\'am/sir,\nWe would like to invite to a scheduled face-to-face interview this February 18, 2023.\nThank you,',
+          MessageID: '1',
+          CreatedAt: '02/10/2023'
+        }
+      ]
+    },
+    {
+      ID: '1',
+      Subject: 'Interview - Feb 18, 2023',
+      CreatedBy: '',
+      CreatedAt: '02/10/2023',
+      Status: 'resolved',
+      messages: [
+        {
+          ID: '1',
+          isRead: 1,
+          from: 'HR',
+          to: '',
+          Body: 'Welcome to VXI ma\'am/sir,\nWe would like to invite to a scheduled face-to-face interview this February 18, 2023.\nThank you,',
+          MessageID: '1',
+          CreatedAt: '02/10/2023'
+        }
+      ]
+    },
+    {
+      ID: '1',
+      Subject: 'Interview - Feb 18, 2023',
+      CreatedBy: '',
+      CreatedAt: '02/10/2023',
+      Status: 'resolved',
+      messages: [
+        {
+          ID: '1',
+          isRead: 1,
+          from: 'HR',
+          to: '',
+          Body: 'Welcome to VXI ma\'am/sir,\nWe would like to invite to a scheduled face-to-face interview this February 18, 2023.\nThank you,',
+          MessageID: '1',
+          CreatedAt: '02/10/2023'
+        }
+      ]
+    },
+    {
+      ID: '1',
+      Subject: 'Interview - Feb 19, 2023',
+      CreatedBy: '',
+      CreatedAt: '02/10/2023',
+      Status: 'resolved',
+      messages: [
+        {
+          ID: '1',
+          isRead: 1,
+          from: 'HR',
+          to: '',
+          Body: 'Welcome to VXI ma\'am/sir,\nWe would like to invite to a scheduled face-to-face interview this February 18, 2023.\nThank you,',
+          MessageID: '1',
+          CreatedAt: '02/10/2023'
+        }
+      ]
+    },
+    {
+      Status: 'resolved',
+      messages: [{Body:'hide'}]
+    },
+    {
+      Status: 'open',
+      messages: [{Body:'hide'}]
+    },
+    {
+      Status: 'all',
+      messages: [{Body:'hide'}]
     }
+
   ]
   reply_msg: any
   constructor() { }
