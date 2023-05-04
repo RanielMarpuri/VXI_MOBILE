@@ -17,7 +17,7 @@
 
 
   <div
-    class="h-full rounded-t-[2rem] bg-white pt-2 overflow-x-scroll m-auto scrollbar-thin scrollbar-thumb-[#ff6c104b] scrollbar-track-[#efefef00] scrollbar-thumb-rounded-full scrollbar-h-12">
+    class="h-full rounded-t-[2rem] bg-white pt-2">
 
     <p class="sticky top-0 bg-white z-50 font-bold pt-3 text-2xl rounded-t-[2rem] mx-5">
       <ion-icon name="arrow-back-outline" *ngIf="reading || creating" class="mr-3 font-extralight"
@@ -25,7 +25,7 @@
       {{reading?open_message.Subject:(creating?'New Message':'Inbox')}}
     </p>
 
-    <div class="mx-4 h-full">
+    <div class="mx-4 {{reading?'h-[80%]':'h-[85%]'}} overflow-x-scroll m-auto scrollbar-thin scrollbar-thumb-[#ff6c104b] scrollbar-track-[#efefef00] scrollbar-thumb-rounded-full scrollbar-h-12">
       <div (click)="read(msg, i)" *ngFor="let msg of sample_msg; let i = index" [hidden]="reading || creating || msg.messages[msg.messages.length - 1].Body == 'hide'">
         <div
           class="m-auto rounded-lg h-[5rem] mt-2 p-2 px-3 mb-2 grid grid-cols-5 hover:bg-gray-200 {{msg.Status == 'resolved'?'text-gray-400':''}} {{!msg.messages[msg.messages.length - 1].isRead?'font-bold bg-[#efefef50]':'font-light'}} relative"
