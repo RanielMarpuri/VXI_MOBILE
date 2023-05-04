@@ -11,9 +11,9 @@
                 {{dates.dates[0].date | date: 'MM/dd/yyyy'}} - {{dates.dates[dates.dates.length - 1].date | date:
                 'MM/dd/yyyy'}}
             </div>
-
-            <div class="group-hover:block hidden">
-                <ion-datetime size="cover" presentation="date" class="rounded-[2rem] mt-5" style="--background: #fff" [multiple]="multiple" [value]="caught_dates" [highlightedDates]="highlighted_dates" *ngIf="show_calendar" readonly></ion-datetime>
+           
+            <div class="" *ngIf="show_calendar == dates.payout">
+                <ion-datetime size="cover" presentation="date" class="rounded-[2rem] mt-5" style="--background: #fff" [multiple]="multiple" [value]="caught_dates" [highlightedDates]="highlighted_dates"  readonly></ion-datetime>
             </div>
         </div>
     </div>

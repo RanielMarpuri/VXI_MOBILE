@@ -334,7 +334,7 @@ export class MessagesPage implements OnInit {
       to: 'HR',
       Body: this.body_line,
       MessageID: '10',
-      CreatedAt: '05/02/2023'
+      CreatedAt: new Date()
     });
     this.sample_msg.unshift(msg)
     this.creating = false

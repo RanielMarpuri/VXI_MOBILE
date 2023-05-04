@@ -12,7 +12,7 @@ export class SchedulerPage implements OnInit {
   clean: any;
   style: any
   reset: any = false
-  show_calendar: boolean = false;
+  show_calendar: any;
   multiple: boolean = true;
   toggle: number
   constructor() { }
@@ -499,7 +499,7 @@ export class SchedulerPage implements OnInit {
   myDate: any
   async ngOnInit() {
     this.myDate = '2022-04-21T00:00:00'
-    this.show_calendar = true
+    this.show_calendar = ''
     // this.style.getElementsByTagName('head')[0].getElementsByTagName('style')[10].remove()
     // this.setClean()
     // console.log("Init")
@@ -600,21 +600,14 @@ export class SchedulerPage implements OnInit {
 
       }
     })
-    this.toggleShow(2);
+    this.toggleShow(e.payout);
     this.myDate = new Date(this.caught_dates[0]).toISOString()
     let day = this.myDate.split(".")
     this.myDate = day[0]
   }
 
   toggleShow(toggle: any) {
-    let interval = setInterval(() => {
-      if (toggle > 0) {
-        this.show_calendar = !this.show_calendar
-        toggle = toggle - 1
-      } else {
-        clearInterval(interval)
-      }
-    }, 5)
+    this.show_calendar = toggle;
   }
 
   async setClean() {
