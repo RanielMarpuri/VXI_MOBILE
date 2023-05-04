@@ -575,12 +575,12 @@ export class SchedulerPage implements OnInit {
 
   catchDates(e: any) {
     this.multiple = true
-    console.log(e.target.value)
+    console.log(e.payout)
     this.caught_dates = []
     this.highlighted_dates = []
     this.highlighted_dates_details = []
     this.sample_dates.forEach((sample) => {
-      if (sample.payout === e.target.value) {
+      if (sample.payout === e.payout) {
 
 
         sample.dates.forEach((date) => {
@@ -614,7 +614,7 @@ export class SchedulerPage implements OnInit {
       } else {
         clearInterval(interval)
       }
-    }, 10)
+    }, 5)
   }
 
   async setClean() {

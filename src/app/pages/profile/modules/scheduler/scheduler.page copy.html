@@ -1,0 +1,57 @@
+<!-- <div color="medium" class="h-max w-full rounded-[2rem] ml-auto mr-auto align-middle border flex">
+    
+   
+    <div class="h-[8rem] w-[8rem] flex justify-center items-center mx-2">
+        <div class="relative h-[7rem] w-[7rem]">
+            <div class="h-[7rem] w-[7rem] bg-gray-100 rounded-full flex justify-center items-center">
+                <div class="h-[5.5rem] w-[5.5rem] bg-white rounded-full flex justify-center items-center">
+                    <div class="font-bold text-gray-500 text-sm">
+                        {{progress}}%
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
+            <defs>
+                <linearGradient id="GradientColor">
+                    <stop offset="0%" stop-color="#e91e63" />
+                    <stop offset="100%" stop-color="#673ab7" />
+                </linearGradient>
+            </defs>
+            <circle cx="80" cy="80" r="50" stroke-linecap="round" [style]="progress <= 25?'stroke: #eb445a':progress <= 50?'stroke: #ffc409':progress <= 75?'stroke: #598280':progress <= 100?'stroke: #2dd36f':'stroke: rgb(243, 244, 246)'"/>
+        </svg>
+    </div>
+    
+</div> -->
+<div class="w-full h-full">
+    <ion-select name="" id="" color="light" class="border rounded-lg" placeholder="Select payout date" [multiple]="false" interface="action-sheet" (ionChange)="catchDates($event)"> 
+        <ion-select-option value="{{payout.payout}}" *ngFor="let payout of sample_dates">{{payout.payout}}</ion-select-option>
+     </ion-select>
+</div>
+<ion-datetime size="cover" presentation="date" class="rounded-[2rem] mt-5" style="--background: #efefef" [multiple]="multiple" [value]="caught_dates" [highlightedDates]="highlighted_dates" *ngIf="show_calendar" (click)="tryCatch($event)"></ion-datetime>
+
+<div class="w-full rounded-[2rem] mt-5 border" *ngIf="highlighted_dates_details">
+    
+    <ion-item>
+        <div class="grid grid-cols-5">
+            <div class="col-span-1 text-center w-full">Status</div>
+            <div class="col-span-2 text-center w-full">Date</div>
+            <div class="col-span-1 text-center w-full">IN</div>
+            <div class="col-span-1 text-center w-full">OUT</div>
+        </div>
+    </ion-item>
+   
+    <ion-item *ngFor="let details of highlighted_dates_details">
+        <div class="grid grid-cols-5 gap-2" >
+            <div class="col-span-1 text-center w-full text-clip">{{details.status}}</div>
+            <div class="col-span-2 text-center w-full">{{details.date | date: 'MM/dd/yyyy'}}</div>
+            <div class="col-span-1 text-center w-full">{{details.login | date: 'hh:mm'}}</div>
+            <div class="col-span-1 text-center w-full">{{details.logout| date: 'hh:mm'}}</div>
+        </div>
+    </ion-item>
+   
+</div>
+<div>
+
+</div>
