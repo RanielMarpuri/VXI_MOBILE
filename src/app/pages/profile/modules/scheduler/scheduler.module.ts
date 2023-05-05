@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { SchedulerPageRoutingModule } from './scheduler-routing.module';
 
 import { SchedulerPage } from './scheduler.page';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    SchedulerPageRoutingModule
+    SchedulerPageRoutingModule,
+    NgApexchartsModule,
   ],
   exports: [SchedulerPage],
   declarations: [SchedulerPage]

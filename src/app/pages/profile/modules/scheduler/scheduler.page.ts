@@ -1,6 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { Preferences } from '@capacitor/preferences';
+import * as ApexCharts from 'apexcharts';
+import { ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexFill, ApexGrid, ApexLegend, ApexMarkers, ApexPlotOptions, ApexStroke, ApexTooltip, ApexXAxis, ApexYAxis, ChartComponent } from 'ng-apexcharts';
 import { clearTimeout } from 'timers';
+
+export type ChartOptions = {
+  chart: ApexChart
+  series: ApexAxisChartSeries | any[]
+  stroke: ApexStroke
+  markers: ApexMarkers
+  grid: ApexGrid
+  tooltip: ApexTooltip
+  colors: any[]
+  xaxis: ApexXAxis
+  yaxis: ApexYAxis
+  plotOptions: ApexPlotOptions
+  fill: ApexFill
+}
 
 @Component({
   selector: 'app-scheduler',
@@ -8,14 +24,22 @@ import { clearTimeout } from 'timers';
   styleUrls: ['./scheduler.page.scss'],
 })
 export class SchedulerPage implements OnInit {
+  public options1: Partial<ChartOptions>
+  public options2: Partial<ChartOptions>
+  public options3: Partial<ChartOptions>
+
+  coordinates1: any = [];
+  coordinates2: any = [];
+
   progress: any;
-  clean: any;
-  style: any
-  reset: any = false
   show_calendar: any;
   multiple: boolean = true;
-  toggle: number
-  constructor() { }
+
+  constructor() {
+    this.spackLine(1)
+    this.spackLine(2)
+    this.pieChart()
+  }
   public sample_dates = [
     {
       payout: '04/14/2023', dates: [
@@ -500,47 +524,20 @@ export class SchedulerPage implements OnInit {
   async ngOnInit() {
     this.myDate = '2022-04-21T00:00:00'
     this.show_calendar = ''
-    // this.style.getElementsByTagName('head')[0].getElementsByTagName('style')[10].remove()
-    // this.setClean()
-    // console.log("Init")
-    // let x = 0
-    // let y = setInterval(() => {
-    //   x = x + 25
-    //   this.initSpin(x)
-    //   if (x == 100) {
-    //     clearInterval(y);
-    //   }
-    // }, 2000)
-  }
-
-  tryCatch(e: any) {
-    console.log(e)
-    // this.multiple = true
-    // this.caught_dates = []
-    let x = e.target.value.length
-    let y
-    if (!this.multiple) {
-      y = e.target.value
-    } else {
-      y = e.target.value[x - 1]
-    }
-    this.caught_dates = y
-    this.highlighted_dates = []
-    this.highlighted_dates_details = []
-    this.toggleShow(2)
-
-    setTimeout(() => {
-      this.multiple = false
-    }, 10)
-
-    console.log(x, y)
   }
 
   higlightDates(date: any) {
     this.highlighted_dates_details.push(date)
-    let date_format = new Date(date.date)
-    date_format.setHours(8)
-    let final_date = date_format.toISOString()
+
+    let date_format1: any
+    let date_format2 = new Date(date.logout)
+    date_format1 = new Date(date.login)
+
+
+    // coord_date 
+
+    date_format1.setHours(8)
+    let final_date = date_format1.toISOString()
 
     let y = final_date.split('T')
 
@@ -550,12 +547,20 @@ export class SchedulerPage implements OnInit {
         textColor: '#09721b',
         backgroundColor: '#c8e5d0',
       })
+
+      date_format1.setHours(new Date(date.login).getHours())
+      this.getCoordinates(date_format1, 1)
+      this.getCoordinates(date_format2, 2)
     } else if (date.status === 'L') {
       this.highlighted_dates.push({
         date: y[0],
         textColor: '#94782f',
         backgroundColor: '#f5d176',
       })
+
+      date_format1.setHours(new Date(date.login).getHours())
+      this.getCoordinates(date_format1, 1)
+      this.getCoordinates(date_format2, 2)
     } else if (date.status === 'A') {
       this.highlighted_dates.push({
         date: y[0],
@@ -571,20 +576,17 @@ export class SchedulerPage implements OnInit {
     }
   }
 
-
-
   catchDates(e: any) {
     this.multiple = true
     console.log(e.payout)
     this.caught_dates = []
     this.highlighted_dates = []
     this.highlighted_dates_details = []
+    this.progress = 0
     this.sample_dates.forEach((sample) => {
       if (sample.payout === e.payout) {
 
-
         sample.dates.forEach((date) => {
-
           if (date.status == 'OFF') {
             let date_format = new Date(date.date)
             date_format.setHours(8)
@@ -595,11 +597,22 @@ export class SchedulerPage implements OnInit {
             this.higlightDates(date)
           }
         })
-        console.log("caught dates", this.caught_dates)
-        console.log(this.highlighted_dates_details)
+        this.coordinates1 = []
+        this.coordinates2 = []
+        // console.log("caught dates", this.caught_dates)
+       
 
       }
     })
+
+    // console.log(this.highlighted_dates_details)
+    this.highlighted_dates_details.forEach((date) => {
+      if(date.status == 'P'){
+        this.progress = this.progress + 1
+      }
+    });
+
+    this.options3.series = [(Number(this.progress) / 10) * 100];
     this.toggleShow(e.payout);
     this.myDate = new Date(this.caught_dates[0]).toISOString()
     let day = this.myDate.split(".")
@@ -614,68 +627,95 @@ export class SchedulerPage implements OnInit {
     }
   }
 
-  async setClean() {
-    this.style = document.documentElement;
-    let clean: any
-    let Init: any = await Preferences.get({ key: 'clean_style' })
-    if (Init.value != null) {
-      console.log("Init is not null")
-      clean = Init.value
-      await Preferences.set({
-        key: 'clean_style',
-        value: clean,
-      });
+  getCoordinates(date: any, i: any) {
+    let z = (new Date(date).toLocaleTimeString()).split(':')
+    let a: any
 
+    if (z[0] == '12') {
+      a = 0 + (Number(z[1]) * 60)
     } else {
-      if (!Init.value) {
-        clean = this.style.getElementsByTagName('head')[0].getElementsByTagName('style')[10]
-
-      }
-      // this.clean = clean.innerHTML
-      await Preferences.set({
-        key: 'clean_style',
-        value: clean.innerHTML,
-      });
+      a = (Number(z[0]) * 60 * 60) + (Number(z[1]) * 60)
     }
-    console.log(Init.value)
-
+    this['coordinates' + i].push({
+      x: new Date(date).toISOString(),
+      y: Number(a)
+    })
+    // console.log(this['coordinates' + i], " mmy coords " + i)
+    this.updateChart(i)
   }
 
-  async initSpin(val: any) {
+  spackLine(i: any) {
+    this['options' + i] = {
+      chart: {
+        type: 'line',
+        height: 80,
+        sparkline: {
+          enabled: true,
 
-
-    let progress = 410 - (3.1 * val)
-    let secs = 2 * (val / 100);
-
-    let orig = document.createElement('style')
-
-    let Init: any = await Preferences.get({ key: 'clean_style' })
-    let x = 'circle{ animation: spin ' + secs + 's linear forwards; } @keyframes spin { 100% { stroke-dashoffset: ' + progress + '; }';
-
-    orig.append(Init.value)
-    orig.append(x)
-
-    this.style.getElementsByTagName('head')[0].getElementsByTagName('style')[10].remove()
-
-    console.log("this is orig ", orig)
-
-    setTimeout(() => {
-      this.style.getElementsByTagName('head')[0].append(orig)
-      let start = 0
-      this.progress = 0
-
-      let count: any = setInterval(() => {
-        start = start + 0.02
-        this.progress = this.progress + 1
-
-        if (start >= secs) {
-          clearInterval(count);
         }
-
-      }, 20);
-
-    }, 100)
-
+      },
+      series: [
+        // {
+        //   data: [1003, 1030, 1140, 1215,1223, 1032, 1043, 1005, 1002, 1001],
+        // },
+      ],
+      xaxis: {
+        type: 'datetime',
+      },
+      yaxis: {
+        reversed: false
+      },
+      stroke: {
+        width: 1,
+        curve: 'smooth'
+      },
+      markers: {
+        size: 1
+      },
+      grid: {
+        padding: {
+          top: 3,
+          bottom: 20
+        }
+      },
+      colors: ['#FF6D10', '#fff', '#000'],
+      tooltip: {
+        enabled: false,
+      }
+    }
   }
 
+  pieChart() {
+    this.options3 = {
+      chart: {
+        height: 170,
+        type: "radialBar",
+      },
+
+      series: [],
+      colors: ["#20E647"],
+      plotOptions: {
+        radialBar: {
+          track: {
+            background: '#efefef',
+          },
+          dataLabels: {
+            total: {
+              show: true,
+              label: 'TOTAL'
+            }
+          }
+        }
+      },
+      stroke: {
+        lineCap: "round"
+      },
+    };
+  }
+
+  updateChart(i: any) {
+    this['options' + i].series = [{
+      data: this['coordinates' + i]
+    }];
+  }
 }

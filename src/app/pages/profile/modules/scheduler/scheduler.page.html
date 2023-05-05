@@ -7,13 +7,28 @@
                 {{dates.payout}}
             </div>
 
-            <div class="font-light text-sm">
+            <div class="font-light text-sm {{show_calendar == dates.payout?'mb-2':''}}">
                 {{dates.dates[0].date | date: 'MM/dd/yyyy'}} - {{dates.dates[dates.dates.length - 1].date | date:
                 'MM/dd/yyyy'}}
             </div>
+            
            
-            <div class="" *ngIf="show_calendar == dates.payout">
-                <ion-datetime size="cover" presentation="date" class="rounded-[2rem] mt-5" style="--background: #fff"  min="{{dates.dates[0].date | date: 'yyyy-MM-dd'}}" max="{{dates.dates[dates.dates.length - 1].date | date: 'yyyy-MM-dd'}}"  [highlightedDates]="highlighted_dates"></ion-datetime>
+            <div class="grid gap-2 grid-cols-5" *ngIf="show_calendar == dates.payout">
+                <div class="col-span-5">
+                    <ion-datetime size="cover" presentation="date" class="rounded-[2rem] mt-5" style="--background: #fff"  min="{{dates.dates[0].date | date: 'yyyy-MM-dd'}}" max="{{dates.dates[dates.dates.length - 1].date | date: 'yyyy-MM-dd'}}"  [highlightedDates]="highlighted_dates"></ion-datetime>
+                </div>
+                <div class="col-span-3 text-sm">IN and OUT Consistency</div>
+                <div class="col-span-2 text-sm">Attendance Score</div>
+                <div class="h-16 w-full rounded-lg bg-[#efefef] col-span-3">
+                    <apx-chart [chart]="options1.chart" [series]="options1.series" [stroke]="options1.stroke" [markers]="options1.markers" [grid]="options1.grid" [tooltip]="options1.tooltip" [colors]="options1.colors"></apx-chart>
+                </div>
+                <div class="col-span-2 row-span-2">
+                    <apx-chart [chart]="options3.chart" [series]="options3.series" [stroke]="options3.stroke" [markers]="options3.markers" [grid]="options3.grid" [tooltip]="options3.tooltip" [colors]="options3.colors" [fill]="options3.fill" [plotOptions]="options3.plotOptions"></apx-chart>
+                </div>
+                <div class="h-16 w-full rounded-lg bg-[#efefef] col-span-3">
+                    <apx-chart [chart]="options2.chart" [series]="options2.series" [stroke]="options2.stroke" [markers]="options2.markers" [grid]="options2.grid" [tooltip]="options2.tooltip" [colors]="options2.colors"></apx-chart>
+                </div>
+                
             </div>
         </div>
     </div>
