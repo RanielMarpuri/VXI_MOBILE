@@ -130,8 +130,8 @@ export class OtpPage implements OnInit {
         value: this.user_profile,
       });
       // this.saveEmail()
-      window.location.href = 'login/loader';
-      // window.location.href = '/home'
+      // window.location.href = 'login/loader';
+      window.location.href = '/home'
     }
   }
 

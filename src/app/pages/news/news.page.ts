@@ -30,15 +30,15 @@ export class NewsPage implements OnInit {
 
   async ngOnInit() {
     this.all = true
-    let data = await Preferences.get({ key: 'slider_data' })
-    console.log(data.value)
-    if (data.value) {
-      this.slider_data = JSON.parse(data.value)
-    }
-    else {
-      this.fetchNews()
-    }
-    // this.fetchNews()
+    // let data = await Preferences.get({ key: 'slider_data' })
+    // console.log(data.value)
+    // if (data.value) {
+    //   this.slider_data = JSON.parse(data.value)
+    // }
+    // else {
+    //   this.fetchNews()
+    // }
+    this.fetchNews()
   }
 
   isModalOpen = false;

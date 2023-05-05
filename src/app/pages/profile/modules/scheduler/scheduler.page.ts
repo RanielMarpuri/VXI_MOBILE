@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Preferences } from '@capacitor/preferences';
-import * as ApexCharts from 'apexcharts';
+
 import { ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexFill, ApexGrid, ApexLegend, ApexMarkers, ApexPlotOptions, ApexStroke, ApexTooltip, ApexXAxis, ApexYAxis, ChartComponent } from 'ng-apexcharts';
-import { clearTimeout } from 'timers';
+
 
 export type ChartOptions = {
   chart: ApexChart
@@ -31,7 +31,7 @@ export class SchedulerPage implements OnInit {
   coordinates1: any = [];
   coordinates2: any = [];
 
-  progress: any;
+  progress: any = [];
   show_calendar: any;
   multiple: boolean = true;
 
@@ -71,7 +71,7 @@ export class SchedulerPage implements OnInit {
           "lastName": "MARPURI",
           "date": "3/21/2023 12:00:00 AM",
           "day": "Tuesday",
-          "status": "P",
+          "status": "L",
           "login": "3/21/2023 1:00:00 AM",
           "logout": "3/21/2023 10:00:00 AM",
           "shiftLength": "9"
@@ -82,7 +82,7 @@ export class SchedulerPage implements OnInit {
           "lastName": "MARPURI",
           "date": "3/22/2023 12:00:00 AM",
           "day": "Wednesday",
-          "status": "P",
+          "status": "L",
           "login": "3/22/2023 12:28:37 AM",
           "logout": "3/22/2023 10:29:17 AM",
           "shiftLength": "10"
@@ -93,7 +93,7 @@ export class SchedulerPage implements OnInit {
           "lastName": "MARPURI",
           "date": "3/23/2023 12:00:00 AM",
           "day": "Thursday",
-          "status": "P",
+          "status": "L",
           "login": "3/23/2023 12:27:38 AM",
           "logout": "3/23/2023 10:05:39 AM",
           "shiftLength": "10"
@@ -104,7 +104,7 @@ export class SchedulerPage implements OnInit {
           "lastName": "MARPURI",
           "date": "3/24/2023 12:00:00 AM",
           "day": "Friday",
-          "status": "L",
+          "status": "P",
           "login": "3/24/2023 12:37:10 AM",
           "logout": "3/24/2023 10:03:32 AM",
           "shiftLength": "10"
@@ -148,7 +148,7 @@ export class SchedulerPage implements OnInit {
           "lastName": "MARPURI",
           "date": "3/28/2023 12:00:00 AM",
           "day": "Tuesday",
-          "status": "A",
+          "status": "P",
           "login": "3/28/2023 12:25:51 AM",
           "logout": "3/28/2023 10:06:23 AM",
           "shiftLength": "10"
@@ -159,7 +159,7 @@ export class SchedulerPage implements OnInit {
           "lastName": "MARPURI",
           "date": "3/29/2023 12:00:00 AM",
           "day": "Wednesday",
-          "status": "P",
+          "status": "A",
           "login": "3/29/2023 12:45:45 AM",
           "logout": "3/29/2023 10:02:29 AM",
           "shiftLength": "10"
@@ -170,7 +170,7 @@ export class SchedulerPage implements OnInit {
           "lastName": "MARPURI",
           "date": "3/30/2023 12:00:00 AM",
           "day": "Thursday",
-          "status": "P",
+          "status": "L",
           "login": "3/30/2023 12:36:52 AM",
           "logout": "3/30/2023 10:28:38 AM",
           "shiftLength": "10"
@@ -181,7 +181,7 @@ export class SchedulerPage implements OnInit {
           "lastName": "MARPURI",
           "date": "3/31/2023 12:00:00 AM",
           "day": "Friday",
-          "status": "P",
+          "status": "L",
           "login": "3/31/2023 12:27:05 AM",
           "logout": "3/31/2023 10:06:46 AM",
           "shiftLength": "10"
@@ -192,7 +192,7 @@ export class SchedulerPage implements OnInit {
           "lastName": "MARPURI",
           "date": "4/1/2023 12:00:00 AM",
           "day": "Saturday",
-          "status": "P",
+          "status": "L",
           "login": "4/1/2023 12:31:46 AM",
           "logout": "4/1/2023 10:19:02 AM",
           "shiftLength": "10"
@@ -522,8 +522,8 @@ export class SchedulerPage implements OnInit {
 
   myDate: any
   async ngOnInit() {
-    this.myDate = '2022-04-21T00:00:00'
     this.show_calendar = ''
+    this.calcProgress(this.sample_dates)
   }
 
   higlightDates(date: any) {
@@ -532,9 +532,6 @@ export class SchedulerPage implements OnInit {
     let date_format1: any
     let date_format2 = new Date(date.logout)
     date_format1 = new Date(date.login)
-
-
-    // coord_date 
 
     date_format1.setHours(8)
     let final_date = date_format1.toISOString()
@@ -576,13 +573,24 @@ export class SchedulerPage implements OnInit {
     }
   }
 
-  catchDates(e: any) {
+  calcProgress(dates: any){
+  
+     dates.forEach(async (date, index) => {
+      let progress: any = 0
+      await date.dates.forEach((d)=> {
+        if(d.status == 'P'){
+          progress = progress + 1
+        }
+      }) 
+     this.progress.push(progress)
+    })
+  }
+  catchDates(e: any, i: any) {
     this.multiple = true
     console.log(e.payout)
     this.caught_dates = []
     this.highlighted_dates = []
     this.highlighted_dates_details = []
-    this.progress = 0
     this.sample_dates.forEach((sample) => {
       if (sample.payout === e.payout) {
 
@@ -604,15 +612,7 @@ export class SchedulerPage implements OnInit {
 
       }
     })
-
-    // console.log(this.highlighted_dates_details)
-    this.highlighted_dates_details.forEach((date) => {
-      if(date.status == 'P'){
-        this.progress = this.progress + 1
-      }
-    });
-
-    this.options3.series = [(Number(this.progress) / 10) * 100];
+    this.options3.series = [(Number(this.progress[i]) / 10) * 100];
     this.toggleShow(e.payout);
     this.myDate = new Date(this.caught_dates[0]).toISOString()
     let day = this.myDate.split(".")
