@@ -8,8 +8,7 @@
             </div>
 
             <div class="font-light text-sm {{show_calendar == dates.payout?'mb-2':''}} relative">
-                {{dates.dates[0].date | date: 'MM/dd/yyyy'}} - {{dates.dates[dates.dates.length - 1].date | date:
-                'MM/dd/yyyy'}} {{progress[i]}}
+                {{dates.dates[0].date | date: 'MM/dd/yyyy'}} - {{dates.dates[dates.dates.length - 1].date | date: 'MM/dd/yyyy'}}
                 <div class="absolute right-5 bottom-2 {{progress[i] >= 3?(progress[i] >= 6?(progress[i] == 10?'text-[#C9B037]':'text-[#B4B4B4]'):'text-[#6A3805]'):''}}">
                     <ion-icon name="star" style="font-size: 20px;" *ngIf="progress[i] >= 3" class="{{progress[i] == 10? '-mr-1':(progress[i] >= 6?'':'mr-[1.25rem]')}}"></ion-icon>
                     <ion-icon name="star" style="font-size: 30px;" *ngIf="progress[i] == 10"></ion-icon>
