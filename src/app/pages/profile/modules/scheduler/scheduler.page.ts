@@ -519,10 +519,10 @@ export class SchedulerPage implements OnInit {
     // this.caught_dates = []
     let x = e.target.value.length
     let y
-    if(!this.multiple){
+    if (!this.multiple) {
       y = e.target.value
-    }else{
-     y = e.target.value[x - 1]
+    } else {
+      y = e.target.value[x - 1]
     }
     this.caught_dates = y
     this.highlighted_dates = []
@@ -533,7 +533,7 @@ export class SchedulerPage implements OnInit {
       this.multiple = false
     }, 10)
 
-    console.log(x , y)
+    console.log(x, y)
   }
 
   higlightDates(date: any) {
@@ -543,7 +543,7 @@ export class SchedulerPage implements OnInit {
     let final_date = date_format.toISOString()
 
     let y = final_date.split('T')
-    
+
     if (date.status === 'P') {
       this.highlighted_dates.push({
         date: y[0],
@@ -584,7 +584,7 @@ export class SchedulerPage implements OnInit {
 
 
         sample.dates.forEach((date) => {
-          
+
           if (date.status == 'OFF') {
             let date_format = new Date(date.date)
             date_format.setHours(8)
@@ -607,7 +607,11 @@ export class SchedulerPage implements OnInit {
   }
 
   toggleShow(toggle: any) {
-    this.show_calendar = toggle;
+    if (toggle == this.show_calendar) {
+      // this.show_calendar = ''
+    } else {
+      this.show_calendar = toggle;
+    }
   }
 
   async setClean() {

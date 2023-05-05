@@ -13,7 +13,7 @@
             </div>
            
             <div class="" *ngIf="show_calendar == dates.payout">
-                <ion-datetime size="cover" presentation="date" class="rounded-[2rem] mt-5" style="--background: #fff" [multiple]="multiple" [value]="caught_dates" [highlightedDates]="highlighted_dates"  readonly></ion-datetime>
+                <ion-datetime size="cover" presentation="date" class="rounded-[2rem] mt-5" style="--background: #fff"  min="{{dates.dates[0].date | date: 'yyyy-MM-dd'}}" max="{{dates.dates[dates.dates.length - 1].date | date: 'yyyy-MM-dd'}}"  [highlightedDates]="highlighted_dates"></ion-datetime>
             </div>
         </div>
     </div>
