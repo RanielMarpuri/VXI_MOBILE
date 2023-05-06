@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Preferences } from '@capacitor/preferences';
 
 import { ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexFill, ApexGrid, ApexLegend, ApexMarkers, ApexPlotOptions, ApexStroke, ApexTooltip, ApexXAxis, ApexYAxis, ChartComponent } from 'ng-apexcharts';
@@ -24,6 +24,7 @@ export type ChartOptions = {
   styleUrls: ['./scheduler.page.scss'],
 })
 export class SchedulerPage implements OnInit {
+  @ViewChild("myElem") MyProp: ElementRef;
   public options1: Partial<ChartOptions>
   public options2: Partial<ChartOptions>
   public options3: Partial<ChartOptions>
@@ -586,6 +587,7 @@ export class SchedulerPage implements OnInit {
     })
   }
   catchDates(e: any, i: any) {
+    this.MyProp.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
     this.multiple = true
     console.log(e.payout)
     this.caught_dates = []
@@ -718,4 +720,10 @@ export class SchedulerPage implements OnInit {
       data: this['coordinates' + i]
     }];
   }
+
+ 
+
+  // ngOnInit() {
+  //   this.MyProp.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
+  // }
 }

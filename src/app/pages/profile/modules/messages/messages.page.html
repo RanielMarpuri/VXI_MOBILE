@@ -21,7 +21,7 @@
     <p class="sticky top-0 bg-white z-50 font-bold pt-3 text-2xl rounded-t-[2rem] mx-5">
       <ion-icon name="arrow-back-outline" *ngIf="reading || creating" class="mr-3 font-extralight"
         (click)="back()"></ion-icon>
-      {{reading?open_message.Subject:(creating?'New Message':'Inbox')}}
+      {{reading?open_message.Subject:(creating?(subject_line?.length == 0 || subject_line ==null?'New Message':subject_line):'Inbox')}}
     </p>
 
     <div #scrollMe

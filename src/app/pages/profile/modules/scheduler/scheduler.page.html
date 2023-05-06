@@ -1,6 +1,6 @@
 <div class="h-max">
 
-    <div *ngFor="let dates of sample_dates,let i = index" class="border-l-4 hover:border-[#404e51] group py-2" (click)="catchDates(dates, i)">
+    <div *ngFor="let dates of sample_dates,let i = index" class="border-l-4 hover:border-[#404e51] group py-2" (click)="catchDates(dates, i)" #myElem>
         <div
             class="text-xl rounded-r-xl relative group-hover:bg-white grid grid-cols-1 py-4 px-2 overflow-visible">
             <div class="font-bold text-lg text-[#FF6d10]">
