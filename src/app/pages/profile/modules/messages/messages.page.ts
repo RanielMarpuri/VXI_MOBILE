@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, AfterViewChecked, ElementRef, ViewChild } from '@angular/core';
 import { Preferences } from '@capacitor/preferences';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-messages',
@@ -20,7 +21,13 @@ export class MessagesPage implements OnInit, AfterViewChecked {
   reply_msg: any
   today = new Date();
   changing: boolean = false;
-  constructor() { }
+
+  constructor( private platform: Platform ) {
+    this.platform.backButton.subscribeWithPriority(10, () => {
+      this.back()
+    });
+  }
+
   ngAfterViewChecked() {
     if (!this.changing) {
       this.scrollToBottom();
