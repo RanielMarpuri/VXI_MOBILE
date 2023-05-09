@@ -19,13 +19,13 @@
   <div class="h-full rounded-t-[2rem] bg-white pt-2">
 
     <p class="sticky top-0 bg-white z-50 font-bold pt-3 text-2xl rounded-t-[2rem] mx-5">
-      <ion-icon name="arrow-back-outline" *ngIf="reading || creating" class="mr-3 font-extralight"
+      <ion-icon name="chevron-back-outline" *ngIf="reading || creating" class="mr-3 font-extralight"
         (click)="back()"></ion-icon>
       {{reading?open_message.Subject:(creating?(subject_line?.length == 0 || subject_line ==null?'New Message':subject_line):'Inbox')}}
     </p>
 
     <div #scrollMe
-      class="mx-4 {{reading?'h-[80%]':'h-[85%]'}} overflow-x-scroll m-auto scrollbar-thin scrollbar-thumb-[#ff6c104b] scrollbar-track-[#efefef00] scrollbar-thumb-rounded-full scrollbar-h-12 ">
+      class="mx-4 {{reading?'h-[80%]':'h-[85%]'}} overflow-x-scroll m-auto mb-5 scrollbar-thin scrollbar-thumb-[#ff6c104b] scrollbar-track-[#efefef00] scrollbar-thumb-rounded-full scrollbar-h-12 ">
       <div (click)="read(msg, i)" *ngFor="let msg of sample_msg; let i = index"
         [hidden]="reading || creating || msg.messages[msg.messages.length - 1].Body == 'hide'">
         <div
@@ -41,7 +41,7 @@
             class="text-xs col-span-3 col-start-2 text-ellipsis truncate {{!msg.messages[msg.messages.length - 1].isRead && user_profile.ID != msg.messages[msg.messages.length - 1].from?'font-extrabold':''}}">
             {{msg.messages[msg.messages.length - 1].from == user_profile.ID?'You':msg.messages[msg.messages.length -
             1].from}}: {{msg.messages[msg.messages.length - 1].Body}}</p>
-          <small *ngIf="msg.messages[msg.messages.length - 1].isRead" class="absolute right-2 bottom-0">
+          <small *ngIf="msg.messages[msg.messages.length - 1].isRead && msg.messages[msg.messages.length - 1].to != user_profile.ID" class="absolute right-2 bottom-0">
             <ion-icon class="text-blue-500" name="eye" style="font-size: 20px;"></ion-icon>
           </small>
           <p class="text-xs text-right col-start-5 row-start-1">{{msg.messages[msg.messages.length - 1].CreatedAt |
@@ -50,11 +50,27 @@
       </div>
 
 
-      <div *ngFor="let msg of open_message.messages"
-        class="text-base whitespace-pre-line w-[70%] {{msg.from == user_profile.ID?'ml-auto bg-[#cae5ff]':'mr-auto bg-[#ffe8d9]'}} p-4 my-4 rounded-lg mb-4"
-        [hidden]="!reading">
-        {{msg.Body}}
+      <div *ngFor="let msg of open_message.messages; let i = index" class="grid grid-cols-12 pr-4 relative group" [hidden]="!reading">
+        
+        <div class="w-[3rem] h-[3rem] rounded-full bg-[#efefef] col-span-2 text-center font-bold pt-4 mt-8 visible {{open_message.messages[i]?.from == open_message.messages[i-1]?.from?'invisible':''}}" *ngIf="msg.from != user_profile.ID">HR</div>
+        <div class="{{msg.from == user_profile.ID?'col-span-12':'col-span-10'}} text-base whitespace-pre-line w-[70%] {{msg.from == user_profile.ID?'ml-auto bg-[#cae5ff]':'mr-auto bg-[#ffe8d9]'}} p-4 {{(open_message.messages[i]?.from == open_message.messages[i-1]?.from) && ((open_message.messages[i]?.CreatedAt | date: 'MMM dd yyyy - HH:mm') == (open_message.messages[i-1]?.CreatedAt | date: 'MMM dd yyyy - HH:mm'))?'':' rounded-t-xl mt-4'}} {{(open_message.messages[i]?.from == open_message.messages[i+1]?.from) && ((open_message.messages[i]?.CreatedAt | date: 'MMM dd yyyy - HH:mm') == (open_message.messages[i+1]?.CreatedAt | date: 'MMM dd yyyy - HH:mm'))?'mb-[.15rem]':'rounded-b-xl'}} relative">
+          {{msg.Body}}
+          <p [hidden]="(msg.CreatedAt | date: 'MMM dd yyyy - HH:mm') == (open_message.messages[i+1]?.CreatedAt | date: 'MMM dd yyyy - HH:mm')" class="col-span-12 text-right text-sm text-gray-600">{{msg.CreatedAt | date: 'hh:mm a'}}</p>
+        </div>
+        <small class="absolute right-5 -bottom-2">
+          <ion-icon name="done"></ion-icon>
+          <ion-icon class="text-blue-500" name="eye" style="font-size: 20px;"  [hidden]="!reading || (!msg.isRead || i != (open_message.messages?.length - 1)) || msg.to == user_profile.ID"></ion-icon>
+        </small>
+
+        <div class="col-span-12 {{(msg.CreatedAt | date: 'MMM dd yyyy') != (open_message.messages[i+1]?.CreatedAt | date: 'MMM dd yyyy')?'border-b pb-2 mt-2 mb-2':''}} text-gray-500 text-sm " *ngIf="(msg.CreatedAt | date: 'EEE, MMM dd yyyy') != (today | date: 'EEE, MMM dd yyyy')">
+          <div class="w-max mx-auto flex">
+            <p [hidden]="(msg.CreatedAt | date: 'MMM dd') == (open_message.messages[i+1]?.CreatedAt | date: 'MMM dd')">{{msg.CreatedAt | date: 'EEE, MMM dd'}}</p>
+            <p [hidden]="(msg.CreatedAt | date: 'yyyy') == (open_message.messages[i-1]?.CreatedAt | date: 'yyyy')">{{msg.CreatedAt | date: ', yyyy '}}</p>
+          </div>
+        </div>
       </div>
+
+        
 
       <div class="text-base w-full p-4 my-4 rounded-lg mb-4 grid grid-cols-1 gap-4 mt-5"
         [hidden]="!creating">

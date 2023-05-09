@@ -16,10 +16,9 @@
                 </div>
             </div>
             
-           
             <div class="grid gap-2 grid-cols-5" *ngIf="show_calendar == dates.payout">
                 <div class="col-span-5">
-                    <ion-datetime size="cover" presentation="date" class="rounded-[2rem] mt-5" style="--background: #fff"  min="{{dates.dates[0].date | date: 'yyyy-MM-dd'}}" max="{{dates.dates[dates.dates.length - 1].date | date: 'yyyy-MM-dd'}}"  [highlightedDates]="highlighted_dates"></ion-datetime>
+                    <ion-datetime presentation="date" class="rounded-[2rem]" style="--background: #fff"  min="{{dates.dates[0].date | date: 'yyyy-MM-dd'}}" max="{{dates.dates[dates.dates.length - 1].date | date: 'yyyy-MM-dd'}}"  [highlightedDates]="highlighted_dates"></ion-datetime>
                 </div>
                 
                 <hr class="col-span-5 mb-2"/>

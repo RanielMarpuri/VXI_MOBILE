@@ -704,9 +704,20 @@ export class SchedulerPage implements OnInit {
           dataLabels: {
             total: {
               show: true,
-              label: 'TOTAL'
+              label: ''
+            },
+            value: {
+              formatter: function(val) {
+                return parseInt(val.toString(), 10).toString();
+              },
+              offsetY: -7,
+              color: "#111",
+              fontSize: "30px",
+              fontWeight: 700,
+              show: true
             }
-          }
+          },
+          
         }
       },
       stroke: {

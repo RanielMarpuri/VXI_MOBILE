@@ -1,5 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  variants: {
+    extend: {
+      backgroundColor: ['active'],
+      // ...
+      borderColor: ['focus-visible', 'first'],
+      // ...
+      textColor: ['visited'],
+      block: ['group-last'],
+    }
+  },
   content: ['./src/**/*.{html,ts}'],
   theme: {
     extend: {},

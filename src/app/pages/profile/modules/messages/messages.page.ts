@@ -18,6 +18,7 @@ export class MessagesPage implements OnInit, AfterViewChecked {
   user_profile: any
   sample_msg: any
   reply_msg: any
+  today = new Date();
   changing: boolean = false;
   constructor() { }
   ngAfterViewChecked() {
@@ -77,7 +78,25 @@ export class MessagesPage implements OnInit, AfterViewChecked {
             to: this.user_profile.ID,
             Body: 'Anytime, and please always remember, you are not alone.\nThank you.',
             MessageID: '3',
-            CreatedAt: '04/17/2023',
+            CreatedAt: '04/17/2023 10:00:00 PM',
+          },
+          {
+            ID: '4',
+            isRead: 0,
+            from: 'HR',
+            to: this.user_profile.ID,
+            Body: 'God bless. We are excited to hear from you.',
+            MessageID: '3',
+            CreatedAt: '04/17/2023 10:00:00 PM',
+          },
+          {
+            ID: '4',
+            isRead: 0,
+            from: 'HR',
+            to: this.user_profile.ID,
+            Body: 'Hello?',
+            MessageID: '3',
+            CreatedAt: '04/17/2023 10:12:00 PM',
           },
         ]
       },
@@ -322,8 +341,8 @@ export class MessagesPage implements OnInit, AfterViewChecked {
       from: this.user_profile.ID,
       to: 'HR',
       Body: this.reply_msg,
-      MessageID: '2',
-      CreatedAt: '04/14/2023'
+      MessageID: this.open_message.ID,
+      CreatedAt: new Date()
     }
     console.log(this.open_message)
     this.open_message.messages.push(msg)
@@ -343,7 +362,7 @@ export class MessagesPage implements OnInit, AfterViewChecked {
       ID: '10',
       Subject: this.subject_line,
       CreatedBy: '',
-      CreatedAt: '04/15/2023',
+      CreatedAt: new Date(),
       Status: 'open',
       messages: []
     }
@@ -358,6 +377,7 @@ export class MessagesPage implements OnInit, AfterViewChecked {
       CreatedAt: new Date()
     });
     this.sample_msg.unshift(msg)
+    // this.open_message.push(msg)
     this.creating = false
     this.changing = true
     this.subject_line = null
