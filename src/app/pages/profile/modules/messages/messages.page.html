@@ -44,8 +44,7 @@
           <small *ngIf="msg.messages[msg.messages.length - 1].isRead && msg.messages[msg.messages.length - 1].to != user_profile.ID" class="absolute right-2 bottom-0">
             <ion-icon class="text-blue-500" name="eye" style="font-size: 20px;"></ion-icon>
           </small>
-          <p class="text-xs text-right col-start-5 row-start-1">{{msg.messages[msg.messages.length - 1].CreatedAt |
-            date: 'MMM dd'}}</p>
+          <p class="text-xs text-right col-start-5 row-start-1">{{msg.messages[msg.messages.length - 1].CreatedAt | date: 'MMM dd'}}</p>
         </div>
       </div>
 
@@ -53,10 +52,11 @@
       <div *ngFor="let msg of open_message.messages; let i = index" class="grid grid-cols-12 pr-4 relative group" [hidden]="!reading">
         
         <div class="w-[3rem] h-[3rem] rounded-full bg-[#efefef] col-span-2 text-center font-bold pt-4 mt-8 visible {{open_message.messages[i]?.from == open_message.messages[i-1]?.from?'invisible':''}}" *ngIf="msg.from != user_profile.ID">HR</div>
-        <div class="{{msg.from == user_profile.ID?'col-span-12':'col-span-10'}} text-base whitespace-pre-line w-[70%] {{msg.from == user_profile.ID?'ml-auto bg-[#cae5ff]':'mr-auto bg-[#ffe8d9]'}} p-4 {{(open_message.messages[i]?.from == open_message.messages[i-1]?.from) && ((open_message.messages[i]?.CreatedAt | date: 'MMM dd yyyy - HH:mm') == (open_message.messages[i-1]?.CreatedAt | date: 'MMM dd yyyy - HH:mm'))?'':' rounded-t-xl mt-4'}} {{(open_message.messages[i]?.from == open_message.messages[i+1]?.from) && ((open_message.messages[i]?.CreatedAt | date: 'MMM dd yyyy - HH:mm') == (open_message.messages[i+1]?.CreatedAt | date: 'MMM dd yyyy - HH:mm'))?'mb-[.15rem]':'rounded-b-xl'}} relative">
+        <div class="{{msg.from == user_profile.ID?'col-span-12 rounded-l-xl':'col-span-10 rounded-r-xl'}} text-base whitespace-pre-line w-max min-w-[10%] max-w-[70%] {{msg.from == user_profile.ID?'ml-auto bg-[#cae5ff]':'mr-auto bg-[#ffe8d9]'}} p-4 {{(open_message.messages[i]?.from == open_message.messages[i-1]?.from) && ((open_message.messages[i]?.CreatedAt | date: 'MMM dd yyyy - HH:mm') == (open_message.messages[i-1]?.CreatedAt | date: 'MMM dd yyyy - HH:mm'))?'':(msg.from == user_profile.ID?'rounded-tr-xl mt-4':'rounded-tl-xl mt-4')}} {{(open_message.messages[i]?.from == open_message.messages[i+1]?.from) && ((open_message.messages[i]?.CreatedAt | date: 'MMM dd yyyy - HH:mm') == (open_message.messages[i+1]?.CreatedAt | date: 'MMM dd yyyy - HH:mm'))?'mb-[.15rem]':(msg.from == user_profile.ID?'rounded-br-xl':'rounded-bl-xl')}}  relative">
           {{msg.Body}}
-          <p [hidden]="(msg.CreatedAt | date: 'MMM dd yyyy - HH:mm') == (open_message.messages[i+1]?.CreatedAt | date: 'MMM dd yyyy - HH:mm')" class="col-span-12 text-right text-sm text-gray-600">{{msg.CreatedAt | date: 'hh:mm a'}}</p>
         </div>
+        <p [hidden]="(msg.CreatedAt | date: 'MMM dd yyyy - HH:mm') == (open_message.messages[i+1]?.CreatedAt | date: 'MMM dd yyyy - HH:mm')" class="col-span-12 {{msg.from == user_profile.ID?'text-right':'col-start-3'}} text-sm text-gray-600 mt-1">{{msg.CreatedAt | date: 'hh:mm a'}}</p>
+
         <small class="absolute right-5 -bottom-2">
           <ion-icon name="done"></ion-icon>
           <ion-icon class="text-blue-500" name="eye" style="font-size: 20px;"  [hidden]="!reading || (!msg.isRead || i != (open_message.messages?.length - 1)) || msg.to == user_profile.ID"></ion-icon>
