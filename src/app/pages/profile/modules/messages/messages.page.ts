@@ -398,7 +398,7 @@ export class MessagesPage implements OnInit, AfterViewChecked {
   back() {
     this.reading = false
     this.creating = false
-    this.sub_profile.emit('');
+    // this.sub_profile.emit('');
     this.scrollToTop()
     this.subject_line = null
     this.body_line = null

@@ -83,6 +83,7 @@
 
     </div>
     <div class="w-full mt-auto h-max grid grid-cols-12 p-1 px-2 sticky bottom-0 pr-5">
+      <!-- {{reading == false && creating == false}} -->
       <textarea name="" id="" rows="1" class="rounded-full bg-[#efefef] col-span-10 w-full mr-2 resize-none" [(ngModel)]="reply_msg"
         [disabled]="open_message.Status == 'resolved' " *ngIf="reading"></textarea>
       <button class="m-auto w-auto leading-5 px-2 py-[.3rem] rounded-full disabled:bg-[#efefef] bg-[#FF6D10] col-span-2 ml-5" [disabled]="reply_msg == null || reply_msg?.length == 0" (click)="reply()"
