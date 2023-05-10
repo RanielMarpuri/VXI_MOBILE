@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, AfterViewChecked, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, AfterViewChecked, ElementRef, ViewChild, OnDestroy } from '@angular/core';
 import { Preferences } from '@capacitor/preferences';
 import { Platform } from '@ionic/angular';
 
@@ -7,7 +7,7 @@ import { Platform } from '@ionic/angular';
   templateUrl: './messages.page.html',
   styleUrls: ['./messages.page.scss'],
 })
-export class MessagesPage implements OnInit, AfterViewChecked {
+export class MessagesPage implements OnInit, AfterViewChecked, OnDestroy {
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
   @Output() sub_profile = new EventEmitter<string>();
   filter: any;
@@ -21,14 +21,10 @@ export class MessagesPage implements OnInit, AfterViewChecked {
   reply_msg: any
   today = new Date();
   changing: boolean = false;
-
+event: any
   constructor( private platform: Platform ) {
-    this.platform.backButton.subscribeWithPriority(10, () => {
-      // if(this.reading == false && this.creating == false){
-      //   this.sub_profile.emit('');
-      // }else{
-        this.back()
-      // }
+   this.event = this.platform.backButton.subscribeWithPriority(10, () => {
+      this.back()
     });
   }
 
@@ -41,6 +37,12 @@ export class MessagesPage implements OnInit, AfterViewChecked {
     }
   }
 
+  ngOnDestroy() {
+    // Remove the event listener when component is destroyed
+    if (this.event) {
+      this.event.remove();
+    }
+  }
   async ngOnInit() {
     this.creating = false
     this.filter = 'open'
