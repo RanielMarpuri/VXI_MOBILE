@@ -24,11 +24,11 @@ export class MessagesPage implements OnInit, AfterViewChecked {
 
   constructor( private platform: Platform ) {
     this.platform.backButton.subscribeWithPriority(10, () => {
-      if(this.reading == false && this.creating == false){
-        this.sub_profile.emit('');
-      }else{
+      // if(this.reading == false && this.creating == false){
+      //   this.sub_profile.emit('');
+      // }else{
         this.back()
-      }
+      // }
     });
   }
 
@@ -399,7 +399,7 @@ export class MessagesPage implements OnInit, AfterViewChecked {
   back() {
     this.reading = false
     this.creating = false
-    // this.sub_profile.emit('');
+    this.sub_profile.emit('');
     this.scrollToTop()
     this.subject_line = null
     this.body_line = null
