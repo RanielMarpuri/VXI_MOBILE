@@ -26,8 +26,9 @@ export class MessagesPage implements OnInit, AfterViewChecked {
     this.platform.backButton.subscribeWithPriority(10, () => {
       if(this.reading == false && this.creating == false){
         this.sub_profile.emit('');
+      }else{
+        this.back()
       }
-      this.back()
     });
   }
 
