@@ -19,9 +19,9 @@ export class HomePage {
     let Init: any = await Preferences.get({ key: 'user_profile' })
     this.user_profile = JSON.parse(Init.value)
 
-    if (!this.user_profile) {
-      window.location.href = "/login";
-    }
+    // if (!this.user_profile) {
+    //   window.location.href = "/login";
+    // }
     // this.alertCreate('', '', JSON.stringify(this.user_profile), 'OK')
     this.theme = ''
     console.log(this.user_profile);

@@ -1,5 +1,7 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { Preferences } from '@capacitor/preferences';
+import { AlertController } from '@ionic/angular';
 
 import { ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexFill, ApexGrid, ApexLegend, ApexMarkers, ApexPlotOptions, ApexStroke, ApexTooltip, ApexXAxis, ApexYAxis, ChartComponent } from 'ng-apexcharts';
 
@@ -35,8 +37,10 @@ export class SchedulerPage implements OnInit {
   progress: any = [];
   show_calendar: any;
   multiple: boolean = true;
+  date_clicked: any;
+  user_profile: any;
 
-  constructor() {
+  constructor(private alertController: AlertController, private http: HttpClient) {
     this.spackLine(1)
     this.spackLine(2)
     this.pieChart()
@@ -517,6 +521,8 @@ export class SchedulerPage implements OnInit {
       ]
     }
   ]
+
+  public dates: any = []
   caught_dates: any
   highlighted_dates_details: any
   highlighted_dates: any
@@ -524,10 +530,46 @@ export class SchedulerPage implements OnInit {
   myDate: any
   async ngOnInit() {
     this.show_calendar = ''
-    this.calcProgress(this.sample_dates)
+    let Init: any = await Preferences.get({ key: 'user_profile' })
+    this.user_profile = JSON.parse(Init.value)
+    this.fetchAttendance()
+
   }
 
+  fetchAttendance() {
+    this.dates = []
+    const header = new HttpHeaders()
+
+    header.append('Accept', 'application/json');
+    header.append('Access-Control-Allow-Headers', 'content-type');
+    header.append('Access-Control-Allow-Methods', 'OPTIONS, POST, GET');
+    header.append('Access-Control-Allow-Origin', '*');
+
+    const options: any = {
+      headers: header,
+    };
+    let url = 'https://vxione.com/ems_api/API/Schedule/GetByHrid/' + this.user_profile.Hrid + '/2023';
+
+    this.http.get(url, options).subscribe({
+
+      next: (data: any) => {
+        console.log(data)
+        // this.sample_dates = data;
+        data.forEach((date) => {
+          if (date.Attendance.length > 0) {
+            this.dates.push(date)
+          }
+        });
+        console.log(this.dates)
+        this.calcProgress(this.dates)
+
+      },
+      error: err => { }
+    })
+
+  }
   higlightDates(date: any) {
+    // console.log(date, " try high")
     this.highlighted_dates_details.push(date)
 
     let date_format1: any
@@ -549,16 +591,6 @@ export class SchedulerPage implements OnInit {
       date_format1.setHours(new Date(date.login).getHours())
       this.getCoordinates(date_format1, 1)
       this.getCoordinates(date_format2, 2)
-    } else if (date.status === 'L') {
-      this.highlighted_dates.push({
-        date: y[0],
-        textColor: '#94782f',
-        backgroundColor: '#f5d176',
-      })
-
-      date_format1.setHours(new Date(date.login).getHours())
-      this.getCoordinates(date_format1, 1)
-      this.getCoordinates(date_format2, 2)
     } else if (date.status === 'A') {
       this.highlighted_dates.push({
         date: y[0],
@@ -571,20 +603,33 @@ export class SchedulerPage implements OnInit {
         textColor: '#fff',
         backgroundColor: '#6f6afc',
       })
+    } else {
+      this.highlighted_dates.push({
+        date: y[0],
+        textColor: '#94782f',
+        backgroundColor: '#f5d176',
+      })
+
+      date_format1.setHours(new Date(date.login).getHours())
+      this.getCoordinates(date_format1, 1)
+      this.getCoordinates(date_format2, 2)
     }
   }
 
-  calcProgress(dates: any){
-  
-     dates.forEach(async (date, index) => {
+  calcProgress(dates: any) {
+
+    dates.forEach(async (date, index) => {
+
       let progress: any = 0
-      await date.dates.forEach((d)=> {
-        if(d.status == 'P'){
+      await date.Attendance.forEach((d) => {
+        if (d.status == 'P') {
           progress = progress + 1
         }
-      }) 
-     this.progress.push(progress)
+      })
+      this.progress.push(progress)
     })
+
+    console.log(this.progress)
   }
   catchDates(e: any, i: any) {
     this.MyProp.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -593,10 +638,10 @@ export class SchedulerPage implements OnInit {
     this.caught_dates = []
     this.highlighted_dates = []
     this.highlighted_dates_details = []
-    this.sample_dates.forEach((sample) => {
+    this.dates.forEach((sample) => {
       if (sample.payout === e.payout) {
 
-        sample.dates.forEach((date) => {
+        sample.Attendance.forEach((date) => {
           if (date.status == 'OFF') {
             let date_format = new Date(date.date)
             date_format.setHours(8)
@@ -610,7 +655,7 @@ export class SchedulerPage implements OnInit {
         this.coordinates1 = []
         this.coordinates2 = []
         // console.log("caught dates", this.caught_dates)
-       
+
 
       }
     })
@@ -623,10 +668,28 @@ export class SchedulerPage implements OnInit {
 
   toggleShow(toggle: any) {
     if (toggle == this.show_calendar) {
-      // this.show_calendar = ''
+      this.show_calendar = ''
     } else {
       this.show_calendar = toggle;
     }
+  }
+
+  dateChanged(i: any) {
+    this.dates[i].dates.forEach((date) => {
+
+      let x = new Date(date.date)
+      let y = new Date(this.date_clicked)
+
+      x.setHours(8, 0, 0)
+      y.setHours(8, 0, 0)
+
+      let a = x.toISOString()
+      let b = y.toISOString()
+
+      if (a == b) {
+        console.log(a)
+      }
+    })
   }
 
   getCoordinates(date: any, i: any) {
@@ -707,7 +770,7 @@ export class SchedulerPage implements OnInit {
               label: ''
             },
             value: {
-              formatter: function(val) {
+              formatter: function (val) {
                 return parseInt(val.toString(), 10).toString();
               },
               offsetY: -7,
@@ -717,7 +780,7 @@ export class SchedulerPage implements OnInit {
               show: true
             }
           },
-          
+
         }
       },
       stroke: {
@@ -732,9 +795,18 @@ export class SchedulerPage implements OnInit {
     }];
   }
 
- 
+
 
   // ngOnInit() {
   //   this.MyProp.nativeElement.scrollIntoView({ behavior: "smooth", block: "start" });
   // }
+  async alertCreate(h: any, sh: any, m: any, b: any) {
+    let alert = await this.alertController.create({
+      header: h,
+      subHeader: sh,
+      message: m,
+      buttons: [b],
+    });
+    await alert.present();
+  }
 }

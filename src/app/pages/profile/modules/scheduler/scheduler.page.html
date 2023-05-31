@@ -1,14 +1,20 @@
-<div class="h-max">
-
-    <div *ngFor="let dates of sample_dates,let i = index" class="border-l-4 hover:border-[#404e51] group py-2" (click)="catchDates(dates, i)" #myElem>
-        <div
-            class="text-xl rounded-r-xl relative group-hover:bg-white grid grid-cols-1 py-4 px-2 overflow-visible">
+<div class="h-max relative">
+    <div class="w-full pt-52" *ngIf="dates.length == 0">
+        <div class="w-max m-auto">
+            <ion-spinner name="circular" color="medium" class="m-auto"></ion-spinner>
+        </div>
+        <div class="w-max m-auto">
+            <p class="animate-pulse">Fetching data. Please wait...</p>
+        </div>
+    </div>
+    <div *ngFor="let dates of dates,let i = index" class="border-l-4 hover:border-[#404e51] group py-2"  #myElem>
+        <div class="text-xl rounded-r-xl relative group-hover:bg-white grid grid-cols-1 py-4 px-2 overflow-visible">
             <div class="font-bold text-lg text-[#FF6d10]">
                 {{dates.payout}}
             </div>
 
-            <div class="font-light text-sm {{show_calendar == dates.payout?'mb-2':''}} relative">
-                {{dates.dates[0].date | date: 'MM/dd/yyyy'}} - {{dates.dates[dates.dates.length - 1].date | date: 'MM/dd/yyyy'}}
+            <div class="font-light text-sm {{show_calendar == dates.payout?'mb-2':''}} relative" (click)="catchDates(dates, i)">
+                {{dates.Attendance[0].date | date: 'MM/dd/yyyy'}} - {{dates.Attendance[dates.Attendance.length - 1].date | date: 'MM/dd/yyyy'}}
                 <div class="absolute right-5 bottom-2 {{progress[i] >= 3?(progress[i] >= 6?(progress[i] == 10?'text-[#C9B037]':'text-[#B4B4B4]'):'text-[#6A3805]'):''}}">
                     <ion-icon name="star" style="font-size: 20px;" *ngIf="progress[i] >= 3" class="{{progress[i] == 10? '-mr-1':(progress[i] >= 6?'':'mr-[1.25rem]')}}"></ion-icon>
                     <ion-icon name="star" style="font-size: 30px;" *ngIf="progress[i] == 10"></ion-icon>
@@ -18,7 +24,7 @@
             
             <div class="grid gap-2 grid-cols-5" *ngIf="show_calendar == dates.payout">
                 <div class="col-span-5">
-                    <ion-datetime presentation="date" class="rounded-[2rem]" style="--background: #fff"  min="{{dates.dates[0].date | date: 'yyyy-MM-dd'}}" max="{{dates.dates[dates.dates.length - 1].date | date: 'yyyy-MM-dd'}}"  [highlightedDates]="highlighted_dates"></ion-datetime>
+                    <ion-datetime presentation="date" class="rounded-[2rem]" style="--background: #fff"  min="{{dates.Attendance[0].date | date: 'yyyy-MM-dd'}}" max="{{dates.Attendance[dates.Attendance.length - 1].date | date: 'yyyy-MM-dd'}}"  [highlightedDates]="highlighted_dates" [(ngModel)]="date_clicked" (ngModelChange)="dateChanged(i)"></ion-datetime>
                 </div>
                 
                 <hr class="col-span-5 mb-2"/>

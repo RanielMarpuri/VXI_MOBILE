@@ -23,6 +23,8 @@ export class LoginPage implements OnInit {
   loading: any;
 
   async ngOnInit() {
+   // window.location.href = '/home'
+
     console.log("initiating app login");
     let Init: any = await Preferences.get({ key: 'user_profile' })
     let hridInit: any = await Preferences.get({ key: 'hrid' })
@@ -46,6 +48,7 @@ export class LoginPage implements OnInit {
   }
 
   async fetchUser(mode: any) {
+
     const header = new HttpHeaders()
 
     header.append('Accept', 'application/json');
@@ -58,24 +61,29 @@ export class LoginPage implements OnInit {
     };
 
     this.loading = true;
-
-     let url = 'https://vxione.com/ems_api/API/ManageNews/GetByHrid/' + this.hrid; //CLOUD API
+    let x = this.hrid.replace('/', '%2F');
+    let url = 'https://vxione.com/ems_api/API/LogIn/GetByHrid?ntAcct=' + x //CLOUD API
     // let url = 'https://localhost:44354/API/LogIn/GetByHrid/' + this.hrid; // LOCAL API
 
-    this.http.get(url, options).subscribe({
+    let postData = {
+      "ntAcct": this.hrid
+    }
+
+
+    this.http.post(url, postData, options).subscribe({
       next: (data: any) => {
         this.user = data;
-        // this.user.PersonalEmail = 'rdnmarps03@gmail.com'
-        // console.log(this.user, "this.user data");
-
         let hireDate: any;
-
+        console.log(data)
         if (this.user != null) {
           let temp = this.user.HireDate
+          
           hireDate = temp.replace('/', '');
           hireDate = hireDate.replace('/', '');
-          // console.log(hireDate, "hireDate attempt");
-          if (this.hire_date == hireDate) {
+          let x = hireDate.trimRight();
+
+          console.log(x, "hireDate attempt", temp);
+          if (this.hire_date == x) {
             let success: any = {
               text: 'OK',
               role: 'confirm',
@@ -89,13 +97,13 @@ export class LoginPage implements OnInit {
             this.alertCreate('Login Failed!!', 'No Match...', 'Try again.', 'OK');
           }
         } else {
-          this.alertCreate('Login Failed!!', 'ERROR UNKNOWN', 'Try again.', 'OK');
+          this.alertCreate('Error!!', 'Fetching Failed...', 'Try again.', 'OK');
         }
         this.loading = false;
       },
       error: err => {
         console.log(err);
-        this.alertCreate('Login Failed!!', 'No Match...', 'Try again.', 'OK');
+        this.alertCreate('Error!!', 'Fetching Failed...', 'Try again.', 'OK');
         this.loading = false;
       },
     })

@@ -1,65 +1,49 @@
 <div class="w-[92%] m-auto sticky top-0 z-50 bg-[#404e51] pb-5 rounded-b-[2rem]" *ngIf="profileModule == 'messages'">
-  <p
-    class="bg-clip-text text-transparent text-4xl font-extrabold bg-gradient-to-r from-pink-400 to-violet-600 antialiased -tracking-wider">
+  <p class="bg-clip-text text-transparent text-4xl font-extrabold bg-gradient-to-r from-pink-400 to-violet-600 antialiased -tracking-wider">
     Tik-Talk
   </p>
   <div class="font-extralight text-white text-sm">Chat with us, we would love to hear from you.</div>
 </div>
-<div class="h-full {{profileModule == 'messages'?'bg-[#404e51]':''}} mt-2">
 
-  <div class="w-[92%] m-auto flex sticky top-0  z-50 bg-white pb-5 rounded-b-[2rem]"
-    [hidden]="profileModule == 'messages'">
-    <div
-      class="m-auto ml-0 h-[5rem] w-[5rem] bg-[#efefef] border-[5px] border-[#ff6d10] bg-cover bg-center imageBG rounded-full mr-3 cursor-pointer {{!user_profile?'hidden':''}} relative"
-      style="background-image: url('../../../assets/img/Default.png')" (click)="changeModule('')">
+<div class="h-full {{profileModule == 'messages'?'bg-[#404e51]':''}} mt-2">
+  <div class="w-[92%] m-auto  sticky top-0  z-50 bg-white pb-5 rounded-b-[2rem]" [hidden]="profileModule == 'messages'">
+    <div class="flex">
+      <div class="m-auto ml-0  mr-3 relative">
+        <div class="h-[5rem] w-[5rem] bg-[#efefef] border-[5px] border-[#ff6d10] bg-cover bg-center imageBG rounded-full  cursor-pointer" style="background-image: url('../../../assets/img/Default.png')" (click)="changeModule('')"></div>
+        <ion-icon class="text-3xl absolute -bottom-2 -right-2 bg-white rounded-full" (click)="changeModule('emp_info')" name="information-circle"></ion-icon>
+      </div>
+      <ion-icon name="list-outline" class="absolute bottom-5 right-2 text-lg text-gray-400" (click)="toggleList()" *ngIf="!list && profileModule == ''"></ion-icon>
+      <ion-icon name="grid-outline" class="absolute bottom-5 right-2 text-lg text-gray-400" (click)="toggleList()" *ngIf="list && profileModule == ''"></ion-icon>
+      <div class="text-left mr-auto tracking-wide w-[70%]">
+        <p class="text-xl font-semibold {{!user_profile?'text-gray-300 bg-gray-300 animate-pulse rounded-md my-1':'text-black'}}">
+          {{!user_profile?'Loading....':user_profile.LastName}},
+        </p>
+        <p class="text-xl {{!user_profile?'text-gray-300 bg-gray-300 animate-pulse rounded-md my-1':'text-black'}}">
+          {{!user_profile?'':user_profile.FirstName}} {{!user_profile?'Loading....':user_profile.MiddleName[0] }}.
+        </p>
+        <p color="primary" class="text-[10px] {{!user_profile?'text-gray-300 bg-gray-300 animate-pulse rounded-md my-1':'text-black'}}">
+          {{!user_profile?'Loading....':user_profile.TitleName}}
+        </p>
+        <small class="text-[12px] font-light {{!user_profile?'text-gray-300 bg-gray-300 animate-pulse rounded-md my-1':'text-zinc-500'}}">
+          {{!user_profile?'Loading....':user_profile.LocationDesc}}
+        </small>
+      </div>
     </div>
-    <ion-icon name="list-outline" class="absolute bottom-5 right-2 text-lg text-gray-400" (click)="toggleList()"
-      *ngIf="!list && profileModule == ''"></ion-icon>
-    <ion-icon name="grid-outline" class="absolute bottom-5 right-2 text-lg text-gray-400" (click)="toggleList()"
-      *ngIf="list && profileModule == ''"></ion-icon>
-    <ion-icon (click)="changeModule('emp_info')" name="information-circle"
-      class="text-3xl absolute bottom-5 left-12 bg-white rounded-full"></ion-icon>
-    <div
-      class="m-auto ml-0 h-[5rem] w-[5rem] min-w-[5rem] min-h-[5rem] max-h-[5rem] bg-[#efefef] border-[5px] border-[#ff6d10] bg-cover bg-center imageBG rounded-full mr-3 cursor-pointer"
-      *ngIf="!user_profile"></div>
-    <div class="text-left mr-auto tracking-wide w-[70%]">
-      <p
-        class="text-xl font-semibold {{!user_profile?'text-gray-300 bg-gray-300 animate-pulse rounded-md my-1':'text-black'}}">
-        {{!user_profile?'Loading....':user_profile.LastName}},
-      </p>
-      <p class="text-xl {{!user_profile?'text-gray-300 bg-gray-300 animate-pulse rounded-md my-1':'text-black'}}">
-        {{!user_profile?'':user_profile.FirstName}} {{!user_profile?'Loading....':user_profile.MiddleName[0] }}.
-      </p>
-      <p color="primary"
-        class="text-[10px] {{!user_profile?'text-gray-300 bg-gray-300 animate-pulse rounded-md my-1':'text-black'}}">
-        {{!user_profile?'Loading....':user_profile.TitleName}}
-      </p>
-      <small
-        class="text-[12px] font-light {{!user_profile?'text-gray-300 bg-gray-300 animate-pulse rounded-md my-1':'text-zinc-500'}}">
-        {{!user_profile?'Loading....':user_profile.LocationDesc}}
-      </small>
-    </div>
+    <div class="text-lg font-bold" *ngIf="profileModule == 'scheduler'">Attendance</div>
   </div>
 
-  
   <div [hidden]="profileModule != ''">
     <div class="w-[92%] m-auto" *ngIf="list">
-      <ion-item button (click)="changeModule(module.module)" detail="true"
-        class="item-background-color first:rounded-t-[2rem] last:rounded-b-[2rem]"
-        *ngFor="let module of modules_list">{{module.name}}
-        <ion-icon name="alert-circle" class="text-[#ff0000] bg-white rounded-full absolute  right-10 text-2xl notif"
-          *ngIf="module.notif_count > 0"></ion-icon>
+      <ion-item button (click)="changeModule(module.module)" detail="true" class="item-background-color first:rounded-t-[2rem] last:rounded-b-[2rem]" *ngFor="let module of modules_list">
+        {{module.name}}
+        <ion-icon name="alert-circle" class="text-[#ff0000] bg-white rounded-full absolute  right-10 text-2xl notif" *ngIf="module.notif_count > 0"></ion-icon>
       </ion-item>
     </div>
-
     <div class="w-[92%] m-auto grid grid-cols-3 gap-4 z-50" *ngIf="!list">
-      <div class="rounded-lg border h-24 p-2 focus:shadow-lg hover:shadow-md text-end relative"
-        (click)="changeModule(module.module)" *ngFor="let module of modules_list">
+      <div class="rounded-lg border h-24 p-2 focus:shadow-lg hover:shadow-md text-end relative" (click)="changeModule(module.module)" *ngFor="let module of modules_list">
         <!-- <div class="m-auto ml-0 h-[5rem] w-[5rem] bg-cover bg-clip-border bg-center mr-3 cursor-pointer" style="background-image: url('../../../assets/img/employee_info.png')"></div> -->
         <p class="text-sm font-semibold text-center">{{module.name}}</p>
-        <ion-icon name="alert-circle"
-          class="text-[#ff0000] bg-white rounded-full absolute -bottom-2 -right-2 text-5xl notif"
-          *ngIf="module.notif_count > 0"></ion-icon>
+        <ion-icon name="alert-circle" class="text-[#ff0000] bg-white rounded-full absolute -bottom-2 -right-2 text-5xl notif" *ngIf="module.notif_count > 0"></ion-icon>
       </div>
     </div>
   </div>
@@ -69,8 +53,4 @@
     <app-payroll *ngIf="profileModule == 'payroll'"></app-payroll>
     <app-messages *ngIf="profileModule == 'messages'" (sub_profile)="addSubProfile($event)"></app-messages>
   </div>
-  <!-- <ion-content *ngIf="profileModule != ''"> -->
-
-  <!-- </ion-content> -->
-
 </div>
