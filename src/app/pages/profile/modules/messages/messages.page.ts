@@ -508,14 +508,14 @@ export class MessagesPage implements OnInit, AfterViewChecked, OnDestroy {
   scrollToBottom(): void {
     try {
       this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
-      this.changing = '';
+      //this.changing = '';
     } catch (err) { }
   }
 
   scrollToTop(): void {
     try {
       this.myScrollContainer.nativeElement.scrollTop = 0;
-      this.changing = '';
+     // this.changing = '';
     } catch (err) { }
   }
 }

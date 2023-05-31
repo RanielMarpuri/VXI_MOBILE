@@ -1,4 +1,5 @@
 <div class="h-screen pt-44 overflow-hidden">
+ 
   <div class="grid grid-cols-3 mb-2 w-[92%] m-auto {{reading || creating?'hidden':'visible'}}">
     <p class="text-center {{filter == 'open'?'text-white':'text-gray-400'}}" (click)="changeFilter('open')">
       <ion-icon *ngIf="filter == 'open'" name="ellipse" class="mb-[.15rem] text-[.5rem] mr-1"></ion-icon>
@@ -17,7 +18,7 @@
 
 
   <div class="h-full rounded-t-[2rem] bg-white pt-2">
-
+    <!-- {{changing}} -->
     <p class="sticky top-0 bg-white z-50 font-bold pt-3 text-2xl rounded-t-[2rem] mx-5">
       <ion-icon name="chevron-back-outline" *ngIf="reading || creating" class="mr-3 font-extralight"
         (click)="back()"></ion-icon>
