@@ -39,7 +39,14 @@ export class OtpPage implements OnInit {
     this.user_profile = Inits.value
 
     let Init: any = await Preferences.get({ key: 'otp_credentials' })
-    this.otp_credentials = JSON.parse(Init.value)
+    let Init1: any = await Preferences.get({ key: 'temp_profile' })
+   // console.log(!Init, Init)
+    if(Init.value == null){
+      this.otp_credentials = JSON.parse(Init1.value)
+    }else{
+      this.otp_credentials = JSON.parse(Init.value)
+    }
+   
 
     this.asterisk_email = this.distortEmail()
 
