@@ -90,9 +90,18 @@
 
       <!-- Creating new message -->
       <div class="text-base w-full p-4 my-4 rounded-lg mb-4 grid grid-cols-1 gap-4 mt-5" [hidden]="!creating">
+        <ion-item class="border rounded-full border-black">
+          <ion-select [(ngModel)]="distro" placeholder="Select Distro">
+            <ion-select-option value="4225726">R.Marpuri</ion-select-option>
+            <ion-select-option value="4221541">G.Mercado</ion-select-option>
+            <ion-select-option value="247085">R.Gulapa</ion-select-option>
+          </ion-select>
+        </ion-item>
+       
         <input type="text" placeholder="Subject" class="w-full rounded-full" [(ngModel)]="subject_line">
-        <textarea name="" id="" rows="10" class="rounded-[1rem]" placeholder="Body" [(ngModel)]="body_line"></textarea>
-        <button class="w-full h-12 bg-transparent border group"
+        <textarea name="" id="" rows="8" class="rounded-[1rem]" placeholder="Body" [(ngModel)]="body_line"></textarea>
+        <div class="w-full">
+          <button class="w-max h-12 border group m-auto"
           (click)="submit()"
           [disabled]="subject_line?.length == 0 || body_line?.length == 0 || body_line == null || subject_line == null">
           <div class="w-52 h-[3.7rem] shadow-slate-500 shadow m-auto rounded-lg bg-orange-800 mt-5 border-2 border-black relative">
@@ -103,6 +112,8 @@
             </div>
           </div>
         </button>
+        </div>
+        
       </div>
       <!-- Creating new message -->
     </div>

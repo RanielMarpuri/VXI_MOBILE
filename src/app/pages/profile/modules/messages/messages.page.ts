@@ -23,6 +23,7 @@ export class MessagesPage implements OnInit, AfterViewChecked, OnDestroy {
   today = new Date();
   changing: any;
   event: any
+  distro: any;
   constructor(private platform: Platform, private http: HttpClient) {
     this.event = this.platform.backButton.subscribeWithPriority(10, () => {
       this.back()
@@ -378,7 +379,7 @@ export class MessagesPage implements OnInit, AfterViewChecked, OnDestroy {
     {
       isRead: 0,
       Sender: this.user_profile.Hrid,
-      Recipient: '4221541',
+      Recipient: 'HR',
       Body: this.reply_msg,
       TikTalkId: this.open_message.Id,
       CreatedAt: new Date()
@@ -428,7 +429,7 @@ export class MessagesPage implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   create() {
-    this.changing = false
+    this.changing = true
     this.creating = true
     this.body_line = "Dear HR,\n"
   }
@@ -438,7 +439,7 @@ export class MessagesPage implements OnInit, AfterViewChecked, OnDestroy {
       Subject: this.subject_line,
       Status: "Open",
       CreatedBy: this.user_profile.Hrid,
-      SentTo: "4221541",
+      SentTo: this.distro,
       Sender: this.user_profile.Hrid,
       TikTalkId: "null",
       Recipient: "GC",
