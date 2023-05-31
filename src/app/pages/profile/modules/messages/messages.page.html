@@ -66,9 +66,9 @@
         <div
           [hidden]="(msg.CreatedAt | date: 'MMM dd yyyy - HH:mm') == (open_message.Messages[i+1]?.CreatedAt | date: 'MMM dd yyyy - HH:mm')"
           class="relative col-span-12 {{msg.Sender == user_profile.Hrid?'text-right':'col-start-3'}} text-sm text-gray-600 mt-1">
-          <ion-icon class="text-blue-500 absolute bottom-0 right-16" name="eye"
+          <!-- <ion-icon class="text-blue-500 absolute bottom-0 right-16" name="eye"
             style="font-size: 25px; line-height: .25rem; padding-bottom: -20px;"
-            [hidden]="!reading || (!msg?.isRead || i != (open_message.Messages?.length - 1)) || msg.Recipient == user_profile.Hrid"></ion-icon>
+            [hidden]="!reading || (!msg?.isRead || i != (open_message.Messages?.length - 1)) || msg.Recipient == user_profile.Hrid"></ion-icon> -->
           {{msg.CreatedAt | date: 'hh:mm a'}}
         </div>
 
