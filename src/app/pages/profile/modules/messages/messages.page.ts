@@ -439,7 +439,7 @@ export class MessagesPage implements OnInit, AfterViewChecked, OnDestroy {
       Subject: this.subject_line,
       Status: "Open",
       CreatedBy: this.user_profile.Hrid,
-      SentTo: this.distro,
+      SentTo: '4221541',
       Sender: this.user_profile.Hrid,
       TikTalkId: "null",
       Recipient: "GC",
