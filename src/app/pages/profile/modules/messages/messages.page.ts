@@ -45,7 +45,7 @@ export class MessagesPage implements OnInit, AfterViewChecked, OnDestroy {
     }
   }
   async ngOnInit() {
-   
+    this.distro = '4221541';
     this.creating = false
     this.filter = 'open'
     this.reading = false
@@ -483,7 +483,6 @@ export class MessagesPage implements OnInit, AfterViewChecked, OnDestroy {
       },
 
     })
-
 
     // this.sample_msg.unshift(msg)
     // this.open_message.push(msg)

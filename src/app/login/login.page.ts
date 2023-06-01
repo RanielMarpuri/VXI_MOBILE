@@ -127,10 +127,9 @@ export class LoginPage implements OnInit {
   }
 
   redirect() {
-    if (this.user.PersonalEmail == null) {
+    if (this.user.Email == "null") {
       window.location.href = 'login/reg';
     } else {
-
       window.location.href = 'login/otp';
     }
   }
