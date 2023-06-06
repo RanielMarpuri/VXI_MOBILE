@@ -23,7 +23,7 @@ export class LoginPage implements OnInit {
   loading: any;
 
   async ngOnInit() {
-   // window.location.href = '/home'
+    // window.location.href = '/home'
 
     console.log("initiating app login");
     let Init: any = await Preferences.get({ key: 'user_profile' })
@@ -62,7 +62,7 @@ export class LoginPage implements OnInit {
 
     this.loading = true;
     let x = this.hrid.replace('/', '%2F');
-    let url = 'https://vxione.com/ems_api/API/LogIn/GetByHrid?ntAcct=' + x //CLOUD API
+    let url = 'https://vxione.com/ems_api/API/LogIn/GetByHrid?ntAcct=' + this.hrid //CLOUD API
     // let url = 'https://localhost:44354/API/LogIn/GetByHrid/' + this.hrid; // LOCAL API
 
     let postData = {
@@ -77,22 +77,15 @@ export class LoginPage implements OnInit {
         console.log(data)
         if (this.user != null) {
           let temp = this.user.HireDate
-          
+
           hireDate = temp.replace('/', '');
           hireDate = hireDate.replace('/', '');
           let x = hireDate.trimRight();
 
           console.log(x, "hireDate attempt", temp);
           if (this.hire_date == x) {
-            let success: any = {
-              text: 'OK',
-              role: 'confirm',
-              handler: async () => {
-                this.setStorage()
-                this.redirect()
-              }
-            };
-            this.alertCreate('Login Success!', '', 'Welcome.', success);
+            this.setStorage();
+            this.redirect();
           } else {
             this.alertCreate('Login Failed!!', 'No Match...', 'Try again.', 'OK');
           }

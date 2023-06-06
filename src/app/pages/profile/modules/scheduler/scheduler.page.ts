@@ -753,7 +753,7 @@ export class SchedulerPage implements OnInit {
   pieChart() {
     this.options3 = {
       chart: {
-        height: 170,
+        height: 110,
         type: "radialBar",
       },
 
@@ -775,7 +775,7 @@ export class SchedulerPage implements OnInit {
               },
               offsetY: -7,
               color: "#111",
-              fontSize: "30px",
+              fontSize: "15px",
               fontWeight: 700,
               show: true
             }

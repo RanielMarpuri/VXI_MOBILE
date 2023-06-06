@@ -25,7 +25,7 @@
       {{reading?open_message.Subject:(creating?(subject_line?.length == 0 || subject_line ==null?'New
       Message':subject_line):'Inbox')}}
     </p>
-
+    <p class="w-max m-auto mt-10" *ngIf="sample_msg?.length == 0">No Messages Currently.</p>
     <div #scrollMe
       class="mx-4 placeholder:text-slate-400 {{reading?'h-[80%]':'h-[85%]'}} overflow-x-scroll m-auto mb-5 scrollbar-thin scrollbar-thumb-[#ff6c104b] scrollbar-track-[#efefef00] scrollbar-thumb-rounded-full scrollbar-h-12 ">
       <div (click)="read(msg, i)" *ngFor="let msg of sample_msg; let i = index"

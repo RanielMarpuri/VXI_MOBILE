@@ -375,14 +375,15 @@ export class MessagesPage implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   reply() {
-    let msg =
-    {
-      isRead: 0,
-      Sender: this.user_profile.Hrid,
-      Recipient: 'HR',
-      Body: this.reply_msg,
+    let msg = {
       TikTalkId: this.open_message.Id,
-      CreatedAt: new Date()
+      Sender: this.user_profile.Hrid,
+      Recipient: this.user_profile.Location,
+      Body: this.reply_msg,
+      isRead: false,
+      CreatedAt: new Date(),
+      SenderFirstName: this.user_profile.FirstName,
+      SenderLastName: this.user_profile.LastName
     }
 
     const header = new HttpHeaders()
@@ -439,12 +440,14 @@ export class MessagesPage implements OnInit, AfterViewChecked, OnDestroy {
       Subject: this.subject_line,
       Status: "Open",
       CreatedBy: this.user_profile.Hrid,
-      SentTo: '4221541',
-      Sender: this.user_profile.Hrid,
+      SentTo: this.user_profile.Location,
       TikTalkId: "null",
-      Recipient: "GC",
+      Sender: this.user_profile.Hrid,
+      Recipient: this.user_profile.Location,
       Body: this.body_line,
       IsRead: false,
+      SenderFirstName: this.user_profile.FirstName,
+      SenderLastName: this.user_profile.LastName
       // CreatedAt: new Date(),
     }
 

@@ -16,9 +16,9 @@ export class ProfilePage implements OnInit {
   modules_list = [
     {name: 'Employee Information', module: 'emp_info', notif_count: 0},
     {name: 'Attendance', module: 'scheduler', notif_count: 0},
-    {name: 'Credit Look Up', module: 'credit_look_up', notif_count: 0},
-    {name: 'Policies', module: 'policies', notif_count: 0},
-    {name: 'Payroll', module: 'payroll', notif_count: 0},
+   // {name: 'Credit Look Up', module: 'credit_look_up', notif_count: 0},
+ //   {name: 'Policies', module: 'policies', notif_count: 0},
+   // {name: 'Payroll', module: 'payroll', notif_count: 0},
     {name: 'TikTalk', module: 'messages', notif_count: 1},
   ]
 
