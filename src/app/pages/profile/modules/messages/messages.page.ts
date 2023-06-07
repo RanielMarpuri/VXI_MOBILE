@@ -347,7 +347,7 @@ export class MessagesPage implements OnInit, AfterViewChecked, OnDestroy {
         console.log(this.sample_msg)
       },
       error: err => {
-        console.log(err);
+        console.log(err); 
       },
 
     })
