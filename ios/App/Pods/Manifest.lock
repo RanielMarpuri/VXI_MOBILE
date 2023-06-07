@@ -3,6 +3,8 @@ PODS:
     - CapacitorCordova
   - CapacitorApp (4.1.1):
     - Capacitor
+  - CapacitorCamera (4.1.4):
+    - Capacitor
   - CapacitorCommunityHttp (1.4.1):
     - Capacitor
   - CapacitorCordova (4.7.0)
@@ -14,22 +16,28 @@ PODS:
     - Capacitor
   - CapacitorStatusBar (4.1.1):
     - Capacitor
+  - CordovaPlugins (4.7.0):
+    - CapacitorCordova
 
 DEPENDENCIES:
   - "Capacitor (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorApp (from `../../node_modules/@capacitor/app`)"
+  - "CapacitorCamera (from `../../node_modules/@capacitor/camera`)"
   - "CapacitorCommunityHttp (from `../../node_modules/@capacitor-community/http`)"
   - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorHaptics (from `../../node_modules/@capacitor/haptics`)"
   - "CapacitorKeyboard (from `../../node_modules/@capacitor/keyboard`)"
   - "CapacitorPreferences (from `../../node_modules/@capacitor/preferences`)"
   - "CapacitorStatusBar (from `../../node_modules/@capacitor/status-bar`)"
+  - CordovaPlugins (from `../capacitor-cordova-ios-plugins`)
 
 EXTERNAL SOURCES:
   Capacitor:
     :path: "../../node_modules/@capacitor/ios"
   CapacitorApp:
     :path: "../../node_modules/@capacitor/app"
+  CapacitorCamera:
+    :path: "../../node_modules/@capacitor/camera"
   CapacitorCommunityHttp:
     :path: "../../node_modules/@capacitor-community/http"
   CapacitorCordova:
@@ -42,17 +50,21 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/preferences"
   CapacitorStatusBar:
     :path: "../../node_modules/@capacitor/status-bar"
+  CordovaPlugins:
+    :path: "../capacitor-cordova-ios-plugins"
 
 SPEC CHECKSUMS:
   Capacitor: 146dc340ebdf751fa1b999919e4423494c243d29
   CapacitorApp: acd42fe8561fe751ad5b5f459aa85e6acd7bee24
+  CapacitorCamera: 8e1f9eac46c6a0b7df5619d20f021d852ccaa99a
   CapacitorCommunityHttp: 7be90668527ef14ee10d08135b0e00fac9cf8247
   CapacitorCordova: b9c6fdd02470c85e39baf9ae638260477a7f46f3
   CapacitorHaptics: 213b3a1f3efd6dbf6e6b76a1b2bb0399cf43b213
   CapacitorKeyboard: 16121a97b56c8609ec518ebcdc64d6386c84e5c8
   CapacitorPreferences: 1d66dc32299f55ed632c5611f312878979275ea5
   CapacitorStatusBar: 65933e554bb5d65b361deaa936a93616086a2608
+  CordovaPlugins: 5ca4da311197a6603c11c896bd9d553612725e7f
 
-PODFILE CHECKSUM: 78405135a62799c9dda1c235c7fca4b9b11d9817
+PODFILE CHECKSUM: 51e34e2de61acd95e021464c00316aaf1efeb1da
 
 COCOAPODS: 1.12.0
