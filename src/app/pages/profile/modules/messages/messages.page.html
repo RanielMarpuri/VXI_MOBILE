@@ -57,7 +57,7 @@
         [hidden]="!reading">
 
         <div
-          class="w-[3rem] h-[3rem] rounded-full bg-[#efefef] col-span-2 text-center font-bold pt-4 mt-8 visible {{open_message.Messages[i]?.Sender == open_message.Messages[i-1]?.Sender?'invisible':''}}"
+          class="mt-4 w-[3rem] h-[3rem] rounded-full bg-[#efefef] col-span-2 text-center font-bold pt-4 visible {{open_message.Messages[i]?.Sender == open_message.Messages[i-1]?.Sender?'invisible':''}}"
           *ngIf="msg.Sender != user_profile.Hrid">HR</div>
         <div
           class="{{msg.Sender == user_profile.Hrid?'col-span-12 rounded-l-xl':'col-span-10 rounded-r-xl'}} text-base whitespace-pre-line w-max min-w-[10%] max-w-[70%] {{msg.Sender == user_profile.Hrid?'ml-auto bg-[#cae5ff]':'mr-auto bg-[#ffe8d9]'}} p-4 {{(open_message.Messages[i]?.Sender == open_message.Messages[i-1]?.Sender) && ((open_message.Messages[i]?.CreatedAt | date: 'MMM dd yyyy - HH:mm') == (open_message.Messages[i-1]?.CreatedAt | date: 'MMM dd yyyy - HH:mm'))?'':(msg.Sender == user_profile.Hrid?'rounded-tr-xl mt-4':'rounded-tl-xl mt-4')}} {{(open_message.Messages[i]?.Sender == open_message.Messages[i+1]?.Sender) && ((open_message.Messages[i]?.CreatedAt | date: 'MMM dd yyyy - HH:mm') == (open_message.Messages[i+1]?.CreatedAt | date: 'MMM dd yyyy - HH:mm'))?'mb-[.15rem]':(msg.Sender == user_profile.Hrid?'rounded-br-xl':'rounded-bl-xl')}}  relative">
