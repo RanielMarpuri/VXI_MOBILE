@@ -112,7 +112,7 @@
     </div>
 
     <!-- Reply Textbox -->
-    <div class="w-full mt-auto h-max grid grid-cols-12 p-1 px-2 sticky bottom-0 pr-5" *ngIf="reading">
+    <div class="w-full mt-auto h-auto grid grid-cols-12 p-1 px-2 absolute bottom-5 pr-5" *ngIf="reading">
       <textarea name="" id="" rows="1" class="rounded-full bg-[#efefef] col-span-10 w-full mr-2 resize-none"
         [(ngModel)]="reply_msg" [disabled]="open_message.Status == 'Closed' "></textarea>
       <button
@@ -125,8 +125,7 @@
     <!-- Reply Textbox -->
 
     <!-- Create New Button -->
-    <div
-      class="w-auto px-4 py-[.8rem] rounded-full bg-gradient-to-r from-pink-400 to-violet-600 antialiased absolute right-10 bottom-10"
+    <div  class="w-auto px-4 py-[.8rem] rounded-full bg-gradient-to-r from-pink-400 to-violet-600 antialiased absolute right-10 bottom-10"
       [hidden]="reading || creating" (click)="create()">
       <ion-icon name="create-outline" class="text-2xl font-bold text-white" style="font-size: 34px;"></ion-icon>
     </div>

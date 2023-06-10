@@ -203,7 +203,7 @@ export class OtpPage implements OnInit {
   }
 
   distortEmail() {
-    let catch_email = this.otp_credentials.PersonalEmail.split('@')
+    let catch_email = this.otp_credentials.Email.split('@')
     var asterisk = "*".repeat(catch_email[0].length - 4);
     var newStr = catch_email[0].replace(/(.{2}).*(.{2})/, '$1' + asterisk + '$2');
 
